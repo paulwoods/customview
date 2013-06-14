@@ -75,4 +75,28 @@ class BodyBuilderSpec extends Specification {
 		"""<tr>\n<td class="the-class">abc</td>\n</tr>\n""" == html
 	}
 
+	def "process custom template"() {
+		given:
+		column1.td = """ return "123" """
+		def records = [[column1:"abc"]]
+
+		when:
+		def html = builder.build(view1, records)
+
+		then:
+		"""<tr>\n<td>123</td>\n</tr>\n""" == html
+	}
+
+	def "process custom template and use record"() {
+		given:
+		column1.td = """ return record.column1+":"+record.column1 """
+		def records = [[column1:"555"]]
+
+		when:
+		def html = builder.build(view1, records)
+
+		then:
+		"""<tr>\n<td>555:555</td>\n</tr>\n""" == html
+	}
+
 }
