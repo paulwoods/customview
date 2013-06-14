@@ -6,9 +6,9 @@ class CustomViewService {
 	def customViewPlugin
 	def customViewFactory
 
-	View createView(String name) {
+	View createView(Map params) {
 		View view = customViewFactory.createView()
-		view.name = name
+		view.properties = params
 
 		if(view.save()) {
 			view 

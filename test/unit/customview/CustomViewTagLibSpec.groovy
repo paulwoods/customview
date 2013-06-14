@@ -47,7 +47,7 @@ class CustomViewTagLibSpec extends Specification {
 
 	def "build a three column header"() {
 		given:
-		View viewPcns = customViewService.createView("pcns")
+		View viewPcns = customViewService.createView([name:"pcns"])
 		assert null != viewPcns
 		viewPcns.customViewService = customViewService
 		

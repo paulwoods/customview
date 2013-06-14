@@ -20,7 +20,7 @@ class CustomViewServiceSpec extends Specification {
 
 	def "create creates a new view"() {
 		when:
-		def view = service.createView("viewname")
+		def view = service.createView([name:"viewname"])
 
 		then:
 		"viewname" == view.name
@@ -28,7 +28,7 @@ class CustomViewServiceSpec extends Specification {
 
 	def "create stores the view in the database"() {
 		when:
-		service.createView("viewname")
+		service.createView([name:"viewname"])
 
 		then:
 		1 == View.count()
@@ -46,7 +46,7 @@ class CustomViewServiceSpec extends Specification {
 
 	def "create a column"() {
 		given:
-		def view = service.createView("viewname")
+		def view = service.createView([name:"viewname"])
 		assert null != view
 
 		when:
@@ -61,7 +61,7 @@ class CustomViewServiceSpec extends Specification {
 
 	def "created column is stored in database"() {
 		given:
-		def view = service.createView("viewname")
+		def view = service.createView([name:"viewname"])
 		assert null != view
 
 		when:
@@ -77,7 +77,7 @@ class CustomViewServiceSpec extends Specification {
 
 	def "first column has sequence 1"() {
 		given:
-		def view = service.createView("viewname")
+		def view = service.createView([name:"viewname"])
 		assert null != view
 
 		when:
@@ -89,7 +89,7 @@ class CustomViewServiceSpec extends Specification {
 
 	def "second column has sequence 2"() {
 		given:
-		def view = service.createView("viewname")
+		def view = service.createView([name:"viewname"])
 		assert null != view
 
 		when:
@@ -102,7 +102,7 @@ class CustomViewServiceSpec extends Specification {
 
 	def "created column default type is string"() {
 		given:
-		def view = service.createView("viewname")
+		def view = service.createView([name:"viewname"])
 		assert null != view
 
 		when:
@@ -115,7 +115,7 @@ class CustomViewServiceSpec extends Specification {
 
 	def "column type change be set"() {
 		given:
-		def view = service.createView("viewname")
+		def view = service.createView([name:"viewname"])
 		assert null != view
 
 		when:
@@ -128,7 +128,7 @@ class CustomViewServiceSpec extends Specification {
 
 	def "invalid column types not allowed"() {
 		given:
-		def view = service.createView("viewname")
+		def view = service.createView([name:"viewname"])
 		assert null != view
 
 		when:

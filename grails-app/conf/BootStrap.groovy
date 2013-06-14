@@ -12,7 +12,7 @@ class BootStrap {
 	}
 
 	void build() {
-		View viewPcns = customViewService.createView("pcns")
+		View viewPcns = customViewService.createView(name:"pcns", fetchSize:10)
 		viewPcns.createColumn name:"Number", sql:"pcn.number", classHead:"number-head", classBody:"number-body"
 		viewPcns.createColumn name:"Title", sql:"pcn.title"
 
