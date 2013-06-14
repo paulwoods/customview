@@ -43,25 +43,3 @@ class CustomViewControllerSpec extends Specification {
 		"view not found" == response.json.message
 	}
 }
-
-/*
-import grails.converters.JSON
-
-class CustomViewController {
-
-	def customViewService
-
-	def fetch(String name, Integer fetchSize, Integer offset) {
-
-		View view = View.findByName(name)
-		if(!view) 
-			throw new ViewNotFoundException(name)
-
-		def data = view.fetch(fetchSize, offset)
-
-		render data as JSON
-	}
-	
-}
-
-*/

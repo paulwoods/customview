@@ -15,6 +15,7 @@ class CustomViewTagLibSpec extends Specification {
 	def setup() {
 		customViewService = new CustomViewService()
 		customViewService.customViewFactory = new CustomViewFactory()
+		tagLib.customViewFactory = new CustomViewFactory()
 	}
 
 	def cleanup() {

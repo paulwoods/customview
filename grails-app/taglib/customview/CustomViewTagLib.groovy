@@ -2,6 +2,8 @@ package customview
 
 class CustomViewTagLib {
 
+	def customViewFactory
+
 	static namespace = "specteam"
 
 	def customView = { attrs, body ->
@@ -49,13 +51,8 @@ class CustomViewTagLib {
 	}
 
 	private writeHeader(View view) {
-		out << """<tr>\n"""
-
-		view.columns.each { Column column ->
-			out << """<th>${column.name}</th>\n"""
-		}
-
-		out << """</tr>\n"""
+		HeadBuilder builder = customViewFactory.createHeadBuilder()
+		out << builder.build(view)
 	}
 
 	private writeJavascript(attrs) {

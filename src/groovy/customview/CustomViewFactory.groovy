@@ -28,5 +28,14 @@ class CustomViewFactory {
 	Runner createRunner() {
 		new Runner(customViewFactory:this, customViewPlugin:customViewPlugin)
 	}
+
+	HeadBuilder createHeadBuilder() {
+		new HeadBuilder(customViewFactory:this)
+	}
+
+	BodyBuilder createBodyBuilder() {
+		new BodyBuilder(customViewFactory:this)
+	}
+
 }
 

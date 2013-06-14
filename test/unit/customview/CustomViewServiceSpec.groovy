@@ -100,6 +100,44 @@ class CustomViewServiceSpec extends Specification {
 		2 == column2.sequence
 	}
 
+	def "created column default type is string"() {
+		given:
+		def view = service.createView("viewname")
+		assert null != view
+
+		when:
+		def column = service.createColumn(view, [name:"column1", sql:"table1.column1"])
+		assert null != column
+
+		then:
+		"string" == column.type
+	}
+
+	def "column type change be set"() {
+		given:
+		def view = service.createView("viewname")
+		assert null != view
+
+		when:
+		def column = service.createColumn(view, [name:"column1", sql:"table1.column1", type:"date"])
+		assert null != column
+
+		then:
+		"date" == column.type
+	}
+
+	def "invalid column types not allowed"() {
+		given:
+		def view = service.createView("viewname")
+		assert null != view
+
+		when:
+		def column = service.createColumn(view, [name:"column1", sql:"table1.column1", type:"--invalid--"])
+
+		then:
+		FailedToCreateColumnException e = thrown()
+		"Failed to create the column: column1" == e.message
+	}
 
 }
 

@@ -21,8 +21,7 @@ class CustomViewService {
 
 	Column createColumn(View view, Map params) {
 		Column column = customViewFactory.createColumn()
-		column.name = params.name
-		column.sql = params.sql
+		column.properties = params
 		column.sequence = getNextSequence(view)
 		view.addToColumns column
 
@@ -47,7 +46,7 @@ class CustomViewService {
 
 	Table createTable(View view, Map params) {
 		Table table = customViewFactory.createTable()
-		table.name = params.name
+		table.properties = params
 		view.addToTables table
 
 		if(view.save()) {
@@ -78,21 +77,9 @@ class CustomViewService {
 	}
 	
 	String recordsToHTML(View view, List records) {
-		def columns = view.columns.name
-		
-		StringBuilder sb = new StringBuilder()
-
-		records.each { record ->
-			sb << "<tr>"
-			columns.each { key ->
-				sb << "<td>" 
-				sb << record[key] 
-				sb << "</td>"
-			}
-			sb << "</tr>"
-		}
-
-		sb.toString()
+		BodyBuilder builder = customViewFactory.createBodyBuilder()
+		def html = builder.build(view, records)
+		html
 	}
 
 }
