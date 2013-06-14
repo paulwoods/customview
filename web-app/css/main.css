@@ -1,0 +1,29 @@
+
+body {
+	font-family: Arial, san-serif;
+}
+
+table.classview {
+	border-collapse:collapse;
+}
+
+table.classview caption {
+	text-align: left;
+	margin-bottom: 1em;
+}
+
+table.classview thead th {
+	text-align: left;
+	font-weight: normal;
+	background-color: #bbb;
+}
+
+table.classview tbody tr:hover {
+	background-color: #ddd;
+}
+
+table.classview thead th,
+table.classview tbody td {
+	border: 1px solid black;
+	padding: 3px;
+}
