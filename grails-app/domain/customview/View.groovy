@@ -11,6 +11,7 @@ class View {
 	]
 
 	String name
+	Integer fetchSize = 50
 
 	static mapping = {
 		table "customview_view"
@@ -38,8 +39,8 @@ class View {
 		customViewService.createTable this, params
 	}
 
-	Map fetch(Integer fetchSize, Integer offset) {
-		customViewService.fetch this, fetchSize, offset
+	Map fetch(Integer offset) {
+		customViewService.fetch this, offset
 	}
 
 }

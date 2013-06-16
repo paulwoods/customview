@@ -4,10 +4,10 @@ class QueryBuilder {
 	
 	def customViewFactory
 
-	Query createQuery(View view, fetchSize, offset) {
+	Query createQuery(View view, Integer offset) {
 		def query = customViewFactory.createQuery()
 
-		query.fetchSize = fetchSize
+		query.fetchSize = view.fetchSize
 		query.offset = offset
 
 		view.columns.each { Column column ->

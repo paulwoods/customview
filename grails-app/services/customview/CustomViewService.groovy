@@ -59,8 +59,8 @@ class CustomViewService {
 		
 	}
 
-	Map fetch(View view, Integer fetchSize, Integer offset) {
-		def query = createQuery(view, fetchSize, offset)
+	Map fetch(View view, Integer offset) {
+		def query = createQuery(view, offset)
 		def records = query.run()
 		def html = recordsToHTML(view, records)
 		[
@@ -70,9 +70,9 @@ class CustomViewService {
 		]
 	}
 
-	Query createQuery(View view, Integer fetchSize, Integer offset) {
+	Query createQuery(View view, Integer offset) {
 		QueryBuilder builder = customViewFactory.createQueryBuilder()
-		Query query = builder.createQuery(view, fetchSize, offset)
+		Query query = builder.createQuery(view, offset)
 		query
 	}
 	

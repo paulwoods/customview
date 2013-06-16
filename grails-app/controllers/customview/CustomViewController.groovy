@@ -6,12 +6,12 @@ class CustomViewController {
 
 	def customViewService
 
-	def fetch(String name, Integer fetchSize, Integer offset) {
+	def fetch(String name, Integer offset) {
 		View view = View.findByName(name)
 		if(!view)
 			render status:500, text: [message:"view not found"] as JSON
 		 else
-			render view.fetch(fetchSize, offset) as JSON
+			render view.fetch(offset) as JSON
 	}
 	
 }

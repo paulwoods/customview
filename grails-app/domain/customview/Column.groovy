@@ -16,7 +16,6 @@ class Column {
 	String classBody = ""
 	String td = ""
 	String th = ""
-	Integer fetchSize = 50
 
 	static mapping = {
 		table "customview_column"
@@ -31,7 +30,6 @@ class Column {
 		classBody maxSize:100
 		td maxSize:2000
 		th maxSize:2000
-		fetchSize min:1
 	}
 
 	String toString() {

@@ -65,8 +65,7 @@ class CustomViewTagLib {
 \$(function() {
 	var customView = new CustomView({
 		name: '${attrs.name}',
-		fetchURL: '${g.createLink(controller: "customView", action: "fetch", absolute: "true")}',
-		fetchSize: '100' 
+		fetchURL: '${g.createLink(controller: "customView", action: "fetch", absolute: "true")}'
 	});
 });
 		""".stripMargin()
