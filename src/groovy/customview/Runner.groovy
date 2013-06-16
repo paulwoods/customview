@@ -11,7 +11,9 @@ class Runner {
 		def database = new Sql(customViewPlugin.connection)
 		def text = query.toSQL()
 		log.debug text
-		database.rows(text)
+		def rows = database.rows(text)
+		database.close()
+		rows
 	}
 
 }

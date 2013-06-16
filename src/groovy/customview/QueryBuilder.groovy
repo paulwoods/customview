@@ -18,6 +18,10 @@ class QueryBuilder {
 			query.addFrom table.name
 		}
 
+		view.orders.each { Order order ->
+			query.addOrder order.name
+		}
+
 		query
 	}
 

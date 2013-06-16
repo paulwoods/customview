@@ -21,9 +21,9 @@ class CustomViewControllerSpec extends Specification {
 		View view1 = new View(name:"view1").save()
 		assert null != view1
 
-		view1.metaClass.fetch = { Integer fs, Integer o -> [a:1]}
+		view1.metaClass.fetch = { Integer o -> [a:1]}
 		when:
-		controller.fetch("view1", 50, 0)
+		controller.fetch("view1", 0)
 
 		then:
 		1 == response.json.a
@@ -34,12 +34,13 @@ class CustomViewControllerSpec extends Specification {
 		View view1 = new View(name:"view1").save()
 		assert null != view1
 
-		view1.metaClass.fetch = { Integer fs, Integer o -> [a:1]}
+		view1.metaClass.fetch = { Integer o -> [a:1]}
 		when:
-		controller.fetch("missing-view", 50, 0)
+		controller.fetch("missing-view", 0)
 
 		then:
 		500 == response.status
 		"view not found" == response.json.message
 	}
+	
 }

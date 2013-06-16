@@ -7,7 +7,8 @@ class View {
 
 	static hasMany = [ 
 		columns: Column,
-		tables: Table
+		tables: Table,
+		orders: Order
 	]
 
 	String name
@@ -37,6 +38,10 @@ class View {
 
 	Table createTable(Map params) {
 		customViewService.createTable this, params
+	}
+
+	Order createOrder(Map params) {
+		customViewService.createOrder this, params
 	}
 
 	Map fetch(Integer offset) {

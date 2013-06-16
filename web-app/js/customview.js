@@ -12,7 +12,8 @@
 			name: '',
 			fetchURL: '',
 			offset: 0,
-			fetchDistance: 150
+			fetchDistance: 150,
+			fetching: false
 		};
 
 		// settings
@@ -33,13 +34,20 @@
 
 		// fetch a block of records and append to the table's tbody
 		fetch: function() {
+			
+			//if already fetching, ignore
+			if(true == this.settings.fetching) {
+				return
+			}
+
+			this.settings.fetching = true;
 
 			var data = {
 				name: this.settings.name,
 				offset: this.settings.offset
 			};
 
-			console.log("fetch", data);
+//			console.log("fetch", data);
 
 			var self = this;
 
@@ -58,19 +66,24 @@
 				$(window).off("scroll", this.scroll);
 			}
 
+//			console.log('shouldFetch', this.shouldFetch());
+
+			this.settings.fetching = false;
+			
+			if(this.shouldFetch()) {
+				this.fetch();
+			}
 		},
 
 		failure: function() {
-
+			this.settings.fetching = false;
 		},
 
 		// the user has adjusted the scroll bar
 		scroll:function() {
-
 			if(this.shouldFetch()) {
 				this.fetch();
 			}
-
 		},
 
 		// returns the number of pixels to the bottom of the view
@@ -81,16 +94,13 @@
 		// returns flag indicating if fetch should be called again
 		// should be called if there is more data, and we are close to the bottom of the scroll.
 		shouldFetch: function() {
-			console.log("this.settings.moreData", this.settings.moreData);
-			console.log("this.distance", this.distance());
-			console.log("this.settings.fetchDistance", this.settings.fetchDistance);
-
+		//	console.log("this.settings.moreData", this.settings.moreData);
+		//	console.log("this.distance", this.distance());
+		//	console.log("this.settings.fetchDistance", this.settings.fetchDistance);
 			return this.settings.moreData && (this.distance() < this.settings.fetchDistance);
 		}
 
-
 	};
-
 
 	window.CustomView = CustomView;
 

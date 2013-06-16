@@ -18,7 +18,7 @@ class CustomViewServiceSpec extends Specification {
 	def cleanup() {
 	}
 
-	def "create creates a new view"() {
+	def "create view creates a new view"() {
 		when:
 		def view = service.createView([name:"viewname"])
 
@@ -26,7 +26,7 @@ class CustomViewServiceSpec extends Specification {
 		"viewname" == view.name
 	}
 
-	def "create stores the view in the database"() {
+	def "create view stores the view in the database"() {
 		when:
 		service.createView([name:"viewname"])
 
@@ -139,5 +139,76 @@ class CustomViewServiceSpec extends Specification {
 		"Failed to create the column: column1" == e.message
 	}
 
+	def "create table created a new table"() {
+		given:
+		def view = service.createView([name:"viewname"])
+		assert null != view
+
+		when:
+		def table1 = service.createTable(view, [name:"table1"])
+
+		then:
+		"table1" == table1.name
+	}
+
+	def "create table stores the view in the database"() {
+		given:
+		def view = service.createView([name:"viewname"])
+		assert null != view
+
+		when:
+		service.createTable(view, [name:"table1"])
+		
+		then:
+		1 == Table.count()
+		"table1" == Table.get(1).name
+
+	}
+
+	def "create table handles exceptions"() {
+		given:
+		def view = service.createView([name:"viewname"])
+		assert null != view
+
+		when:
+		service.createTable(view, null)
+
+		then:
+		FailedToCreateTableException e = thrown()
+		"Failed to create the table: null" == e.message
+
+	}
+
 }
 
+/*Table createTable(View view, Map params) {
+	Table table = customViewFactory.createTable()
+	table.properties = params
+	view.addToTables table
+
+	if(view.save()) {
+		table 
+	} else {
+		log.warn view?.dump()
+		log.warn table?.dump()
+		throw new FailedToCreateTableException(table)
+	}
+	
+}
+Column createOrder(View view, Map params) {
+	Order order = customViewFactory.createOrder()
+	order.properties = params
+	view.addToOrders order
+
+	if(view.save()) {
+		order 
+	} else {
+		log.warn "unable to save the view $view"
+		log.warn view?.dump()
+		log.warn order?.dump()
+		throw new FailedToCreateOrderException(order)
+	}
+}
+
+
+*/

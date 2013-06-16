@@ -6,6 +6,7 @@ class Query {
 
 	List<String> selects = []
 	List<String> froms = []
+	List<String> orders = []
 	Integer fetchSize
 	Integer offset
 
@@ -22,13 +23,25 @@ class Query {
 		froms << name
 	}
 
+	void addOrder(String name) {
+		orders << name
+	}
+
 	String toSQL() {
 		StringBuilder sb = new StringBuilder()
 		sb << "select "
 		sb << selects.join(", ")
+		
 		sb << " from "
 		sb << froms.join(", ")
+
+		if(orders) {
+			sb << " order by "
+			sb << orders.join(", ")
+		}
+
 		sb << " limit $offset, $fetchSize"
+		
 		sb.toString()
 	}
 

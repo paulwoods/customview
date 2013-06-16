@@ -35,15 +35,6 @@ class CustomViewService {
 		}
 	}
 
-	Integer getNextSequence(View view) {
-		List<Column> columns = Column.createCriteria().list() {
-			eq "view", view
-			order "sequence", "desc"
-		}
-
-		columns ? columns[0].sequence + 1 : 1
-	}
-
 	Table createTable(View view, Map params) {
 		Table table = customViewFactory.createTable()
 		table.properties = params
@@ -58,6 +49,31 @@ class CustomViewService {
 		}
 		
 	}
+
+	Order createOrder(View view, Map params) {
+		Order order = customViewFactory.createOrder()
+		order.properties = params
+		view.addToOrders order
+
+		if(view.save()) {
+			order 
+		} else {
+			log.warn "unable to save the view $view"
+			log.warn view?.dump()
+			log.warn order?.dump()
+			throw new FailedToCreateOrderException(order)
+		}
+	}
+
+	protected Integer getNextSequence(View view) {
+		List<Column> columns = Column.createCriteria().list() {
+			eq "view", view
+			order "sequence", "desc"
+		}
+
+		columns ? columns[0].sequence + 1 : 1
+	}
+
 
 	Map fetch(View view, Integer offset) {
 		def query = createQuery(view, offset)

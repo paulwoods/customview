@@ -17,6 +17,10 @@ class CustomViewFactory {
 		new Table(customViewFactory:this)
 	}
 
+	Order createOrder() {
+		new Order(customViewFactory:this)
+	}
+
 	QueryBuilder createQueryBuilder() {
 		new QueryBuilder(customViewFactory:this)
 	}
