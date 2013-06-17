@@ -48,4 +48,8 @@ class View {
 		customViewService.fetch this, offset
 	}
 
+	List<Setting> getSettings(Long userId) {
+		customViewService.getSettings(this, userId)
+	}
+
 }

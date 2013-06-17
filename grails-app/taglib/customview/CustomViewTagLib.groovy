@@ -12,7 +12,7 @@ class CustomViewTagLib {
 			throw new IdInvalidException(this, attrs)
 
 		openTable attrs
-		caption()
+		caption view
 		openHead()
 		writeHeader view
 		closeHead()
@@ -30,8 +30,14 @@ class CustomViewTagLib {
 		out << "</table>\n"
 	}
 
-	private caption() {
-		out << """<caption>There are x records.</caption>\n"""
+	private caption(View view) {
+		String link = g.createLink(
+			controller:"customView", 
+			action:"customize", 
+			params:[name:view.name], 
+			absolute:true)
+
+		out << """<caption><a href="$link">customize this view</a></caption>\n"""
 	}
 
 	private openHead() {

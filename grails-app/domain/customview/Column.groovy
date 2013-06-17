@@ -6,6 +6,8 @@ class Column {
 
 	static belongsTo = [view: View]
 
+	static hasMany = [ settings: Setting ]
+
 	static TYPES = ["string","date"]
 
 	String name
@@ -33,7 +35,7 @@ class Column {
 	}
 
 	String toString() {
-		"Column[$id] $name | $sql | $sequence"
+		"Column[$id] $view.name | $name | $sql | $sequence"
 	}
 
 	def beforeValidate() {

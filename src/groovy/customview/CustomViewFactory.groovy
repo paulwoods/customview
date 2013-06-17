@@ -41,5 +41,9 @@ class CustomViewFactory {
 		new BodyBuilder(customViewFactory:this)
 	}
 
+	Setting createSetting() {
+		new Setting(customViewFactory:this)
+	}
+
 }
 

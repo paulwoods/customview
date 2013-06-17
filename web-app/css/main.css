@@ -27,3 +27,31 @@ table.classview tbody td {
 	border: 1px solid black;
 	padding: 3px;
 }
+
+
+
+table.classview-modify {
+	border-collapse:collapse;
+}
+
+table.classview-modify caption {
+	text-align: left;
+	margin-bottom: 1em;
+}
+
+table.classview-modify thead th {
+	text-align: left;
+	font-weight: normal;
+	background-color: #bbb;
+}
+
+table.classview-modify tbody tr:hover {
+	background-color: #ddd;
+}
+
+table.classview-modify thead th,
+table.classview-modify tbody td {
+	border: 1px solid black;
+	padding: 3px;
+}
+
