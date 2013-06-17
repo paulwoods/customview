@@ -10,7 +10,7 @@ class Runner {
 	List run(Query query) {
 		def database = new Sql(customViewPlugin.connection)
 		def text = query.toSQL()
-		log.debug text
+		println "query = $text"
 		def rows = database.rows(text)
 		database.close()
 		rows

@@ -3,6 +3,7 @@ package customview
 class Column {
 
 	def customViewFactory
+	def customViewService
 
 	static belongsTo = [view: View]
 
@@ -46,6 +47,10 @@ class Column {
 		classBody = classBody?.trim()
 		td = td?.trim()
 		th = th?.trim()
+	}
+
+	Setting getSetting(Long userId) {
+		customViewService.getOrCreateSetting(this, userId)
 	}
 
 }

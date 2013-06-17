@@ -10,15 +10,11 @@ class CustomViewFactory {
 	}
 
 	Column createColumn() {
-		new Column(customViewFactory:this)
+		new Column(customViewFactory:this, customViewService:customViewService)
 	}
 
 	Table createTable() {
 		new Table(customViewFactory:this)
-	}
-
-	Order createOrder() {
-		new Order(customViewFactory:this)
 	}
 
 	QueryBuilder createQueryBuilder() {

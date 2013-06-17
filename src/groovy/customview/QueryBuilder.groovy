@@ -4,7 +4,7 @@ class QueryBuilder {
 	
 	def customViewFactory
 
-	Query createQuery(View view, Integer offset) {
+	Query createQuery(View view, Integer offset, Long userId) {
 		def query = customViewFactory.createQuery()
 
 		query.fetchSize = view.fetchSize
@@ -18,9 +18,9 @@ class QueryBuilder {
 			query.addFrom table.name
 		}
 
-		view.orders.each { Order order ->
-			query.addOrder order.name
-		}
+		def sort = view.getSort(userId)
+		if(sort) 
+			query.addOrder sort
 
 		query
 	}

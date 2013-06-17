@@ -13,5 +13,9 @@ class CustomViewPlugin {
 			"com.mysql.jdbc.Driver")
 	}
 
+	Long getCurrentUserId() {
+		1
+	}
+
 }
 

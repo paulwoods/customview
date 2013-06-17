@@ -1,5 +1,5 @@
-/*! customview.js
- *
+/*! 
+ * customview.js
  */
 
 (function(window, $, undefined) {
@@ -9,16 +9,12 @@
 	function CustomView(options) {
 
 		var defaults = {
-			name: '',
-			fetchURL: '',
-			offset: 0,
-			fetchDistance: 150,
-			fetching: false
+			name: '',				// the name of the view
+			fetchURL: '',			// the url to the fetch action
+			offset: 0,				// the next offset to fetch
+			fetchDistance: 150,		// # pixes from the bottom will trigger a fetch
+			fetching: false			// flag if currently fetching.
 		};
-
-		// settings
-		// $el
-		// 
 
 		this.settings = $.extend({}, defaults, options);
 		this.$el = $('#' + this.settings.name);
@@ -47,10 +43,7 @@
 				offset: this.settings.offset
 			};
 
-//			console.log("fetch", data);
-
 			var self = this;
-
 			$.getJSON(this.settings.fetchURL, data)
 			.done(function(json) { self.fetchSuccess(json) })
 			.fail(function(header) { self.failure(header) });
@@ -65,8 +58,6 @@
 			if(!this.settings.moreData) {
 				$(window).off("scroll", this.scroll);
 			}
-
-//			console.log('shouldFetch', this.shouldFetch());
 
 			this.settings.fetching = false;
 			
@@ -94,9 +85,6 @@
 		// returns flag indicating if fetch should be called again
 		// should be called if there is more data, and we are close to the bottom of the scroll.
 		shouldFetch: function() {
-		//	console.log("this.settings.moreData", this.settings.moreData);
-		//	console.log("this.distance", this.distance());
-		//	console.log("this.settings.fetchDistance", this.settings.fetchDistance);
 			return this.settings.moreData && (this.distance() < this.settings.fetchDistance);
 		}
 

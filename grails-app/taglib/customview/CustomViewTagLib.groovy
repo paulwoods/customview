@@ -65,18 +65,16 @@ class CustomViewTagLib {
 
 		out << g.javascript(src:"customview.js")
 
-		out << """<script>\n"""
-
 		out << """
+<script>
 \$(function() {
 	var customView = new CustomView({
 		name: '${attrs.name}',
 		fetchURL: '${g.createLink(controller: "customView", action: "fetch", absolute: "true")}'
 	});
 });
-		""".stripMargin()
-
-		out << """</script>\n"""
+</script>
+		"""
 
 	}
 

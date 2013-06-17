@@ -7,8 +7,7 @@ class View {
 
 	static hasMany = [ 
 		columns: Column,
-		tables: Table,
-		orders: Order
+		tables: Table
 	]
 
 	String name
@@ -40,16 +39,21 @@ class View {
 		customViewService.createTable this, params
 	}
 
-	Order createOrder(Map params) {
-		customViewService.createOrder this, params
-	}
-
-	Map fetch(Integer offset) {
-		customViewService.fetch this, offset
+	Map fetch(Integer offset, Long userId) {
+		customViewService.fetch this, offset, userId
 	}
 
 	List<Setting> getSettings(Long userId) {
 		customViewService.getSettings(this, userId)
+	}
+
+	String getSort(userId) {
+		def setting = Setting.findAllByUserIdAndColumnInList(userId, columns).find { it.sort }
+
+		if(setting) 
+			"${setting.column.sql} ${setting.sort}"
+		else
+			""
 	}
 
 }

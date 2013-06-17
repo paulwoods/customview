@@ -7,7 +7,6 @@ class PcnController {
     }
 
     def list() {
-
     }
     
 }

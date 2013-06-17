@@ -181,34 +181,3 @@ class CustomViewServiceSpec extends Specification {
 
 }
 
-/*Table createTable(View view, Map params) {
-	Table table = customViewFactory.createTable()
-	table.properties = params
-	view.addToTables table
-
-	if(view.save()) {
-		table 
-	} else {
-		log.warn view?.dump()
-		log.warn table?.dump()
-		throw new FailedToCreateTableException(table)
-	}
-	
-}
-Column createOrder(View view, Map params) {
-	Order order = customViewFactory.createOrder()
-	order.properties = params
-	view.addToOrders order
-
-	if(view.save()) {
-		order 
-	} else {
-		log.warn "unable to save the view $view"
-		log.warn view?.dump()
-		log.warn order?.dump()
-		throw new FailedToCreateOrderException(order)
-	}
-}
-
-
-*/

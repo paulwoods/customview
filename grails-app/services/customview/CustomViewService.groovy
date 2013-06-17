@@ -50,21 +50,6 @@ class CustomViewService {
 		}
 	}
 
-	Order createOrder(View view, Map params) {
-		Order order = customViewFactory.createOrder()
-		order.properties = params
-		view.addToOrders order
-
-		if(view.save()) {
-			log.info "created order $params.name"
-			order 
-		} else {
-			log.warn "unable to save the view $view"
-			log.warn view.dump()
-			throw new FailedToCreateOrderException(order)
-		}
-	}
-
 	protected Integer getNextColumnSequence(View view) {
 		List<Column> columns = Column.createCriteria().list() {
 			eq "view", view
@@ -72,27 +57,6 @@ class CustomViewService {
 		}
 
 		columns ? columns[0].sequence + 1 : 1
-	}
-
-	Map fetch(View view, Integer offset) {
-		def query = createQuery(view, offset)
-		def records = query.run()
-		def html = recordsToHTML(view, records)
-		[
-			offset: offset + (records?.size() ?: 0),
-			html: html,
-			moreData: (0 < records?.size() ?: false)
-		]
-	}
-
-	Query createQuery(View view, Integer offset) {
-		QueryBuilder builder = customViewFactory.createQueryBuilder()
-		builder.createQuery(view, offset)
-	}
-	
-	String recordsToHTML(View view, List records) {
-		BodyBuilder builder = customViewFactory.createBodyBuilder()
-		builder.build(view, records)
 	}
 
 	List<Setting> getSettings(View view, Long userId) {
@@ -107,7 +71,7 @@ class CustomViewService {
 		def setting = Setting.findByColumnAndUserId(column, userId)
 		
 		if(setting) 
-			setting
+			return setting
 
 		setting = customViewFactory.createSetting()
 		setting.column = column
@@ -134,6 +98,24 @@ class CustomViewService {
 
 		settings ? settings[0].sequence + 1 : 1
 	}
+
+	Map fetch(View view, Integer offset, Long userId) {
+		QueryBuilder queryBuilder = customViewFactory.createQueryBuilder()
+		Query query = queryBuilder.createQuery(view, offset, userId)
+
+		def records = query.run()
+
+		BodyBuilder bodyBuilder = customViewFactory.createBodyBuilder()
+		String html = bodyBuilder.build(view, records)
+
+		[
+			offset: offset + (records?.size() ?: 0),
+			html: html,
+			moreData: (0 < records?.size() ?: false)
+		]
+	}
+
+
 
 }
 
