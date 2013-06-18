@@ -12,6 +12,7 @@ class HeadBuilderSpec extends Specification {
 	def builder
 	def view1
 	def column1
+	def setting1
 
 	def setup() {
 		builder = new HeadBuilder()
@@ -22,7 +23,9 @@ class HeadBuilderSpec extends Specification {
 		column1 = new Column(view:view1, name:"column1", sql:"table1.column1", sequence:0).save()
 		assert null != column1
 
-		column1.customViewService = [ getOrCreateSetting: { Column c, Long u -> new Setting() } ]
+		setting1 = new Setting()
+
+		column1.customViewService = [ getOrCreateSetting: { Column c, Long u -> setting1 } ]
 	}
 
 	def cleanup() {
@@ -45,6 +48,15 @@ class HeadBuilderSpec extends Specification {
 
 		then:
 		"""<tr>\n<th class="head-class">column1</th>\n</tr>\n""" == html
+	}
+
+	def "if setting is hidden, no cell is created"() {
+		when:
+		setting1.visible = false
+		def html = builder.build(view1, 1)
+
+		then:
+		"""<tr>\n</tr>\n""" == html
 	}
 
 }

@@ -109,4 +109,16 @@ class BodyBuilderSpec extends Specification {
 		"""<tr>\n<td>555:555</td>\n</tr>\n""" == html
 	}
 
+	def "if setting is hidden, no cell is output "() {
+		given:
+		def records = [[column1:"abc"]]
+
+		when:
+		setting1.visible = false
+		def html = builder.build(view1, records, 1)
+
+		then:
+		"<tr>\n</tr>\n" == html
+	}
+
 }
