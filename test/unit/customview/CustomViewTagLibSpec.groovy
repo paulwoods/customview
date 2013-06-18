@@ -7,7 +7,7 @@ import spock.lang.Specification
  * See the API for {@link grails.test.mixin.web.GroovyPageUnitTestMixin} for usage instructions
  */
 @TestFor(CustomViewTagLib)
-@Mock([View,Column,Table])
+@Mock([View,Column,Table,Setting])
 class CustomViewTagLibSpec extends Specification {
 
 	def customViewService
@@ -50,7 +50,9 @@ class CustomViewTagLibSpec extends Specification {
 		View viewPcns = customViewService.createView([name:"pcns"])
 		assert null != viewPcns
 		viewPcns.customViewService = customViewService
-		
+
+		tagLib.customViewPlugin = [ getCurrentUserId: { -> 1 } ]
+
 		Column columnNumber = viewPcns.createColumn([name:"Number", sql:"pcn.number"])
 		assert null != columnNumber
 
@@ -60,8 +62,12 @@ class CustomViewTagLibSpec extends Specification {
 		Column columnDescription = viewPcns.createColumn([name:"Description", sql:"pcn.description"])
 		assert null != columnDescription
 
+		columnNumber.customViewService = [ getOrCreateSetting: { Column c, Long u -> new Setting() } ]
+		columnTitle.customViewService = [ getOrCreateSetting: { Column c, Long u -> new Setting() } ]
+		columnDescription.customViewService = [ getOrCreateSetting: { Column c, Long u -> new Setting() } ]
+
 		def expected1 = """<table id="pcns" class="classview">
-			|<caption>There are x records.</caption>
+			|<caption><a href="http://localhost:8080/customView/customize?name=pcns&returnURL=http%3A%2F%2Flocalhost%3A8080%2F">Customize</a></caption>
 			|<thead>
 			|<tr>
 			|<th>Number</th>

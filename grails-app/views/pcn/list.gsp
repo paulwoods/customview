@@ -7,7 +7,6 @@
 </head>
 <body>
 	<h1>PCNs</h1>
-	:${g.createLink(absolute:true)}:
 	<specteam:customView name="pcns"/>
 </body>
 </html>

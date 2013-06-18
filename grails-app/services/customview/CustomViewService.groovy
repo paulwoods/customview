@@ -106,7 +106,7 @@ class CustomViewService {
 		def records = query.run()
 
 		BodyBuilder bodyBuilder = customViewFactory.createBodyBuilder()
-		String html = bodyBuilder.build(view, records)
+		String html = bodyBuilder.build(view, records, userId)
 
 		[
 			offset: offset + (records?.size() ?: 0),

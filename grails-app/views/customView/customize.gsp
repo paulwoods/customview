@@ -2,18 +2,19 @@
 <html>
 <head>
 	<meta name="layout" content="main"/>
-	<title>Modify ${view.name}</title>
+	<title>Customize: ${view.name}</title>
 	<g:javascript src="jquery-1.10.0.min.js"/>
 	<g:javascript src="customize.js"/>
 </head>
 <body>
-	<h1>Modify ${view.name}</h1>
-	
+	<h1>Customize: ${view.name}</h1>
 	<table id="customize" class="classview-modify">
+	<caption><a href="${returnURL}">Return</a></caption>
 	<thead>
 	<tr>
 		<th>Order</th>
 		<th>Title</th>
+		<th>Visible</th>
 		<th>Sort</th>
 		<th>Compare</th>
 		<th>Value</th>
@@ -25,6 +26,7 @@
 	<tr id="${setting.id}">
 		<td>==</td>
 		<td>${column.name}</td>
+		<td><g:checkBox class="visible" name="visible" checked="${setting.visible}"/></td>
 		<td><g:select class="sort" from="${['','ASC','DESC']}" name="sort" value="${setting.sort}"/></td>
 		<td><g:select class="compare" from="${[
 			'', '=', '<>', '<', '>', '<=', '>=', 'begins with', 'contains', 'does not contain',
@@ -41,7 +43,8 @@ $(function() {
 	new Customize({
 		el:'#customize',
 		userId: '${userId}',
-		sortURL: '<g:createLink action="sort" absolute="true"/>'
+		sortURL: '<g:createLink action="sort" absolute="true"/>',
+		visibleURL: '<g:createLink action="visible" absolute="true"/>'
 	});
 });
 	</script>

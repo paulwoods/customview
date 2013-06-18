@@ -78,21 +78,5 @@ class ViewSpec extends Specification {
 		1 * customViewService.createTable(view, [:])
 	}
 
-	def "create order forwards to the service"() {
-		given:
-		def customViewService = Mock(CustomViewService)
-
-		def view = new View(name:"name1").save()
-		assert null != view
-
-		view.customViewService = customViewService
-
-		when:
-		view.createOrder([:])
-
-		then:
-		1 * customViewService.createOrder(view, [:])
-	}
-
 }
 

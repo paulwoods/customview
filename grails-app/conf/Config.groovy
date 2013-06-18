@@ -77,7 +77,14 @@ log4j = {
     //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
     //}
 
-    debug 'grails.app.services.customview'
+    debug "customview",
+          "grails.app.conf",
+          "grails.app.controllers.customview",
+          "grails.app.domain.customview",
+          "grails.app.jobs",
+          "grails.app.services.customview",
+          "grails.app.taglib.customview"
+
 
     error  'org.codehaus.groovy.grails.web.servlet',        // controllers
            'org.codehaus.groovy.grails.web.pages',          // GSP

@@ -8,6 +8,7 @@ class Setting {
 
 	Long userId
 	Integer sequence
+	Boolean visible = true
 	String sort = ""
 
 	static mapping = {

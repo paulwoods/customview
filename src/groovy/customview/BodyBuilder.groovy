@@ -9,15 +9,18 @@ class BodyBuilder {
 	private List records
 	private Map record
 	private Column column
+	private List<Setting> settings = []
 
-	String build(View view, List records) {
+	Long userId
+
+	String build(View view, List records, Long userId) {
 		this.view = view
 		this.records = records
+		this.userId = userId
 
-		records.each { record ->
-			this.record = record
-			process()
-		}
+		cacheSettings()
+
+		processRecords()
 
 		def html = sb.toString()
 
@@ -26,18 +29,38 @@ class BodyBuilder {
 		records = null
 		view = null
 		sb = null
+		settings = null
 
 		html
+	}
+	
+	private void cacheSettings() {
+		this.settings = view.columns.collect { Column column ->
+			this.column = column
+			column.getSetting(userId)
+		}
+	}
+
+	private void processRecords() {
+		records.each { record ->
+			this.record = record
+			process()
+		}
 	}
 
 	private void process() {
 		sb << "<tr>\n"
 
-		view.columns.each { Column column ->
+		view.columns.eachWithIndex { Column column, index ->
 			this.column = column
-			openCell()
-			writeValue()
-			closeCell()
+			
+			Setting setting = settings[index]
+			
+			if(setting.visible) {
+				openCell()
+				writeValue()
+				closeCell()
+			}
 		}
 
 		sb << "</tr>\n"

@@ -10,10 +10,10 @@ import spock.lang.Specification
 @Mock([View])
 class ColumnSpec extends Specification {
 
-	def view
+	def view1
 
 	def setup() {
-		view = new View(name:"name1").save()
+		view1 = new View(name:"view1").save()
 	}
 
 	def cleanup() {
@@ -21,45 +21,44 @@ class ColumnSpec extends Specification {
 
 	def "strings are trimmed in beforeValidate"() {
 		given:
-		def column = new Column(view:view, name:" title ", sql:" table.title ", sequence:0).save()
+		def column = new Column(view:view1, name:" title ", sql:" table.title ", sequence:0).save()
 		assert null != column
 
 		when:
 		column.beforeValidate()
 
 		then:
-		view == column.view
 		"title" == column.name
 		"table.title" == column.sql
 	}
 
 	def "toString returns debug text"() {
 		given:
-		def column = new Column(view:view, name:"title", sql:"table.title", sequence:12).save()
+		def column = new Column(view:view1, name:"column1", sql:"table1.column1", sequence:12).save()
 		assert null != column
 
 		expect:
-		"Column[1] title | table.title | 12" == column.toString()
+		"Column[1] view1 | column1 | table1.column1 | 12" == column.toString()
 	}
 
 	def "name can't be null"() {
 		expect:
-		null == new Column(view:view, name:null, sql:"table.title", sequence:0).save()
+		null == new Column(view:view1, name:null, sql:"table.title", sequence:0).save()
 	}
 
 	def "name can't be blank"() {
 		expect:
-		null == new Column(view:view, name:"", sql:"table.title", sequence:0).save()
+		null == new Column(view:view1, name:"", sql:"table.title", sequence:0).save()
 	}
 
 	def "sql can't be null"() {
 		expect:
-		null == new Column(view:view, name:"title", sql:null, sequence:0).save()
+		null == new Column(view:view1, name:"title", sql:null, sequence:0).save()
 	}
 
 	def "sql can't be blank"() {
 		expect:
-		null == new Column(view:view, name:"title", sql:"", sequence:0).save()
+		null == new Column(view:view1, name:"title", sql:"", sequence:0).save()
 	}
 
 	def "view can't be null"() {
@@ -69,7 +68,7 @@ class ColumnSpec extends Specification {
 
 	def "sequence can't be null"() {
 		expect:
-		null == new Column(view:view, name:"title", sql:"table.title", sequence:null).save()
+		null == new Column(view:view1, name:"title", sql:"table.title", sequence:null).save()
 	}
 
 }

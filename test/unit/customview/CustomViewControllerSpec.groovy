@@ -11,6 +11,7 @@ import spock.lang.Specification
 class CustomViewControllerSpec extends Specification {
 
 	def setup() {
+		controller.customViewPlugin = [getCurrentUserId:{ -> 1 } ]
 	}
 
 	def cleanup() {
@@ -21,7 +22,7 @@ class CustomViewControllerSpec extends Specification {
 		View view1 = new View(name:"view1").save()
 		assert null != view1
 
-		view1.metaClass.fetch = { Integer o -> [a:1]}
+		view1.metaClass.fetch = { Integer o, Long u -> [a:1]}
 		when:
 		controller.fetch("view1", 0)
 

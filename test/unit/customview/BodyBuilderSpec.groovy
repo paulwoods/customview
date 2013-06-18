@@ -6,12 +6,15 @@ import spock.lang.Specification
 /**
  * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
  */
-@Mock([View,Column])
+@Mock([View,Column,Setting])
 class BodyBuilderSpec extends Specification {
 
 	def builder
 	def view1
 	def column1
+	def setting1
+
+	def customViewService = Mock(CustomViewService)
 
 	def setup() {
 		builder = new BodyBuilder()
@@ -21,6 +24,13 @@ class BodyBuilderSpec extends Specification {
 
 		column1 = new Column(view:view1, name:"column1", sql:"table1.column1", sequence:0).save()
 		assert null != column1
+
+		column1.customViewService = customViewService
+
+		setting1 = new Setting(column:column1, userId:1, sequence:0).save()
+		assert null != setting1
+
+		customViewService.getOrCreateSetting(column1, 1) >> setting1
 	}
 
 	def cleanup() {
@@ -31,7 +41,7 @@ class BodyBuilderSpec extends Specification {
 		def records = [[column1:"abc"]]
 
 		when:
-		def html = builder.build(view1, records)
+		def html = builder.build(view1, records, 1)
 
 		then:
 		"<tr>\n<td>abc</td>\n</tr>\n" == html
@@ -42,7 +52,7 @@ class BodyBuilderSpec extends Specification {
 		def records = [[column1:null]]
 
 		when:
-		def html = builder.build(view1, records)
+		def html = builder.build(view1, records, 1)
 
 		then:
 		"<tr>\n<td>&nbsp;</td>\n</tr>\n" == html
@@ -56,7 +66,7 @@ class BodyBuilderSpec extends Specification {
 		def records = [[column1:date]]
 
 		when:
-		def html = builder.build(view1, records)
+		def html = builder.build(view1, records, 1)
 
 		then:
 		"<tr>\n<td>${date.format("yyy-MM-dd")}</td>\n</tr>\n" == html
@@ -69,7 +79,7 @@ class BodyBuilderSpec extends Specification {
 		def records = [[column1:"abc"]]
 
 		when:
-		def html = builder.build(view1, records)
+		def html = builder.build(view1, records, 1)
 
 		then:
 		"""<tr>\n<td class="the-class">abc</td>\n</tr>\n""" == html
@@ -81,7 +91,7 @@ class BodyBuilderSpec extends Specification {
 		def records = [[column1:"abc"]]
 
 		when:
-		def html = builder.build(view1, records)
+		def html = builder.build(view1, records, 1)
 
 		then:
 		"""<tr>\n<td>123</td>\n</tr>\n""" == html
@@ -93,7 +103,7 @@ class BodyBuilderSpec extends Specification {
 		def records = [[column1:"555"]]
 
 		when:
-		def html = builder.build(view1, records)
+		def html = builder.build(view1, records, 1)
 
 		then:
 		"""<tr>\n<td>555:555</td>\n</tr>\n""" == html

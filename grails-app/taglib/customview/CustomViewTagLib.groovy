@@ -3,6 +3,7 @@ package customview
 class CustomViewTagLib {
 
 	def customViewFactory
+	def customViewPlugin
 
 	static namespace = "specteam"
 
@@ -11,10 +12,12 @@ class CustomViewTagLib {
 		if(!view)
 			throw new IdInvalidException(this, attrs)
 
+		Long userId = customViewPlugin.getCurrentUserId()
+		
 		openTable attrs
 		caption view
 		openHead()
-		writeHeader view
+		writeHeader view, userId
 		closeHead()
 		openBody()
 		closeBody()
@@ -31,13 +34,19 @@ class CustomViewTagLib {
 	}
 
 	private caption(View view) {
+		String returnURL = g.createLink(
+			controller:controllerName, 
+			action:actionName, 
+			params:params, 
+			absolute:true)
+
 		String link = g.createLink(
 			controller:"customView", 
 			action:"customize", 
-			params:[name:view.name], 
+			params:[name:view.name, returnURL:returnURL], 
 			absolute:true)
 
-		out << """<caption><a href="$link">customize this view</a></caption>\n"""
+		out << """<caption><a href="$link">Customize</a></caption>\n"""
 	}
 
 	private openHead() {
@@ -56,9 +65,9 @@ class CustomViewTagLib {
 		out << """</tbody>\n"""
 	}
 
-	private writeHeader(View view) {
+	private writeHeader(View view, Long userId) {
 		HeadBuilder builder = customViewFactory.createHeadBuilder()
-		out << builder.build(view)
+		out << builder.build(view, userId)
 	}
 
 	private writeJavascript(attrs) {
