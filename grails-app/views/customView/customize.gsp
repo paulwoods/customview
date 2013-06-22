@@ -18,12 +18,13 @@
 		<th>Sort</th>
 		<th>Compare</th>
 		<th>Value</th>
+		<th>&nbsp;</th>
 	</tr>
 	</thead>
 	<tbody>
 	<g:each in="${view.columns}" var="column">
 	<g:set var="setting" value="${column.getSetting(userId)}"/>
-	<tr id="${setting.id}">
+	<tr data-id="${setting.id}">
 		<td>==</td>
 		<td>${column.name}</td>
 		<td><g:checkBox class="visible" name="visible" checked="${setting.visible}"/></td>
@@ -31,8 +32,9 @@
 		<td><g:select class="compare" from="${[
 			'', '=', '<>', '<', '>', '<=', '>=', 'begins with', 'contains', 'does not contain',
 			'ends with', 'is null', 'is not null', 'in list', 'not in list',
-			]}" name="compare" /></td>
-		<td><textarea rows="1" cols="15"></textarea></td>
+			]}" name="compare" value="${setting.compare}"/></td>
+		<td><textarea class="value" rows="1" cols="15">${setting.value}</textarea></td>
+		<td><input type="submit" class="save" value="save"/></td>
 	</tr>
 	</g:each>
 	</tbody>
@@ -44,7 +46,9 @@ $(function() {
 		el:'#customize',
 		userId: '${userId}',
 		sortURL: '<g:createLink action="sort" absolute="true"/>',
-		visibleURL: '<g:createLink action="visible" absolute="true"/>'
+        visibleURL: '<g:createLink action="visible" absolute="true"/>',
+        compareURL: '<g:createLink action="compare" absolute="true"/>',
+        valueURL: '<g:createLink action="value" absolute="true"/>'
 	});
 });
 	</script>

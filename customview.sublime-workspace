@@ -247,6 +247,14 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "grails-app/controllers/customview/PcnController.groovy",
+			"settings":
+			{
+				"buffer_size": 131,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "Packages/JSHint/JSHint.sublime-build",
 	"command_palette":
@@ -379,6 +387,7 @@
 	},
 	"file_history":
 	[
+		"/C/Projects/customview/.gitignore",
 		"/C/Projects/customview/test/unit/customview/CustomViewTagLibSpec.groovy",
 		"/C/Projects/customview/grails-app/taglib/customview/CustomViewTagLib.groovy",
 		"/C/Projects/customview/grails-app/domain/customview/View.groovy",
@@ -505,8 +514,7 @@
 		"/C/Projects/samples/samples.sublime-project",
 		"/C/Projects/samples/src/groovy/com/ti/specteam/samples/pcnsystem/RequestPageDao.groovy",
 		"/C/Projects/samples/src/groovy/com/ti/specteam/samples/pcnsystem/FeedbackPageDao.groovy",
-		"/C/Projects/samples/src/groovy/com/ti/specteam/samples/pcnsystem/ReleatedPageDao.groovy",
-		"/C/Projects/samples/src/groovy/com/ti/specteam/samples/pcnsystem/PcnPageDao.groovy"
+		"/C/Projects/samples/src/groovy/com/ti/specteam/samples/pcnsystem/ReleatedPageDao.groovy"
 	],
 	"find":
 	{
@@ -885,8 +893,36 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "grails-app/controllers/customview/PcnController.groovy",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 131,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								123,
+								123
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Groovy/Groovy.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -948,6 +984,10 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				".git",
+				".gitignore"
+			],
 			[
 				"customi",
 				"web-app\\js\\customize.js"
@@ -1455,10 +1495,6 @@
 			[
 				"task.groovy",
 				"samples\\grails-app\\domain\\com\\ti\\specteam\\samples\\task\\Task.groovy"
-			],
-			[
-				"feedback.groovy",
-				"samples\\grails-app\\domain\\com\\ti\\specteam\\samples\\feedback\\Feedback.groovy"
 			]
 		],
 		"width": 0.0
@@ -1493,7 +1529,7 @@
 	"show_minimap": true,
 	"show_open_files": false,
 	"show_tabs": true,
-	"side_bar_visible": false,
+	"side_bar_visible": true,
 	"side_bar_width": 267.0,
 	"status_bar_visible": true,
 	"template_settings":
