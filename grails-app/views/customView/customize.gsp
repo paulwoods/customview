@@ -24,6 +24,7 @@
 	<tbody>
 	<g:each in="${view.columns}" var="column">
 	<g:set var="setting" value="${column.getSetting(userId)}"/>
+	<g:set var="placeholder" value="${'DATE' == column.type ? 'yyyy-mm-dd' : ''}"/>
 	<tr data-id="${setting.id}">
 		<td>==</td>
 		<td>${column.name}</td>
@@ -33,7 +34,7 @@
 			'', '=', '<>', '<', '>', '<=', '>=', 'begins with', 'contains', 'does not contain',
 			'ends with', 'is null', 'is not null', 'in list', 'not in list',
 			]}" name="compare" value="${setting.compare}"/></td>
-		<td><textarea class="value" rows="1" cols="15">${setting.value}</textarea></td>
+		<td><textarea class="value" rows="1" cols="15" placeholder="${placeholder}">${setting.value}</textarea></td>
 		<td><input type="submit" class="save" value="save"/></td>
 	</tr>
 	</g:each>

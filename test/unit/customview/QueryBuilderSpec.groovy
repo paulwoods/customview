@@ -119,5 +119,34 @@ class QueryBuilderSpec extends Specification {
 		["table2.column2 DESC"] == query.orders
 	}
 
+	def "add compare settings to the wheres"() {
+		given:
+		setting1.compare = "="
+		setting1.value = "abc"
+		assert setting1.save()
+
+		when:
+		def query = builder.build(view1, 0, userId)
+
+		then:
+		["table1.column1 = 'abc'"] == query.wheres
+	}
+
+	def "add compare settings with number columns"() {
+		given:
+		column1.type = "NUMBER"
+		assert column1.save()
+
+		setting1.compare = "="
+		setting1.value = "123"
+		assert setting1.save()
+
+		when:
+		def query = builder.build(view1, 0, userId)
+
+		then:
+		["table1.column1 = 123"] == query.wheres
+	}
+
 }
 

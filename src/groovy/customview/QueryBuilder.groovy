@@ -21,6 +21,17 @@ class QueryBuilder {
 			query.addFrom table.name
 		}
 
+		view.getCompareSettings(userId).each { Setting setting ->
+			if("STRING" == setting.column.type)
+				query.addWhere setting.column.sql + " " + setting.compare + " '" + setting.value + "'"
+			else if("NUMBER" == setting.column.type) 
+				query.addWhere setting.column.sql + " " + setting.compare + " " + setting.value
+			else if("DATE" == setting.column.type) 
+				query.addWhere setting.column.sql + " " + setting.compare + " '" + setting.value + "'"
+			else
+				assert false
+		}
+
 		def setting = view.getSortSetting(userId)
 		if(setting)
 			query.addOrder setting.column.sql + " " + setting.sort

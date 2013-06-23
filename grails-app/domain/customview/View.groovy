@@ -54,5 +54,13 @@ class View {
 		settings*.save()
 	}
 	
+	List<Setting> getCompareSettings(Long userId) {
+		Setting.where {
+			column in columns &&
+			userId == userId
+			compare != "" 
+		}.list()
+	}
+
 
 }

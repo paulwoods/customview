@@ -6,7 +6,7 @@ class Column {
 
 	static hasMany = [ settings: Setting ]
 
-	static TYPES = ["string","date"]
+	static TYPES = ["STRING","DATE","NUMBER"]
 
 	String name
 	String sql
@@ -60,7 +60,7 @@ class Column {
 		if(!val) 
 			return ""
 
-		if("date" == type)
+		if("DATE" == type)
 			return val.format("yyyy-MM-dd") 
 
 		val

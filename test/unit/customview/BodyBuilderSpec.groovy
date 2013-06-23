@@ -20,7 +20,7 @@ class BodyBuilderSpec extends Specification {
 		view1 = new View(name:"view1", fetchSize:50).save()
 		assert view1
 		
-		column1 = new Column(view:view1, name:"column1", sql:"table1.column1", sequence: 0, type:"string").save()
+		column1 = new Column(view:view1, name:"column1", sql:"table1.column1", sequence: 0, type:"STRING").save()
 		assert column1
 
 		setting1 = new Setting(column:column1, userId: 1, sequence: 0).save()
@@ -64,7 +64,7 @@ class BodyBuilderSpec extends Specification {
 
 	def "date values changed to yyyy-MM-dd"() {
 		given:
-		column1.type = "date"
+		column1.type = "DATE"
 		assert column1.save()
 
 		Date date = Date.parse("yyyy-MM-dd", "2010-03-20")
@@ -105,7 +105,7 @@ class BodyBuilderSpec extends Specification {
 		assert column1.save()
 		
 		expect:
-		assertBody view1, [[column1:"abc"]], """<tr><td>abcstring</td></tr>"""
+		assertBody view1, [[column1:"abc"]], """<tr><td>abcSTRING</td></tr>"""
 	}
 
 	def "td template exception return #error"() {

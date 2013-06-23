@@ -20,10 +20,10 @@ class BodyBuilder2Spec extends Specification {
 		view1 = new View(name:"view1", fetchSize:50).save()
 		assert view1
 		
-		column1 = new Column(view:view1, name:"column1", sql:"table1.column1", sequence: 0, type:"string").save()
+		column1 = new Column(view:view1, name:"column1", sql:"table1.column1", sequence: 0, type:"STRING").save()
 		assert column1
 
-		column2 = new Column(view:view1, name:"column2", sql:"table1.column2", sequence: 1, type:"string").save()
+		column2 = new Column(view:view1, name:"column2", sql:"table1.column2", sequence: 1, type:"STRING").save()
 		assert column2
 
 		setting1 = new Setting(column:column1, userId: 1, sequence: 0).save()
