@@ -14,8 +14,6 @@ class CustomViewTagLibSpec extends Specification {
 
 	def setup() {
 		customViewService = new CustomViewService()
-		customViewService.customViewFactory = new CustomViewFactory()
-		tagLib.customViewFactory = new CustomViewFactory()
 	}
 
 	def cleanup() {
@@ -47,20 +45,20 @@ class CustomViewTagLibSpec extends Specification {
 
 	def "build a three column header"() {
 		given:
-		View viewPcns = customViewService.createView([name:"pcns"])
-		assert null != viewPcns
+		View viewPcns = new View([name:"pcns"]).save()
+		assert viewPcns
 		viewPcns.customViewService = customViewService
 
 		tagLib.customViewPlugin = [ getCurrentUserId: { -> 1 } ]
 
-		Column columnNumber = viewPcns.createColumn([name:"Number", sql:"pcn.number"])
-		assert null != columnNumber
+		Column columnNumber = new Column(view:viewPcns, name:"Number", sql:"pcn.number", sequence:0).save()
+		assert columnNumber
 
-		Column columnTitle = viewPcns.createColumn([name:"Title", sql:"pcn.title"])
-		assert null != columnTitle
+		Column columnTitle = new Column(view:viewPcns, name:"Title", sql:"pcn.title", sequence:1).save()
+		assert columnTitle
 
-		Column columnDescription = viewPcns.createColumn([name:"Description", sql:"pcn.description"])
-		assert null != columnDescription
+		Column columnDescription = new Column(view:viewPcns, name:"Description", sql:"pcn.description", sequence:2).save()
+		assert columnDescription
 
 		columnNumber.customViewService = [ getOrCreateSetting: { Column c, Long u -> new Setting() } ]
 		columnTitle.customViewService = [ getOrCreateSetting: { Column c, Long u -> new Setting() } ]

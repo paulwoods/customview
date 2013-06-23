@@ -2,18 +2,13 @@ package customview
 
 class Query {
 	
-	def customViewFactory
+	def runner = new Runner()
 
 	List<String> selects = []
 	List<String> froms = []
 	List<String> orders = []
 	Integer fetchSize
 	Integer offset
-
-	List run() {
-		Runner runner = customViewFactory.createRunner()
-		runner.run this
-	}
 
 	void addSelect(String name) {
 		selects << name
@@ -43,6 +38,10 @@ class Query {
 		sb << " limit $offset, $fetchSize"
 		
 		sb.toString()
+	}
+
+	List run(database) {
+		runner.run this, database
 	}
 
 

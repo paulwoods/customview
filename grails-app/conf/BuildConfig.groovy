@@ -49,6 +49,7 @@ grails.project.dependency.resolution = {
 
 		build ":tomcat:$grailsVersion"
 
+		test ":code-coverage:1.2.6"
 		test(":spock:0.7") {
 			exclude "spock-grails-support"
 		}

@@ -34,11 +34,11 @@ class ColumnSpec extends Specification {
 
 	def "toString returns debug text"() {
 		given:
-		def column = new Column(view:view1, name:"column1", sql:"table1.column1", sequence:12).save()
+		def column = new Column(view:view1, name:"column1", sql:"table1.column1", type:"string", sequence:12).save()
 		assert null != column
 
 		expect:
-		"Column[1] view1 | column1 | table1.column1 | 12" == column.toString()
+		"Column[1] view1 | column1 | table1.column1 | 12 | string" == column.toString()
 	}
 
 	def "name can't be null"() {
@@ -70,5 +70,12 @@ class ColumnSpec extends Specification {
 		expect:
 		null == new Column(view:view1, name:"title", sql:"table.title", sequence:null).save()
 	}
+
+	def "default type is string"() {
+		expect:
+		"string" == new Column().type
+	}
+
+
 
 }

@@ -18,14 +18,13 @@ class HeadBuilderSpec extends Specification {
 		builder = new HeadBuilder()
 
 		view1 = new View(name:"view1").save()
-		assert null != view1
+		assert view1
 
 		column1 = new Column(view:view1, name:"column1", sql:"table1.column1", sequence:0).save()
-		assert null != column1
+		assert column1
 
-		setting1 = new Setting()
-
-		column1.customViewService = [ getOrCreateSetting: { Column c, Long u -> setting1 } ]
+		setting1 = new Setting(column:column1, userId:1, sequence:1).save()
+		assert setting1
 	}
 
 	def cleanup() {

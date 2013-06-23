@@ -46,37 +46,6 @@ class ViewSpec extends Specification {
 		null == new View(name:"").save()
 	}
 
-	def "create column forwards to the service"() {
-		given:
-		def customViewService = Mock(CustomViewService)
-
-		def view = new View(name:"name1").save()
-		assert null != view
-
-		view.customViewService = customViewService
-
-		when:
-		view.createColumn([:])
-
-		then:
-		1 * customViewService.createColumn(view, [:])
-	}
-
-	def "create table forwards to the service"() {
-		given:
-		def customViewService = Mock(CustomViewService)
-
-		def view = new View(name:"name1").save()
-		assert null != view
-
-		view.customViewService = customViewService
-
-		when:
-		view.createTable([:])
-
-		then:
-		1 * customViewService.createTable(view, [:])
-	}
 
 }
 

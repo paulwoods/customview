@@ -31,20 +31,14 @@ class View {
 		name = name?.trim()
 	}
 
-	Column createColumn(Map params) {
-		customViewService.createColumn this, params
-	}
-
-	Table createTable(Map params) {
-		customViewService.createTable this, params
-	}
-
-	Map fetch(Integer offset, Long userId) {
-		customViewService.fetch this, offset, userId
+	Map fetch(Integer offset, Long userId, database) {
+		customViewService.fetch this, offset, userId, database
 	}
 
 	List<Setting> getSettings(Long userId) {
-		customViewService.getSettings(this, userId)
+		columns.collect { Column column ->
+			Setting.getOrCreateSetting column, userId
+		}
 	}
 
 	String getSort(userId) {
@@ -55,5 +49,12 @@ class View {
 		else
 			""
 	}
+
+	void clearUserSorts(Long userId) {
+		def settings = getSettings(userId)
+		settings*.sort = ""
+		settings*.save()
+	}
+	
 
 }

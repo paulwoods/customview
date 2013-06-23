@@ -2,10 +2,8 @@ package customview
 
 class QueryBuilder {
 	
-	def customViewFactory
-
-	Query createQuery(View view, Integer offset, Long userId) {
-		def query = customViewFactory.createQuery()
+	Query build(View view, Integer offset, Long userId) {
+		def query = new Query()
 
 		query.fetchSize = view.fetchSize
 		query.offset = offset

@@ -248,10 +248,66 @@
 	"buffers":
 	[
 		{
-			"file": "grails-app/controllers/customview/PcnController.groovy",
+			"file": "test/unit/customview/ColumnSpec.groovy",
 			"settings":
 			{
-				"buffer_size": 131,
+				"buffer_size": 1754,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/groovy/customview/CustomViewPlugin.groovy",
+			"settings":
+			{
+				"buffer_size": 271,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "grails-app/controllers/customview/CustomViewController.groovy",
+			"settings":
+			{
+				"buffer_size": 2327,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "test/unit/customview/CustomViewControllerSpec.groovy",
+			"settings":
+			{
+				"buffer_size": 6260,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "grails-app/domain/customview/View.groovy",
+			"settings":
+			{
+				"buffer_size": 994,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "test/unit/customview/CustomViewTagLibSpec.groovy",
+			"settings":
+			{
+				"buffer_size": 2462,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "grails-app/conf/BuildConfig.groovy",
+			"settings":
+			{
+				"buffer_size": 1777,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "grails-app/services/customview/CustomViewService.groovy",
+			"settings":
+			{
+				"buffer_size": 724,
 				"line_ending": "Unix"
 			}
 		}
@@ -387,44 +443,50 @@
 	},
 	"file_history":
 	[
-		"/C/Projects/customview/.gitignore",
+		"/C/Projects/customview/src/groovy/customview/FailedToCreateTableException.groovy",
+		"/C/Projects/customview/src/groovy/customview/QueryBuilder.groovy",
+		"/C/Users/Paul/Downloads/Man.Of.Steel-1080p.torrent",
+		"/C/Users/Paul/Downloads/Man.Of.Steel-1080p/readme.txt",
+		"/C/Projects/customview/grails-app/services/customview/CustomViewService.groovy",
 		"/C/Projects/customview/test/unit/customview/CustomViewTagLibSpec.groovy",
-		"/C/Projects/customview/grails-app/taglib/customview/CustomViewTagLib.groovy",
-		"/C/Projects/customview/grails-app/domain/customview/View.groovy",
-		"/C/Projects/customview/grails-app/domain/customview/Column.groovy",
-		"/C/Projects/customview/test/unit/customview/HeadBuilderSpec.groovy",
-		"/C/Projects/customview/src/groovy/customview/HeadBuilder.groovy",
+		"/C/Projects/customview/test/unit/customview/CustomViewServiceSpec.groovy",
 		"/C/Projects/customview/src/groovy/customview/BodyBuilder.groovy",
 		"/C/Projects/customview/test/unit/customview/BodyBuilderSpec.groovy",
-		"/C/Projects/customview/web-app/js/customize.js",
-		"/C/Projects/customview/grails-app/controllers/customview/CustomViewController.groovy",
-		"/C/Projects/customview/test/unit/customview/CustomViewControllerSpec.groovy",
+		"/C/Projects/customview/test/unit/customview/BodyBuilder2Spec.groovy",
+		"/C/Projects/customview/grails-app/domain/customview/Column.groovy",
 		"/C/Projects/customview/grails-app/domain/customview/Setting.groovy",
-		"/C/Projects/customview/test/unit/customview/ColumnSpec.groovy",
-		"/C/Projects/customview/test/unit/customview/ViewSpec.groovy",
+		"/C/Projects/customview/grails-app/taglib/customview/CustomViewTagLib.groovy",
+		"/C/Projects/customview/src/groovy/customview/Query.groovy",
+		"/C/Projects/customview/src/groovy/customview/Runner.groovy",
 		"/C/Projects/customview/src/groovy/customview/CustomViewPlugin.groovy",
+		"/C/Projects/customview/grails-app/controllers/customview/CustomViewController.groovy",
+		"/C/Projects/customview/grails-app/domain/customview/View.groovy",
+		"/C/Projects/customview/grails-app/conf/spring/resources.groovy",
+		"/C/Projects/customview/src/groovy/customview/CustomViewFactory.groovy",
 		"/C/Projects/customview/grails-app/conf/BootStrap.groovy",
-		"/C/Projects/customview/grails-app/controllers/customview/PcnController.groovy",
-		"/C/Projects/customview/grails-app/views/pcn/list.gsp",
+		"/C/Projects/customview/test/unit/customview/ViewSpec.groovy",
+		"/C/Projects/customview/test/unit/customview/ColumnSpec.groovy",
+		"/C/Projects/customview/test/unit/customview/CustomViewControllerSpec.groovy",
+		"/C/Projects/customview/test/unit/customview/HeadBuilderSpec.groovy",
 		"/C/Projects/customview/grails-app/views/customView/customize.gsp",
+		"/C/Projects/customview/web-app/js/customize.js",
+		"/C/Users/Paul/Desktop/a.txt",
+		"/C/Projects/customview/.gitignore",
+		"/C/Projects/customview/grails-app/controllers/customview/PcnController.groovy",
+		"/C/Projects/customview/src/groovy/customview/HeadBuilder.groovy",
+		"/C/Projects/customview/grails-app/views/pcn/list.gsp",
 		"/C/Projects/customview/grails-app/conf/Config.groovy",
-		"/C/Projects/customview/grails-app/services/customview/CustomViewService.groovy",
-		"/C/Projects/customview/src/groovy/customview/QueryBuilder.groovy",
 		"/C/Projects/customview/test/unit/customview/UserSpec.groovy",
 		"/C/Users/Paul/Documents/ti/ti live healthy.txt",
 		"/C/Projects/customview/web-app/js/customview.js",
 		"/C/Projects/customview/grails-app/views/layouts/main.gsp",
 		"/C/Projects/customview/grails-app/conf/BuildConfig.groovy",
-		"/C/Projects/customview/src/groovy/customview/Runner.groovy",
-		"/C/Projects/customview/src/groovy/customview/CustomViewFactory.groovy",
-		"/C/Projects/customview/test/unit/customview/CustomViewServiceSpec.groovy",
 		"/C/Projects/customview/src/groovy/customview/FailedToCreateOrderException.groovy",
 		"/C/Projects/customview/grails-app/domain/customview/Order.groovy",
 		"/C/Projects/customview/src/groovy/customview/FailedToCreateSettingException.groovy",
 		"/C/Projects/customview/src/groovy/customview/FailedToCreateSettingException.GROOVY",
 		"/C/Projects/customview/grails-app/domain/customview/User.groovy",
 		"/C/Projects/customview/web-app/css/main.css",
-		"/C/Projects/customview/src/groovy/customview/Query.groovy",
 		"/C/Tools/groovy21.bat",
 		"/C/Projects/customview/grails-app/domain/customview/Table.groovy",
 		"/C/Users/Paul/AppData/Local/Temp/7zO11FA.tmp/LICENSE",
@@ -432,13 +494,11 @@
 		"/C/Projects/customview/src/groovy/customview/FailedToCreateColumnException.groovy",
 		"/C/Projects/customview/test/unit/customview/HTMLBuilderSpec.groovy",
 		"/C/Projects/customview/src/groovy/customview/HTMLBuilder.groovy",
-		"/C/Projects/customview/grails-app/conf/spring/resources.groovy",
 		"/C/Projects/customview/src/groovy/customview/IdInvalidException.groovy",
 		"/C/Projects/customview/src/groovy/customview/ViewNotFoundException.groovy",
 		"/C/Users/Paul/Desktop/sample improvements.txt",
 		"/C/Users/Paul/Documents/grails/grails notes.groovy",
 		"/C/Projects/customview/test/unit/customview/TableSpec.groovy",
-		"/C/Projects/customview/src/groovy/customview/FailedToCreateTableException.groovy",
 		"/C/Projects/customview/src/groovy/customview/CustomViewException.groovy",
 		"/C/Projects/customview/target/stacktrace.log",
 		"/C/Projects/customview/grails-app/views/index.gsp",
@@ -510,15 +570,11 @@
 		"/C/Projects/samples/grails-app/services/com/ti/specteam/samples/PcnService.groovy",
 		"/C/Users/Paul/Documents/digital ocean/digitalocean.txt",
 		"/C/Projects/specteam/src/groovy/com/ti/specteam/queryview/TableBuilder.groovy",
-		"/C/Projects/specteam/test/unit/com/ti/specteam/queryview/TableBuilderTests.groovy",
-		"/C/Projects/samples/samples.sublime-project",
-		"/C/Projects/samples/src/groovy/com/ti/specteam/samples/pcnsystem/RequestPageDao.groovy",
-		"/C/Projects/samples/src/groovy/com/ti/specteam/samples/pcnsystem/FeedbackPageDao.groovy",
-		"/C/Projects/samples/src/groovy/com/ti/specteam/samples/pcnsystem/ReleatedPageDao.groovy"
+		"/C/Projects/specteam/test/unit/com/ti/specteam/queryview/TableBuilderTests.groovy"
 	],
 	"find":
 	{
-		"height": 51.0
+		"height": 53.0
 	},
 	"find_in_files":
 	{
@@ -620,6 +676,36 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"createSetting",
+			"createBodyBuilder",
+			"createHeadBuilder",
+			"createRunner",
+			"createQuery",
+			"createQueryBuilder",
+			"value",
+			"<tr><td>abc</td><td>def</td></tr>",
+			"getNextColumnSequence",
+			"viewPcns.createColumn",
+			"service.createColumn(",
+			"assert null !=",
+			"customViewService.createView",
+			"assert null !=",
+			"service.createView",
+			"createView",
+			"println",
+			"		View viewPcns = customViewService.createView(name:\"pcns\", fetchSize: 50)\n		Column number = viewPcns.createColumn name:\"Number\", sql:\"pcn.number\", classHead:\"number-head\",classBody:\"number-body\"\n		Column title = viewPcns.createColumn name:\"Title\", sql:\"pcn.title\"\n		viewPcns.createColumn name:\"Description\", sql:\"pcn.description\"\n		viewPcns.createColumn name:\"Date Publish\", sql:\"pcn.date_publish\", type:\"date\", classHead:\"nowrap\"\n		viewPcns.createTable name:\"pcn\"\n		\n		def setting = title.getSetting(userId)\n		setting.sort = \"ASC\"\n		setting.save()\n",
+			"flush",
+			"userId",
+			"123456",
+			"customViewService",
+			"compare",
+			"'",
+			"visible",
+			"println",
+			"\"\n",
+			"setting",
+			"long",
+			"setting",
 			"name1",
 			"title",
 			"com.ti.specteam",
@@ -717,37 +803,7 @@
 			"factory",
 			"feedback",
 			"pcn",
-			":",
-			"revision",
-			"Revision",
-			"assignAll",
-			"assign",
-			"CoordinatorAssigner",
-			"coordinatorAssigner",
-			"CoordinatorAssigner",
-			"coordinatorAssigner",
-			"CoordinatorAssigner",
-			"coordinatorAssigner",
-			"CoordinatorAssigner",
-			"coordinatorAssigner",
-			"results",
-			"queue",
-			"def ",
-			"Alpha",
-			"assert null !=",
-			"assertNotNull",
-			"flush:true",
-			"assertNull",
-			"c1",
-			"requestQueue",
-			"coordinator",
-			"CoordinatorAssigner",
-			"PcnMetrics",
-			"mail",
-			"configuration",
-			"Configuration",
-			"configuration",
-			"pcnImporter"
+			":"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -893,29 +949,226 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 7,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "grails-app/controllers/customview/PcnController.groovy",
+					"file": "test/unit/customview/ColumnSpec.groovy",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 131,
+						"buffer_size": 1754,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								123,
-								123
+								685,
+								685
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Groovy/Groovy.tmLanguage"
+							"syntax": "Packages/Groovy/Groovy.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 864.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/groovy/customview/CustomViewPlugin.groovy",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 271,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								143,
+								143
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Groovy/Groovy.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "grails-app/controllers/customview/CustomViewController.groovy",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2327,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1784,
+								1784
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Groovy/Groovy.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2484.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "test/unit/customview/CustomViewControllerSpec.groovy",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6260,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1669,
+								1669
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Groovy/Groovy.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 540.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "grails-app/domain/customview/View.groovy",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 994,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Groovy/Groovy.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 540.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "test/unit/customview/CustomViewTagLibSpec.groovy",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2462,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								603,
+								603
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Groovy/Groovy.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 324.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "grails-app/conf/BuildConfig.groovy",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1777,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1777,
+								1777
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Groovy/Groovy.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1404.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "grails-app/services/customview/CustomViewService.groovy",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 724,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								543,
+								543
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Groovy/Groovy.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -985,20 +1238,164 @@
 		"selected_items":
 		[
 			[
-				".git",
-				".gitignore"
+				"failedto",
+				"src\\groovy\\customview\\FailedToCreateTableException.groovy"
 			],
 			[
-				"customi",
-				"web-app\\js\\customize.js"
+				"querybuild",
+				"src\\groovy\\customview\\QueryBuilder.groovy"
+			],
+			[
+				"customviewservice",
+				"grails-app\\services\\customview\\CustomViewService.groovy"
+			],
+			[
+				"buildconfig",
+				"grails-app\\conf\\BuildConfig.groovy"
+			],
+			[
+				"customviewtaglibspec",
+				"test\\unit\\customview\\CustomViewTagLibSpec.groovy"
+			],
+			[
+				"view.groovy",
+				"grails-app\\domain\\customview\\View.groovy"
+			],
+			[
+				"customviewplugin",
+				"src\\groovy\\customview\\CustomViewPlugin.groovy"
+			],
+			[
+				"customviewcont",
+				"grails-app\\controllers\\customview\\CustomViewController.groovy"
+			],
+			[
+				"customviewcontspec",
+				"test\\unit\\customview\\CustomViewControllerSpec.groovy"
+			],
+			[
+				"columnspec",
+				"test\\unit\\customview\\ColumnSpec.groovy"
+			],
+			[
+				"resources",
+				"grails-app\\conf\\spring\\resources.groovy"
+			],
+			[
+				"runner.gr",
+				"src\\groovy\\customview\\Runner.groovy"
+			],
+			[
+				"query.groovy",
+				"src\\groovy\\customview\\Query.groovy"
+			],
+			[
+				"view.gr",
+				"grails-app\\domain\\customview\\View.groovy"
+			],
+			[
+				"customviewcontroller",
+				"grails-app\\controllers\\customview\\CustomViewController.groovy"
+			],
+			[
+				"customviewfac",
+				"src\\groovy\\customview\\CustomViewFactory.groovy"
+			],
+			[
+				"column.groo",
+				"grails-app\\domain\\customview\\Column.groovy"
+			],
+			[
+				"setting",
+				"grails-app\\domain\\customview\\Setting.groovy"
+			],
+			[
+				"column.",
+				"grails-app\\domain\\customview\\Column.groovy"
+			],
+			[
+				"boot",
+				"grails-app\\conf\\BootStrap.groovy"
 			],
 			[
 				"bodybuilderspec",
 				"test\\unit\\customview\\BodyBuilderSpec.groovy"
 			],
 			[
+				"customviewservicespec",
+				"test\\unit\\customview\\CustomViewServiceSpec.groovy"
+			],
+			[
+				"query.gr",
+				"src\\groovy\\customview\\Query.groovy"
+			],
+			[
+				"querybuilder",
+				"src\\groovy\\customview\\QueryBuilder.groovy"
+			],
+			[
 				"bodybuilder",
 				"src\\groovy\\customview\\BodyBuilder.groovy"
+			],
+			[
+				"column.gr",
+				"grails-app\\domain\\customview\\Column.groovy"
+			],
+			[
+				"view",
+				"grails-app\\domain\\customview\\View.groovy"
+			],
+			[
+				"viewspec",
+				"test\\unit\\customview\\ViewSpec.groovy"
+			],
+			[
+				"setting.gr",
+				"grails-app\\domain\\customview\\Setting.groovy"
+			],
+			[
+				"headerspec",
+				"test\\unit\\customview\\HeadBuilderSpec.groovy"
+			],
+			[
+				"column",
+				"grails-app\\domain\\customview\\Column.groovy"
+			],
+			[
+				"boo",
+				"grails-app\\conf\\BootStrap.groovy"
+			],
+			[
+				"customize.js",
+				"web-app\\js\\customize.js"
+			],
+			[
+				"customize.gsp",
+				"grails-app\\views\\customView\\customize.gsp"
+			],
+			[
+				"customviewtaglib",
+				"grails-app\\taglib\\customview\\CustomViewTagLib.groovy"
+			],
+			[
+				"view.groo",
+				"grails-app\\domain\\customview\\View.groovy"
+			],
+			[
+				"column.gro",
+				"grails-app\\domain\\customview\\Column.groovy"
+			],
+			[
+				".gitig",
+				".gitignore"
+			],
+			[
+				".git",
+				".gitignore"
+			],
+			[
+				"customi",
+				"web-app\\js\\customize.js"
 			],
 			[
 				"headbuilder",
@@ -1013,80 +1410,24 @@
 				"grails-app\\domain\\customview\\Column.groovy"
 			],
 			[
-				"view.gr",
-				"grails-app\\domain\\customview\\View.groovy"
-			],
-			[
-				"customviewtaglib",
-				"grails-app\\taglib\\customview\\CustomViewTagLib.groovy"
-			],
-			[
-				"customviewtaglibspec",
-				"test\\unit\\customview\\CustomViewTagLibSpec.groovy"
-			],
-			[
-				"customviewplugin",
-				"src\\groovy\\customview\\CustomViewPlugin.groovy"
-			],
-			[
 				"custviewcontspec",
 				"test\\unit\\customview\\CustomViewControllerSpec.groovy"
-			],
-			[
-				"customviewcont",
-				"grails-app\\controllers\\customview\\CustomViewController.groovy"
-			],
-			[
-				"viewspec",
-				"test\\unit\\customview\\ViewSpec.groovy"
-			],
-			[
-				"columnspec",
-				"test\\unit\\customview\\ColumnSpec.groovy"
-			],
-			[
-				"setting.gr",
-				"grails-app\\domain\\customview\\Setting.groovy"
-			],
-			[
-				"column.gr",
-				"grails-app\\domain\\customview\\Column.groovy"
 			],
 			[
 				"userspec",
 				"test\\unit\\customview\\UserSpec.groovy"
 			],
 			[
-				"querybuilder",
-				"src\\groovy\\customview\\QueryBuilder.groovy"
-			],
-			[
 				"customviewserv",
 				"grails-app\\services\\customview\\CustomViewService.groovy"
-			],
-			[
-				"view",
-				"grails-app\\domain\\customview\\View.groovy"
 			],
 			[
 				"c",
 				"grails-app\\conf\\Config.groovy"
 			],
 			[
-				"customize.js",
-				"web-app\\js\\customize.js"
-			],
-			[
 				"setting.gro",
 				"grails-app\\domain\\customview\\Setting.groovy"
-			],
-			[
-				"customize.gsp",
-				"grails-app\\views\\customView\\customize.gsp"
-			],
-			[
-				"view.groovy",
-				"grails-app\\domain\\customview\\View.groovy"
 			],
 			[
 				"list.gsp",
@@ -1095,10 +1436,6 @@
 			[
 				"pcncon",
 				"grails-app\\controllers\\customview\\PcnController.groovy"
-			],
-			[
-				"boot",
-				"grails-app\\conf\\BootStrap.groovy"
 			],
 			[
 				"cusotmviewtaglib",
@@ -1113,24 +1450,8 @@
 				"web-app\\js\\customview.js"
 			],
 			[
-				"customviewservice",
-				"grails-app\\services\\customview\\CustomViewService.groovy"
-			],
-			[
-				"setting",
-				"grails-app\\domain\\customview\\Setting.groovy"
-			],
-			[
-				"buildconfig",
-				"grails-app\\conf\\BuildConfig.groovy"
-			],
-			[
 				"order.gr",
 				"grails-app\\domain\\customview\\Order.groovy"
-			],
-			[
-				"customviewfac",
-				"src\\groovy\\customview\\CustomViewFactory.groovy"
 			],
 			[
 				"runner",
@@ -1139,10 +1460,6 @@
 			[
 				"config.gr",
 				"grails-app\\conf\\Config.groovy"
-			],
-			[
-				"column",
-				"grails-app\\domain\\customview\\Column.groovy"
 			],
 			[
 				"viewgr",
@@ -1189,10 +1506,6 @@
 				"test\\unit\\customview\\CustomViewControllerSpec.groovy"
 			],
 			[
-				"customviewcontroller",
-				"grails-app\\controllers\\customview\\CustomViewController.groovy"
-			],
-			[
 				"failedtocreatetableexception",
 				"src\\groovy\\customview\\FailedToCreateTableException.groovy"
 			],
@@ -1205,14 +1518,6 @@
 				"grails-app\\domain\\customview\\Table.groovy"
 			],
 			[
-				"customviewservicespec",
-				"test\\unit\\customview\\CustomViewServiceSpec.groovy"
-			],
-			[
-				"query.groovy",
-				"src\\groovy\\customview\\Query.groovy"
-			],
-			[
 				"bodybuildspec",
 				"test\\unit\\customview\\BodyBuilderSpec.groovy"
 			],
@@ -1223,14 +1528,6 @@
 			[
 				"failedtocreatecolumnexception",
 				"src\\groovy\\customview\\FailedToCreateColumnException.groovy"
-			],
-			[
-				"customviewcontspec",
-				"test\\unit\\customview\\CustomViewControllerSpec.groovy"
-			],
-			[
-				"resources",
-				"grails-app\\conf\\spring\\resources.groovy"
 			],
 			[
 				"viewnotfoundexception",
@@ -1451,50 +1748,6 @@
 			[
 				"config.groovy",
 				"samples\\grails-app\\conf\\Config.groovy"
-			],
-			[
-				"queryviewfac",
-				"specteam\\src\\groovy\\com\\ti\\specteam\\queryview\\QueryViewFactory.groovy"
-			],
-			[
-				"specteamgrails",
-				"specteam\\SpecteamGrailsPlugin.groovy"
-			],
-			[
-				"resources.gr",
-				"samples\\grails-app\\conf\\spring\\resources.groovy"
-			],
-			[
-				"queryviewfactory",
-				"specteam\\src\\groovy\\com\\ti\\specteam\\queryview\\QueryViewFactory.groovy"
-			],
-			[
-				"filter.groo",
-				"specteam\\src\\groovy\\com\\ti\\specteam\\queryview\\Filter.groovy"
-			],
-			[
-				"urlpersistancetests",
-				"specteam\\test\\unit\\com\\ti\\specteam\\queryview\\URLPersistanceTests.groovy"
-			],
-			[
-				"tablebuildertests",
-				"specteam\\test\\unit\\com\\ti\\specteam\\queryview\\TableBuilderTests.groovy"
-			],
-			[
-				"queryviewcont",
-				"specteam\\grails-app\\controllers\\com\\ti\\specteam\\queryview\\QueryViewController.groovy"
-			],
-			[
-				"feed",
-				"samples\\grails-app\\domain\\com\\ti\\specteam\\samples\\feedback\\Feedback.groovy"
-			],
-			[
-				"task/attach",
-				"samples\\grails-app\\views\\task\\attach.gsp"
-			],
-			[
-				"task.groovy",
-				"samples\\grails-app\\domain\\com\\ti\\specteam\\samples\\task\\Task.groovy"
 			]
 		],
 		"width": 0.0
@@ -1529,7 +1782,7 @@
 	"show_minimap": true,
 	"show_open_files": false,
 	"show_tabs": true,
-	"side_bar_visible": true,
+	"side_bar_visible": false,
 	"side_bar_width": 267.0,
 	"status_bar_visible": true,
 	"template_settings":

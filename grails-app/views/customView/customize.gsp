@@ -41,16 +41,17 @@
 	</table>
 
 	<script>
-$(function() {
-	new Customize({
-		el:'#customize',
-		userId: '${userId}',
-		sortURL: '<g:createLink action="sort" absolute="true"/>',
-        visibleURL: '<g:createLink action="visible" absolute="true"/>',
-        compareURL: '<g:createLink action="compare" absolute="true"/>',
-        valueURL: '<g:createLink action="value" absolute="true"/>'
+
+	$(function() {
+		new Customize({
+			el: '#customize',
+			sortURL: '<g:createLink action="sort" absolute="true"/>',
+			visibleURL: '<g:createLink action="visible" absolute="true"/>',
+			compareURL: '<g:createLink action="compare" absolute="true"/>',
+			valueURL: '<g:createLink action="value" absolute="true"/>'
+		});
 	});
-});
+
 	</script>
 
 </body>

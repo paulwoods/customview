@@ -1,100 +1,43 @@
 package customview
 
+/**
+ * This class converts the list of records into html table rows
+ **/
 class BodyBuilder {
 	
 	def customViewFactory
+	def shell = new GroovyShell()
 
-	private StringBuilder sb = new StringBuilder()
-	private View view
-	private List records
-	private Map record
-	private Column column
-	private List<Setting> settings = []
+	String build(View view, List records, long userId) {
+		if(!records || !view) 
+			return ""
 
-	Long userId
+		def settings = view.columns*.getSetting(userId).sort { it.sequence }
 
-	String build(View view, List records, Long userId) {
-		this.view = view
-		this.records = records
-		this.userId = userId
-
-		cacheSettings()
-
-		processRecords()
-
-		def html = sb.toString()
-
-		column = null
-		record = null
-		records = null
-		view = null
-		sb = null
-		settings = null
-
-		html
-	}
-	
-	private void cacheSettings() {
-		this.settings = view.columns.collect { Column column ->
-			this.column = column
-			column.getSetting(userId)
-		}
-	}
-
-	private void processRecords() {
+		StringBuilder out = new StringBuilder()
 		records.each { record ->
-			this.record = record
-			process()
-		}
-	}
-
-	private void process() {
-		sb << "<tr>\n"
-
-		view.columns.eachWithIndex { Column column, index ->
-			this.column = column
-			
-			Setting setting = settings[index]
-			
-			if(setting.visible) {
-				openCell()
-				writeValue()
-				closeCell()
+			out << "<tr>"
+			settings.each { Setting setting ->
+				if(setting.visible) {
+					Column column = setting.column
+					def clazz = column.classBody ? " class=\"$column.classBody\"" : ""
+					out << "<td$clazz>"
+					if(column.td) {
+						out << executeTemplate(column, record)
+					} else {
+						out << column.value(record)
+					}
+					out << "</td>"
+				}
 			}
+			out << "</tr>"
 		}
-
-		sb << "</tr>\n"
+		out.toString()
 	}
 
-	private def getValue(Column column, Map record) {
-		def value = record[column.name]
-		value = (column.td) ? executeTemplate() : value
-		value
-	}
-
-	private void openCell() {
-		def clazz = column.classBody ? " class=\"$column.classBody\"" : ""
-		sb << "<td$clazz>"
-	}
-
-	private void closeCell() {
-		sb << "</td>\n"
-	}
-
-	private void writeValue() {
-		def value = getValue(column, record)
-
-		if(null == value) 
-			value = "&nbsp;"
-		else if("date" == column.type)
-			value = value.format("yyyy-MM-dd")
-	
-		sb << value	
-	}
-
-	String executeTemplate() {
-		def shell = new GroovyShell()
+	String executeTemplate(Column column, Map record) {
 		def script = shell.parse(column.td)
+		script.column = column
 		script.record = record
 
 		try {
@@ -105,4 +48,5 @@ class BodyBuilder {
 	}
 
 }
+
 

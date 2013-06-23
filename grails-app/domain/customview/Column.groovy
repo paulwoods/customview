@@ -36,7 +36,7 @@ class Column {
 	}
 
 	String toString() {
-		"Column[$id] $view.name | $name | $sql | $sequence"
+		"Column[$id] $view.name | $name | $sql | $sequence | $type"
 	}
 
 	def beforeValidate() {
@@ -50,7 +50,33 @@ class Column {
 	}
 
 	Setting getSetting(Long userId) {
-		customViewService.getOrCreateSetting(this, userId)
+		Setting.getOrCreateSetting(this, userId)
 	}
 
+	void clearUserSorts(Long userId) {
+		view.clearUserSorts userId
+	}
+
+	String value(Map record) {
+		def val = record[name]
+		
+		if(!val) 
+			return ""
+
+		if("date" == type)
+			return val.format("yyyy-MM-dd") 
+
+		val
+	}
+	
+	
 }
+
+// protected Integer getNextColumnSequence(View view) {
+// 	List<Column> columns = Column.createCriteria().list() {
+// 		eq "view", view
+// 		order "sequence", "desc"
+// 	}
+
+// 	columns ? columns[0].sequence + 1 : 1
+// }

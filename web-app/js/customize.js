@@ -7,7 +7,6 @@
 
 	function Customize(options) {
 		this.el = '';
-		this.userId = '';
 		this.sortURL = '';
 		this.visibleURL = '';
         this.compareURL = '';
@@ -31,7 +30,6 @@
 		var $this = $(e.target);
 
 		var data = {
-			userId: this.userId,
 			settingId: $this.closest('tr').data('id'),
 			sort: $this.val()
 		};
@@ -57,7 +55,6 @@
 		var $this = $(e.target);
 
 		var data = {
-			userId: this.userId,
 			settingId: $this.closest('tr').data('id'),
 			visible: $this.prop('checked')
 		};
@@ -82,7 +79,6 @@
         var $this = $(e.target);
 
         var data = {
-            userId: this.userId,
             settingId: $this.closest('tr').data('id'),
             compare: $this.val()
         };
@@ -111,7 +107,6 @@
         var $this = $(e.target);
 
         var data = {
-            userId: this.userId,
             settingId: $this.closest('tr').data('id'),
             value: $this.closest('tr').find('textarea.value').val()
         };
@@ -131,9 +126,6 @@
     Customize.prototype.changeValueSuccess = function(json) {
         this.$el.find('tr[data-id="' + json.id + '"] input.save').hide();
     };
-
-
-
 
     Customize.prototype.error = function(header) {
 		try {

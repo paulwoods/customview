@@ -2,8 +2,9 @@ package customview
 
 class CustomViewTagLib {
 
-	def customViewFactory
 	def customViewPlugin
+
+	HeadBuilder headBuilder = new HeadBuilder()
 
 	static namespace = "specteam"
 
@@ -66,8 +67,7 @@ class CustomViewTagLib {
 	}
 
 	private writeHeader(View view, Long userId) {
-		HeadBuilder builder = customViewFactory.createHeadBuilder()
-		out << builder.build(view, userId)
+		out << headBuilder.build(view, userId)
 	}
 
 	private writeJavascript(attrs) {

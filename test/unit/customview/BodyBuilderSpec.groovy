@@ -9,116 +9,125 @@ import spock.lang.Specification
 @Mock([View,Column,Setting])
 class BodyBuilderSpec extends Specification {
 
-	def builder
-	def view1
-	def column1
-	def setting1
-
-	def customViewService = Mock(CustomViewService)
+	BodyBuilder builder
+	View view1
+	Column column1
+	Setting setting1
 
 	def setup() {
 		builder = new BodyBuilder()
 
-		view1 = new View(name:"view1").save()
-		assert null != view1
+		view1 = new View(name:"view1", fetchSize:50).save()
+		assert view1
+		
+		column1 = new Column(view:view1, name:"column1", sql:"table1.column1", sequence: 0, type:"string").save()
+		assert column1
 
-		column1 = new Column(view:view1, name:"column1", sql:"table1.column1", sequence:0).save()
-		assert null != column1
-
-		column1.customViewService = customViewService
-
-		setting1 = new Setting(column:column1, userId:1, sequence:0).save()
-		assert null != setting1
-
-		customViewService.getOrCreateSetting(column1, 1) >> setting1
+		setting1 = new Setting(column:column1, userId: 1, sequence: 0).save()
+		assert setting1
 	}
 
-	def cleanup() {
+	void assertBody(View view, List records, String expected) {
+		def actual = builder.build(view, records, 1)
+		assert expected == actual
 	}
 
-	def "value of the column is output"() {
+	def "null view returns blank html"() {
+		expect:
+		assertBody null, [[x:1]], ""
+	}
+
+	def "null records returns blank html"() {
+		expect:
+		assertBody view1, null, ""
+	}
+
+	def "empty records returns blank html"() {
+		expect:
+		assertBody view1, [], ""
+	}
+
+	def "single column records returns the columns text"() {
+		expect:
+		assertBody view1, [[column1:"abc"]], "<tr><td>abc</td></tr>"
+	}
+
+	def "two rows returns two table rows"() {
+		expect:
+		assertBody view1, [[column1:"abc"],[column1:"def"]], "<tr><td>abc</td></tr><tr><td>def</td></tr>"
+	}
+
+	def "null values changed to empty strings"() {
+		expect:
+		assertBody view1, [[column1:null]], "<tr><td></td></tr>"
+	}
+
+	def "date values changed to yyyy-MM-dd"() {
 		given:
-		def records = [[column1:"abc"]]
+		column1.type = "date"
+		assert column1.save()
 
-		when:
-		def html = builder.build(view1, records, 1)
+		Date date = Date.parse("yyyy-MM-dd", "2010-03-20")
 
-		then:
-		"<tr>\n<td>abc</td>\n</tr>\n" == html
+		expect:
+		assertBody view1, [[column1:date]], "<tr><td>2010-03-20</td></tr>"
 	}
 
-	def "null value is converted to blank"() {
+	def "the class is added"() {
 		given:
-		def records = [[column1:null]]
-
-		when:
-		def html = builder.build(view1, records, 1)
-
-		then:
-		"<tr>\n<td>&nbsp;</td>\n</tr>\n" == html
-	}
-
-	def "date values are formatted yyyy-MM-dd"() {
-		given:
-		def date = new Date()
-
-		column1.type = "date" 
-		def records = [[column1:date]]
-
-		when:
-		def html = builder.build(view1, records, 1)
-
-		then:
-		"<tr>\n<td>${date.format("yyy-MM-dd")}</td>\n</tr>\n" == html
-	}
-
-	def "class is added"() {
-		given:
-
 		column1.classBody = "the-class" 
-		def records = [[column1:"abc"]]
 
-		when:
-		def html = builder.build(view1, records, 1)
-
-		then:
-		"""<tr>\n<td class="the-class">abc</td>\n</tr>\n""" == html
+		expect:
+		assertBody view1, [[column1:"abc"]], """<tr><td class="the-class">abc</td></tr>"""
 	}
 
-	def "process custom template"() {
+	def "process a td template"() {
 		given:
-		column1.td = """ return "123" """
-		def records = [[column1:"abc"]]
-
-		when:
-		def html = builder.build(view1, records, 1)
-
-		then:
-		"""<tr>\n<td>123</td>\n</tr>\n""" == html
+		column1.td = "return '1' + '2' + '3'"
+		assert column1.save()
+		
+		expect:
+		assertBody view1, [[column1:"abc"]], """<tr><td>123</td></tr>"""
 	}
 
-	def "process custom template and use record"() {
+	def "process a td template with record"() {
 		given:
-		column1.td = """ return record.column1+":"+record.column1 """
-		def records = [[column1:"555"]]
-
-		when:
-		def html = builder.build(view1, records, 1)
-
-		then:
-		"""<tr>\n<td>555:555</td>\n</tr>\n""" == html
+		column1.td = "return record.column1 + record.column1"
+		assert column1.save()
+		
+		expect:
+		assertBody view1, [[column1:"abc"]], """<tr><td>abcabc</td></tr>"""
 	}
 
-	def "if setting is hidden, no cell is output "() {
+	def "process a td template with record and column"() {
 		given:
-		def records = [[column1:"abc"]]
+		column1.td = "return record.column1 + column.type"
+		assert column1.save()
+		
+		expect:
+		assertBody view1, [[column1:"abc"]], """<tr><td>abcstring</td></tr>"""
+	}
 
-		when:
+	def "td template exception return #error"() {
+		given:
+		column1.td = "throw new RuntimeException('boom!')"
+		assert column1.save()
+		
+		expect:
+		assertBody view1, [[column1:"abc"]], """<tr><td>#error</td></tr>"""
+	}
+
+	def "if column is hidden, its not output"() {
+		given:
 		setting1.visible = false
-		def html = builder.build(view1, records, 1)
-
-		then:
-		"<tr>\n</tr>\n" == html
+		assert setting1.save()
+		
+		expect:
+		assertBody view1, [[column1:"abc"]], """<tr></tr>"""
 	}
+
 
 }
+
+
+

@@ -5,24 +5,62 @@ class Setting {
 	static belongsTo = [ column: Column ]
 
 	static SORTS = [ "", "ASC", "DESC" ]
+	static COMPARES = [
+		"", "=", "<>", "<", ">", "<=", ">=", "begins with", "contains", "does not contain",
+		"ends with", "is null", "is not null", "in list", "not in list",
+	]
 
 	Long userId
 	Integer sequence
 	Boolean visible = true
-	String sort = ""
-    String compare = ""
+	String sort = SORTS[0]
+    String compare = COMPARES[0]
     String value = ""
 
 	static mapping = {
 		table "customview_setting"
 	}
     static constraints = {
-		sort inList: SORTS, maxSize: 10
-        compare blank:true, maxSize: 20
+		sort blank:true, inList: SORTS, maxSize: 10
+        compare blank:true, inList:COMPARES, maxSize: 20
         value blank:true, maxSize: 1000
 	}
 
     String toString() {
 		"Setting[$id] $column.view | $column.name | $userId | $sequence"
 	}
+
+	void clearUserSorts() {
+		column.clearUserSorts userId
+	}
+	
+	static Setting getOrCreateSetting(Column column, Long userId) {
+		def setting = Setting.findByColumnAndUserId(column, userId)
+		
+		if(setting) 
+			return setting
+
+		setting = new Setting(column:column, userId:userId)
+		setting.sequence = getNextSettingSequence(column.view, userId)
+		column.addToSettings setting
+		
+		if(column.save()) {
+			setting.log.info "created setting $column.name $userId"
+			setting 
+		} else {
+			setting.log.warn "unable to save the column $column"
+			setting.log.warn column.dump()
+			throw new RuntimeException("something blew")
+		}
+	}
+
+	static Integer getNextSettingSequence(View view, Long userId) {
+		def settings = Setting.where {
+			column.view == view &&
+			userId == userId
+		}.list(sort:"sequence", order:"desc")
+
+		settings ? settings[0].sequence + 1 : 1
+	}
+
 }
