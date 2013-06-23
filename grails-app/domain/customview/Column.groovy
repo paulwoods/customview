@@ -2,9 +2,6 @@ package customview
 
 class Column {
 
-	def customViewFactory
-	def customViewService
-
 	static belongsTo = [view: View]
 
 	static hasMany = [ settings: Setting ]

@@ -5,6 +5,7 @@ class Setting {
 	static belongsTo = [ column: Column ]
 
 	static SORTS = [ "", "ASC", "DESC" ]
+	
 	static COMPARES = [
 		"", "=", "<>", "<", ">", "<=", ">=", "begins with", "contains", "does not contain",
 		"ends with", "is null", "is not null", "in list", "not in list",
@@ -20,6 +21,7 @@ class Setting {
 	static mapping = {
 		table "customview_setting"
 	}
+
     static constraints = {
 		sort blank:true, inList: SORTS, maxSize: 10
         compare blank:true, inList:COMPARES, maxSize: 20

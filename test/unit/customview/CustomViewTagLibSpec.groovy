@@ -60,10 +60,6 @@ class CustomViewTagLibSpec extends Specification {
 		Column columnDescription = new Column(view:viewPcns, name:"Description", sql:"pcn.description", sequence:2).save()
 		assert columnDescription
 
-		columnNumber.customViewService = [ getOrCreateSetting: { Column c, Long u -> new Setting() } ]
-		columnTitle.customViewService = [ getOrCreateSetting: { Column c, Long u -> new Setting() } ]
-		columnDescription.customViewService = [ getOrCreateSetting: { Column c, Long u -> new Setting() } ]
-
 		def expected1 = """<table id="pcns" class="classview">
 			|<caption><a href="http://localhost:8080/customView/customize?name=pcns&returnURL=http%3A%2F%2Flocalhost%3A8080%2F">Customize</a></caption>
 			|<thead>

@@ -2,8 +2,6 @@ package customview
 
 class HeadBuilder {
 	
-	def customViewFactory
-
 	String build(View view, Long userId) {
 		
 		StringBuilder sb = new StringBuilder()

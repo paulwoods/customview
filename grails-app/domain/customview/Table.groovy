@@ -2,8 +2,6 @@ package customview
 
 class Table {
 
-	def customViewFactory
-
 	static belongsTo = [view: View]
 
 	String name

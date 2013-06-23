@@ -5,7 +5,6 @@ package customview
  **/
 class BodyBuilder {
 	
-	def customViewFactory
 	def shell = new GroovyShell()
 
 	String build(View view, List records, long userId) {

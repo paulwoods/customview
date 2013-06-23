@@ -2,7 +2,6 @@ package customview
 
 class View {
 
-	def customViewFactory
 	def customViewService
 
 	static hasMany = [ 
@@ -41,13 +40,12 @@ class View {
 		}
 	}
 
-	String getSort(userId) {
-		def setting = Setting.findAllByUserIdAndColumnInList(userId, columns).find { it.sort }
-
-		if(setting) 
-			"${setting.column.sql} ${setting.sort}"
-		else
-			""
+	Setting getSortSetting(Long userId) {
+		Setting.where {
+			column in columns &&
+			userId == userId
+			sort != "" 
+		}.find()
 	}
 
 	void clearUserSorts(Long userId) {
