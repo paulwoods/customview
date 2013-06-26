@@ -1,4 +1,4 @@
-node-issues [![Build Status](https://travis-ci.org/paulwoods/customview.png)](https://travis-ci.org/paulwoods/customview)
+customview [![Build Status](https://travis-ci.org/paulwoods/customview.png)](https://travis-ci.org/paulwoods/customview)
 ===========
 
 A highly configurable list view.
