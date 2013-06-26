@@ -62,6 +62,16 @@ class CustomViewController {
 		}
 	}
 
+	def reset(Long settingId) {
+		withSetting(settingId) { Setting setting ->
+			setting.visible = true
+			setting.sort = Setting.SORTS[0]
+			setting.compare = Setting.COMPARES[0]
+			setting.value = ""
+			finish setting
+		}
+	}
+
 	private def withSetting(Long settingId, Closure closure) {
 		Setting setting = Setting.get(settingId)
 		if (setting)

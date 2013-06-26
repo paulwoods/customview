@@ -15,20 +15,20 @@ class Setting {
 	Integer sequence
 	Boolean visible = true
 	String sort = SORTS[0]
-    String compare = COMPARES[0]
-    String value = ""
+	String compare = COMPARES[0]
+	String value = ""
 
 	static mapping = {
 		table "customview_setting"
 	}
 
-    static constraints = {
+	static constraints = {
 		sort blank:true, inList: SORTS, maxSize: 10
-        compare blank:true, inList:COMPARES, maxSize: 20
-        value blank:true, maxSize: 1000
+		compare blank:true, inList:COMPARES, maxSize: 20
+		value blank:true, maxSize: 1000
 	}
 
-    String toString() {
+	String toString() {
 		"Setting[$id] $column.view | $column.name | $userId | $sequence"
 	}
 

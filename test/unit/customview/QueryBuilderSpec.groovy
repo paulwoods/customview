@@ -40,6 +40,21 @@ class QueryBuilderSpec extends Specification {
 		assert setting2
 	}
 
+	boolean assertBuilt(String type, String compare, String value, List result) {
+		column1.type = type
+		assert column1.save()
+
+		setting1.compare = compare
+		setting1.value = value
+		assert setting1.save()
+
+		def query = builder.build(view1, 0, userId)
+
+		assert result == query.wheres
+
+		true
+	}
+
 	def "null view returns a empty query"() {
 		when:
 		def query = builder.build(null, 0, userId)
@@ -119,33 +134,165 @@ class QueryBuilderSpec extends Specification {
 		["table2.column2 DESC"] == query.orders
 	}
 
-	def "add compare settings to the wheres"() {
-		given:
-		setting1.compare = "="
-		setting1.value = "abc"
-		assert setting1.save()
-
-		when:
-		def query = builder.build(view1, 0, userId)
-
-		then:
-		["table1.column1 = 'abc'"] == query.wheres
+	def "test blank compare"() {
+		expect:
+		assertBuilt "STRING", "", "abc",        []
+		assertBuilt "NUMBER", "", "123",        []
+		assertBuilt "DATE",   "", "2000-01-02", []
 	}
 
-	def "add compare settings with number columns"() {
-		given:
-		column1.type = "NUMBER"
-		assert column1.save()
+	def "test equals"() {
+		expect:
+		assertBuilt "STRING", "=", "abc",        	["table1.column1 = 'abc'"]
+		assertBuilt "NUMBER", "=", "123",        	["table1.column1 = 123"]
+		assertBuilt "DATE",   "=", "2000-01-02", 	["table1.column1 = '2000-01-02'"]
 
-		setting1.compare = "="
-		setting1.value = "123"
-		assert setting1.save()
+		assertBuilt "STRING", "=", "",        		[]
+		assertBuilt "NUMBER", "=", "",       		[]
+		assertBuilt "DATE",   "=", "", 				[]
+	}
 
-		when:
-		def query = builder.build(view1, 0, userId)
+	def "test not equals"() {
+		expect:
+		assertBuilt "STRING", "<>", "abc",        	["table1.column1 <> 'abc'"]
+		assertBuilt "NUMBER", "<>", "123",        	["table1.column1 <> 123"]
+		assertBuilt "DATE",   "<>", "2000-01-02", 	["table1.column1 <> '2000-01-02'"]
 
-		then:
-		["table1.column1 = 123"] == query.wheres
+		assertBuilt "STRING", "<>", "",        		[]
+		assertBuilt "NUMBER", "<>", "",       		[]
+		assertBuilt "DATE",   "<>", "", 			[]
+	}
+
+	def "test less than"() {
+		expect:
+		assertBuilt "STRING", "<", "abc",        	["table1.column1 < 'abc'"]
+		assertBuilt "NUMBER", "<", "123",        	["table1.column1 < 123"]
+		assertBuilt "DATE",   "<", "2000-01-02", 	["table1.column1 < '2000-01-02'"]
+
+		assertBuilt "STRING", "<", "",				[]
+		assertBuilt "NUMBER", "<", "",				[]
+		assertBuilt "DATE",   "<", "",				[]
+	}
+
+	def "test greater than"() {
+		expect:
+		assertBuilt "STRING", ">", "abc",        	["table1.column1 > 'abc'"]
+		assertBuilt "NUMBER", ">", "123",        	["table1.column1 > 123"]
+		assertBuilt "DATE",   ">", "2000-01-02", 	["table1.column1 > '2000-01-02'"]
+
+		assertBuilt "STRING", ">", "",        		[]
+		assertBuilt "NUMBER", ">", "",       		[]
+		assertBuilt "DATE",   ">", "", 				[]
+	}
+
+	def "test less than or equal to"() {
+		expect:
+		assertBuilt "STRING", "<=", "abc",        	["table1.column1 <= 'abc'"]
+		assertBuilt "NUMBER", "<=", "123",        	["table1.column1 <= 123"]
+		assertBuilt "DATE",   "<=", "2000-01-02", 	["table1.column1 <= '2000-01-02'"]
+
+		assertBuilt "STRING", "<=", "",				[]
+		assertBuilt "NUMBER", "<=", "",				[]
+		assertBuilt "DATE",   "<=", "",				[]
+	}
+
+	def "test greater than or equal to"() {
+		expect:
+		assertBuilt "STRING", ">=", "abc",        	["table1.column1 >= 'abc'"]
+		assertBuilt "NUMBER", ">=", "123",        	["table1.column1 >= 123"]
+		assertBuilt "DATE",   ">=", "2000-01-02", 	["table1.column1 >= '2000-01-02'"]
+
+		assertBuilt "STRING", ">=", "",        		[]
+		assertBuilt "NUMBER", ">=", "",       		[]
+		assertBuilt "DATE",   ">=", "", 			[]
+	}
+
+	def "test begins with"() {
+		expect:
+		assertBuilt "STRING", "begins with", "abc",        	["table1.column1 like 'abc%'"]
+		assertBuilt "NUMBER", "begins with", "123",        	["table1.column1 like '123%'"]
+		assertBuilt "DATE",   "begins with", "2000-01-02", 	["table1.column1 like '2000-01-02%'"]
+
+		assertBuilt "STRING", "begins with", "",        	[]
+		assertBuilt "NUMBER", "begins with", "",       		[]
+		assertBuilt "DATE",   "begins with", "", 			[]
+	}
+
+	def "test contains"() {
+		expect:
+		assertBuilt "STRING", "contains", "abc",        	["table1.column1 like '%abc%'"]
+		assertBuilt "NUMBER", "contains", "123",        	["table1.column1 like '%123%'"]
+		assertBuilt "DATE",   "contains", "2000-01-02", 	["table1.column1 like '%2000-01-02%'"]
+
+		assertBuilt "STRING", "contains", "",        	[]
+		assertBuilt "NUMBER", "contains", "",       	[]
+		assertBuilt "DATE",   "contains", "", 			[]
+	}
+
+	def "test ends with"() {
+		expect:
+		assertBuilt "STRING", "ends with", "abc",        ["table1.column1 like '%abc'"]
+		assertBuilt "NUMBER", "ends with", "123",        ["table1.column1 like '%123'"]
+		assertBuilt "DATE",   "ends with", "2000-01-02", ["table1.column1 like '%2000-01-02'"]
+
+		assertBuilt "STRING", "ends with", "",        	[]
+		assertBuilt "NUMBER", "ends with", "",       	[]
+		assertBuilt "DATE",   "ends with", "", 			[]
+	}
+
+	def "test does not contain"() {
+		expect:
+		assertBuilt "STRING", "does not contain", "abc",        ["table1.column1 not like '%abc%'"]
+		assertBuilt "NUMBER", "does not contain", "123",        ["table1.column1 not like '%123%'"]
+		assertBuilt "DATE",   "does not contain", "2000-01-02", ["table1.column1 not like '%2000-01-02%'"]
+
+		assertBuilt "STRING", "does not contain", "",        	[]
+		assertBuilt "NUMBER", "does not contain", "",       	[]
+		assertBuilt "DATE",   "does not contain", "", 			[]
+	}
+
+	def "test is null"() {
+		expect:
+		assertBuilt "STRING", "is null", "abc",        ["table1.column1 is null"]
+		assertBuilt "NUMBER", "is null", "123",        ["table1.column1 is null"]
+		assertBuilt "DATE",   "is null", "2000-01-02", ["table1.column1 is null"]
+
+		assertBuilt "STRING", "is null", "",        	["table1.column1 is null"]
+		assertBuilt "NUMBER", "is null", "",       		["table1.column1 is null"]
+		assertBuilt "DATE",   "is null", "", 			["table1.column1 is null"]
+	}
+
+	def "test is not null"() {
+		expect:
+		assertBuilt "STRING", "is not null", "abc",        ["table1.column1 is not null"]
+		assertBuilt "NUMBER", "is not null", "123",        ["table1.column1 is not null"]
+		assertBuilt "DATE",   "is not null", "2000-01-02", ["table1.column1 is not null"]
+
+		assertBuilt "STRING", "is not null", "",        	["table1.column1 is not null"]
+		assertBuilt "NUMBER", "is not null", "",       		["table1.column1 is not null"]
+		assertBuilt "DATE",   "is not null", "", 			["table1.column1 is not null"]
+	}
+
+	def "test is in list"() {
+		expect:
+		assertBuilt "STRING", "in list", "\na\nb\nc\n\n",        ["table1.column1 in ('a','b','c')"]
+		assertBuilt "NUMBER", "in list", "\n1\n2\n3\n\n",        ["table1.column1 in (1,2,3)"]
+		assertBuilt "DATE",   "in list", "\n2000-01-02\n2010-03-04\n\n", ["table1.column1 in ('2000-01-02','2010-03-04')"]
+
+		assertBuilt "STRING", "in list", "",        	[]
+		assertBuilt "NUMBER", "in list", "",       		[]
+		assertBuilt "DATE",   "in list", "", 			[]
+	}
+
+	def "test is not in list"() {
+		expect:
+		assertBuilt "STRING", "not in list", "\na\nb\nc\n\n",        ["table1.column1 not in ('a','b','c')"]
+		assertBuilt "NUMBER", "not in list", "\n1\n2\n3\n\n",        ["table1.column1 not in (1,2,3)"]
+		assertBuilt "DATE",   "not in list", "\n2000-01-02\n2010-03-04\n\n", ["table1.column1 not in ('2000-01-02','2010-03-04')"]
+
+		assertBuilt "STRING", "not in list", "",        	[]
+		assertBuilt "NUMBER", "not in list", "",       		[]
+		assertBuilt "DATE",   "not in list", "", 			[]
 	}
 
 }

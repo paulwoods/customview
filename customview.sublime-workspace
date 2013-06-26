@@ -251,7 +251,7 @@
 			"file": "test/unit/customview/ColumnSpec.groovy",
 			"settings":
 			{
-				"buffer_size": 1754,
+				"buffer_size": 2962,
 				"line_ending": "Unix"
 			}
 		},
@@ -259,7 +259,7 @@
 			"file": "src/groovy/customview/CustomViewPlugin.groovy",
 			"settings":
 			{
-				"buffer_size": 271,
+				"buffer_size": 272,
 				"line_ending": "Windows"
 			}
 		},
@@ -267,7 +267,7 @@
 			"file": "grails-app/controllers/customview/CustomViewController.groovy",
 			"settings":
 			{
-				"buffer_size": 2327,
+				"buffer_size": 2552,
 				"line_ending": "Unix"
 			}
 		},
@@ -283,7 +283,7 @@
 			"file": "grails-app/domain/customview/View.groovy",
 			"settings":
 			{
-				"buffer_size": 994,
+				"buffer_size": 1055,
 				"line_ending": "Unix"
 			}
 		},
@@ -291,7 +291,7 @@
 			"file": "test/unit/customview/CustomViewTagLibSpec.groovy",
 			"settings":
 			{
-				"buffer_size": 2462,
+				"buffer_size": 1970,
 				"line_ending": "Unix"
 			}
 		},
@@ -309,6 +309,22 @@
 			{
 				"buffer_size": 724,
 				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "web-app/js/customize.js",
+			"settings":
+			{
+				"buffer_size": 4016,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "grails-app/views/customView/customize.gsp",
+			"settings":
+			{
+				"buffer_size": 1896,
+				"line_ending": "Windows"
 			}
 		}
 	],
@@ -949,7 +965,7 @@
 	"groups":
 	[
 		{
-			"selected": 7,
+			"selected": 8,
 			"sheets":
 			[
 				{
@@ -958,15 +974,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1754,
+						"buffer_size": 2962,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								685,
-								685
+								0,
+								0
 							]
 						],
 						"settings":
@@ -986,15 +1002,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 271,
+						"buffer_size": 272,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								143,
-								143
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1014,15 +1030,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2327,
+						"buffer_size": 2552,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1784,
-								1784
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1070,7 +1086,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 994,
+						"buffer_size": 1055,
 						"regions":
 						{
 						},
@@ -1098,15 +1114,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2462,
+						"buffer_size": 1970,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								603,
-								603
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1175,6 +1191,62 @@
 						"zoom_level": 1.0
 					},
 					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "web-app/js/customize.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4016,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3744,
+								3963
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 4608.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "grails-app/views/customView/customize.gsp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1896,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1480,
+								1866
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Grails/View/GSP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1193.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
 				}
 			]
 		}
@@ -1237,6 +1309,14 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"customize.gsp",
+				"grails-app\\views\\customView\\customize.gsp"
+			],
+			[
+				"customize.js",
+				"web-app\\js\\customize.js"
+			],
 			[
 				"failedto",
 				"src\\groovy\\customview\\FailedToCreateTableException.groovy"
@@ -1364,14 +1444,6 @@
 			[
 				"boo",
 				"grails-app\\conf\\BootStrap.groovy"
-			],
-			[
-				"customize.js",
-				"web-app\\js\\customize.js"
-			],
-			[
-				"customize.gsp",
-				"grails-app\\views\\customView\\customize.gsp"
 			],
 			[
 				"customviewtaglib",

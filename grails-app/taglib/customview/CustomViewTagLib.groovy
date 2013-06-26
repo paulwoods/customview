@@ -10,11 +10,14 @@ class CustomViewTagLib {
 
 	def customView = { attrs, body ->
 		View view = View.findByName(attrs.name)
-		if(!view)
-			throw new IdInvalidException(this, attrs)
+		if(!view) {
+			log.warn "view not found: $attrs.name"
+			out << "<div>view not found: $attrs.name</div>"
+			return 
+		}
 
 		Long userId = customViewPlugin.getCurrentUserId()
-		
+
 		openTable attrs
 		caption view
 		openHead()

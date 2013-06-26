@@ -76,6 +76,52 @@ class ColumnSpec extends Specification {
 		"STRING" == new Column().type
 	}
 
+	def "null value returns empty string"() {
+		given:
+		def column1 = new Column(view:view1, type:"STRING", name:"column1", sql:"table1.column1", sequence:0).save()
+		assert column1
 
+		expect:
+		"" == column1.value([column1:null])
+	}
+
+	def "string value is returned"() {
+		given:
+		def column1 = new Column(view:view1, type:"STRING", name:"column1", sql:"table1.column1", sequence:0).save()
+		assert column1
+
+		expect:
+		"abc" == column1.value([column1:"abc"])
+	}
+
+	def "number value is returned"() {
+		given:
+		def column1 = new Column(view:view1, type:"STRING", name:"column1", sql:"table1.column1", sequence:0).save()
+		assert column1
+
+		expect:
+		"123" == column1.value([column1:123])
+	}
+
+	def "zero value is returned"() {
+		given:
+		def column1 = new Column(view:view1, type:"STRING", name:"column1", sql:"table1.column1", sequence:0).save()
+		assert column1
+
+		expect:
+		"0" == column1.value([column1:0])
+	}
+
+	def "date value is formatted yyyy-MM-dd"() {
+		given:
+		def column1 = new Column(view:view1, type:"DATE", name:"column1", sql:"table1.column1", sequence:0).save()
+		assert column1
+
+		def date = Date.parse("yyyy-MM-dd", "2010-01-02")
+
+		expect:
+		"2010-01-02" == column1.value(column1: date)
+	}
 
 }
+

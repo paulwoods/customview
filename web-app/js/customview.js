@@ -66,8 +66,15 @@
 			}
 		},
 
-		failure: function() {
+		failure: function(header) {
 			this.settings.fetching = false;
+			try {
+				alert($.parseJSON(header.responseText).message);
+			} catch(e) {
+				$(document.documentElement).html(function(){
+					return header.responseText;
+				});
+			}
 		},
 
 		// the user has adjusted the scroll bar

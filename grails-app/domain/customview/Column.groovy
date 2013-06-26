@@ -57,7 +57,7 @@ class Column {
 	String value(Map record) {
 		def val = record[name]
 		
-		if(!val) 
+		if(null == val) 
 			return ""
 
 		if("DATE" == type)

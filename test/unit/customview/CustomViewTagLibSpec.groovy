@@ -27,8 +27,7 @@ class CustomViewTagLibSpec extends Specification {
 		def actual = applyTemplate(call)
 
 		then:
-		Exception e = thrown()
-		"Error executing tag <specteam:customView>: invalid custom view. name=null controller=null action=null" == e.message
+		"<div>view not found: null</div>" == actual
 	}
 
 	def "invalid name throws exception"() {
@@ -39,8 +38,7 @@ class CustomViewTagLibSpec extends Specification {
 		def actual = applyTemplate(call)
 
 		then:
-		Exception e = thrown()
-		"Error executing tag <specteam:customView>: invalid custom view. name=wrong-name controller=null action=null" == e.message
+		"<div>view not found: wrong-name</div>" == actual
 	}
 
 	def "build a three column header"() {

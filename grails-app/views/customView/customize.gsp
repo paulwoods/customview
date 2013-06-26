@@ -7,7 +7,12 @@
 	<g:javascript src="customize.js"/>
 </head>
 <body>
-	<h1>Customize: ${view.name}</h1>
+	<h1>
+		Customize: ${view.name}
+		<img id="waiting" src="${resource(dir: 'images', file: 'spinner.gif')}">
+	</h1>
+	
+
 	<table id="customize" class="classview-modify">
 	<caption><a href="${returnURL}">Return</a></caption>
 	<thead>
@@ -34,8 +39,14 @@
 			'', '=', '<>', '<', '>', '<=', '>=', 'begins with', 'contains', 'does not contain',
 			'ends with', 'is null', 'is not null', 'in list', 'not in list',
 			]}" name="compare" value="${setting.compare}"/></td>
-		<td><textarea class="value" rows="1" cols="15" placeholder="${placeholder}">${setting.value}</textarea></td>
-		<td><input type="submit" class="save" value="save"/></td>
+		<td>
+			<textarea class="value" rows="1" cols="15" placeholder="${placeholder}">${setting.value}</textarea>
+			<input type="button" class="save" value="save"/>
+		</td>
+		<td>
+			<input type="button" class="reset" value="reset"/>
+			
+		</td>
 	</tr>
 	</g:each>
 	</tbody>
@@ -49,7 +60,8 @@
 			sortURL: '<g:createLink action="sort" absolute="true"/>',
 			visibleURL: '<g:createLink action="visible" absolute="true"/>',
 			compareURL: '<g:createLink action="compare" absolute="true"/>',
-			valueURL: '<g:createLink action="value" absolute="true"/>'
+			valueURL: '<g:createLink action="value" absolute="true"/>',
+			resetURL: '<g:createLink action="reset" absolute="true"/>'
 		});
 	});
 
