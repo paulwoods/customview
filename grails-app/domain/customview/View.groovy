@@ -30,7 +30,7 @@ class View {
 		name = name?.trim()
 	}
 
-	Map fetch(Integer offset, Long userId, database) {
+	Result fetch(Integer offset, Long userId, database) {
 		customViewService.fetch this, offset, userId, database
 	}
 

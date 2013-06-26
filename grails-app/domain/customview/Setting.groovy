@@ -32,6 +32,12 @@ class Setting {
 		"Setting[$id] $column.view | $column.name | $userId | $sequence"
 	}
 
+	def beforeValidate() {
+		sort = sort?.trim()
+		compare = compare?.trim()
+		value = value?.trim()
+	}
+
 	void clearUserSorts() {
 		column.clearUserSorts userId
 	}
@@ -48,17 +54,18 @@ class Setting {
 		
 		if(column.save()) {
 			setting.log.info "created setting $column.name $userId"
-			setting 
 		} else {
 			setting.log.warn "unable to save the column $column"
 			setting.log.warn column.dump()
-			throw new RuntimeException("something blew")
+			throw new RuntimeException("unable to save the setting.")
 		}
+		
+		setting 
 	}
 
 	static Integer getNextSettingSequence(View view, Long userId) {
 		def settings = Setting.where {
-			column.view == view &&
+			view.columns in columns && 
 			userId == userId
 		}.list(sort:"sequence", order:"desc")
 

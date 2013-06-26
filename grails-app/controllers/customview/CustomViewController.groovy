@@ -13,14 +13,20 @@ class CustomViewController {
 			log.warn "view not found: $name"
 			return render(status:500, text: [message:"view not found"] as JSON)
 		}
-
-		Long userId = customViewPlugin.getCurrentUserId()
+		
+		def database
 		
 		try {
-			render view.fetch(offset, userId, customViewPlugin.getConnection()) as JSON
+			database = customViewPlugin.getConnection()
+			Long userId = customViewPlugin.getCurrentUserId()
+			Result result = view.fetch(offset, userId, database)
+			def map = [offset: result.offset, html: result.html, moreData: result.moreData ]
+			render map as JSON
 		} catch(e) {
 			log.error e.message, e
 			return render(status:500, text: [message:e.message] as JSON)
+		} finally {
+			database.close()
 		}
 	}
 

@@ -63,7 +63,7 @@ class QueryBuilderSpec extends Specification {
 		!query.selects
 		!query.froms
 		!query.orders
-		!query.fetchSize
+		!query.count
 		!query.offset
 	}
 
@@ -72,7 +72,7 @@ class QueryBuilderSpec extends Specification {
 		def query = builder.build(view1, 0, userId)
 
 		then:
-		view1.fetchSize == query.fetchSize
+		view1.fetchSize == query.count
 	}
 
 	def "offset is stored in query"() {

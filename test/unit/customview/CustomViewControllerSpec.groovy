@@ -17,7 +17,7 @@ class CustomViewControllerSpec extends Specification {
 	def setup() {
 		controller.customViewPlugin = [
 			getCurrentUserId:{ -> 123456 },
-			getConnection: { -> null },
+			getConnection: { -> [close: { -> }] },
 		]
 
 		view1 = new View(name:"view1").save()
@@ -50,14 +50,16 @@ class CustomViewControllerSpec extends Specification {
 		view1.metaClass.fetch = { Integer o, Long u, db -> 
 			assert 111 == o
 			assert 123456 == u
-			[result:"success"]
+			new Result(offset:123, html:"<div></div>", moreData:true)
 		}
 		
 		when:
 		controller.fetch("view1", 111)
 
 		then:
-		"success" == response.json.result
+		123 == response.json.offset
+		"<div></div>" == response.json.html
+		true == response.json.moreData
 	}
 
 	def "fetch handles exceptions"() {
@@ -338,6 +340,31 @@ class CustomViewControllerSpec extends Specification {
 		then:
 		500 == response.status
 		"Unable to save the setting." == response.json.message
+	}
+
+	def "reset sets the setting back to the default values"() {
+		given:
+		setting1.visible = false
+		setting1.sort = Setting.SORTS[1]
+		setting1.compare = Setting.COMPARES[1]
+		setting1.value = "abc"
+		assert setting1.save()
+
+		params.settingId = setting1.id
+
+		when:
+		def model = controller.reset()
+
+		then:
+		setting1.visible == true
+		setting1.sort == Setting.SORTS[0]
+		setting1.compare == Setting.COMPARES[0]
+		setting1.value == ""
+
+		response.json.visible == true
+		response.json.sort == Setting.SORTS[0]
+		response.json.compare == Setting.COMPARES[0]
+		response.json.value == ""
 	}
 
 }

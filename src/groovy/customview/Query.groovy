@@ -9,8 +9,8 @@ class Query {
 	List<String> orders = []
 	List<String> wheres = []
 
-	Integer fetchSize
-	Integer offset
+	Long count
+	Long offset
 
 	void addSelect(String name) {
 		selects << name
@@ -27,34 +27,6 @@ class Query {
 	void addWhere(String name) {
 		wheres << name
 	}
-
-	String toSQL() {
-		StringBuilder sb = new StringBuilder()
-		sb << "select "
-		sb << selects.join(", ")
-		
-		sb << " from "
-		sb << froms.join(", ")
-
-		if(wheres) {
-			sb << " where "
-			sb << wheres.join(" and ")
-		}
-
-		if(orders) {
-			sb << " order by "
-			sb << orders.join(", ")
-		}
-
-		sb << " limit $offset, $fetchSize"
-		
-		sb.toString()
-	}
-
-	List run(database) {
-		runner.run this, database
-	}
-
 
 }
 

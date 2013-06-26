@@ -108,5 +108,17 @@ class ViewSpec extends Specification {
 		"" == setting2.sort
 	}
 
+	def "fetch is sent to the service"() {
+		given:
+		def service = Mock(CustomViewService)
+		view1.customViewService = service
+
+		when:
+		view1.fetch(1, 123456, "db")
+
+		then:
+		1 * service.fetch(view1, 1, 123456, "db") >> [:]
+	}
+
 }
 

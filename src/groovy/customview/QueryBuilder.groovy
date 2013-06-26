@@ -10,7 +10,7 @@ class QueryBuilder {
 			return query
 		}
 
-		query.fetchSize = view.fetchSize
+		query.count = view.fetchSize
 		query.offset = offset
 
 		view.columns.each { Column column ->
@@ -22,9 +22,6 @@ class QueryBuilder {
 		}
 
 		view.getCompareSettings(userId).each { Setting setting ->
-			if(!setting.compare)
-				return
-
 			def value = setting.value
 			
 			switch(setting.compare) {
@@ -43,9 +40,6 @@ class QueryBuilder {
 
 					case "NUMBER":
 					break
-
-					default:
-					assert false
 				}
 				
 				query.addWhere setting.column.sql + " " + setting.compare + " " + value
@@ -104,9 +98,6 @@ class QueryBuilder {
 					}
 					value = values.join(",")
 					break
-
-					default:
-					assert false
 				}
 
 				query.addWhere setting.column.sql + " in (" + value + ")"
@@ -136,9 +127,6 @@ class QueryBuilder {
 					}
 					value = values.join(",")
 					break
-
-					default:
-					assert false
 				}
 
 				query.addWhere setting.column.sql + " not in (" + value + ")"
