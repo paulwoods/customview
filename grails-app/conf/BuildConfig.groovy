@@ -55,6 +55,8 @@ grails.project.dependency.resolution = {
 		}
 
 		compile ":cache-headers:1.1.5"
+		compile ":codenarc:0.18.1"
+		compile ":gmetrics:0.3.1"
 	}
-	
+
 }
