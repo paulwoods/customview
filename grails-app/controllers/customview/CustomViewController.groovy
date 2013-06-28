@@ -78,6 +78,19 @@ class CustomViewController {
 		}
 	}
 
+	def order() {
+		params.each { key, value -> 
+			if(key.startsWith("id")) {
+				def setting = Setting.get(key.substring(2))
+				if(setting) {
+					setting.sequence = value.toInteger()
+					setting.save()
+				}
+			}
+		}
+		render(status: 200, contentType: "application/json") { [:] }
+	}
+
 	private def withSetting(Long settingId, Closure closure) {
 		Setting setting = Setting.get(settingId)
 		if (setting)

@@ -2,9 +2,6 @@ import customview.*
 
 class BootStrap {
 
-	def customViewService
-	def customViewPlugin
-
 	def init = { servletContext ->
 
 		def userId = 1
@@ -17,10 +14,6 @@ class BootStrap {
 		viewPcns.addToColumns name:"Date Publish", sql:"pcn.date_publish", type:"DATE", classHead:"nowrap", sequence: 3
 		viewPcns.addToColumns name:"Days Expiration", sql:"pcn.days_expiration", type:"NUMBER", classHead:"nowrap", sequence: 4
 		viewPcns.save(flush:true)
-
-		// def setting = title.getSetting(userId)
-		// setting.sort = "ASC"
-		// setting.save()
 	}
 
 	def destroy = {

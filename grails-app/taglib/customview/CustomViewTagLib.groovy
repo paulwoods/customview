@@ -15,6 +15,7 @@ class CustomViewTagLib {
 			out << "<div>view not found: $attrs.name</div>"
 			return 
 		}
+println "### url = $attrs.url"
 
 		Long userId = customViewPlugin.getCurrentUserId()
 

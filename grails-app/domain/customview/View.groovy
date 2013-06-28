@@ -40,6 +40,10 @@ class View {
 		}
 	}
 
+	List<Setting> getSettingsInOrder(Long userId) {
+		getSettings(userId).sort { it.sequence }
+	}
+
 	Setting getSortSetting(Long userId) {
 		Setting.where {
 			column in columns &&

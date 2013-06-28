@@ -4,20 +4,21 @@
 	<meta name="layout" content="main"/>
 	<title>Customize: ${view.name}</title>
 	<g:javascript src="jquery-1.10.0.min.js"/>
+	<g:javascript src="jquery-ui-1.10.3.min.js"/>
 	<g:javascript src="customize.js"/>
+	<style>
+	.ui-state-highlight { height: 2em; }
+	</style>
 </head>
 <body>
 	<h1>
 		Customize: ${view.name}
 		<img id="waiting" src="${resource(dir: 'images', file: 'spinner.gif')}">
 	</h1>
-	
-
 	<table id="customize" class="classview-modify">
 	<caption><a href="${returnURL}">Return</a></caption>
 	<thead>
 	<tr>
-		<th>Order</th>
 		<th>Title</th>
 		<th>Visible</th>
 		<th>Sort</th>
@@ -27,25 +28,19 @@
 	</tr>
 	</thead>
 	<tbody>
-	<g:each in="${view.columns}" var="column">
-	<g:set var="setting" value="${column.getSetting(userId)}"/>
-	<g:set var="placeholder" value="${'DATE' == column.type ? 'yyyy-mm-dd' : ''}"/>
+	<g:each in="${view.getSettingsInOrder(userId)}" var="setting">
+	<g:set var="placeholder" value="${'DATE' == setting.column.type ? 'yyyy-mm-dd' : ''}"/>
 	<tr data-id="${setting.id}">
-		<td>==</td>
-		<td>${column.name}</td>
+		<td>${setting.column.name}</td>
 		<td><g:checkBox class="visible" name="visible" checked="${setting.visible}"/></td>
 		<td><g:select class="sort" from="${['','ASC','DESC']}" name="sort" value="${setting.sort}"/></td>
-		<td><g:select class="compare" from="${[
-			'', '=', '<>', '<', '>', '<=', '>=', 'begins with', 'contains', 'does not contain',
-			'ends with', 'is null', 'is not null', 'in list', 'not in list',
-			]}" name="compare" value="${setting.compare}"/></td>
+		<td><g:select class="compare" from="${customview.Setting.COMPARES}" name="compare" value="${setting.compare}"/></td>
 		<td>
 			<textarea class="value" rows="1" cols="15" placeholder="${placeholder}">${setting.value}</textarea>
 			<input type="button" class="save" value="save"/>
 		</td>
 		<td>
 			<input type="button" class="reset" value="reset"/>
-			
 		</td>
 	</tr>
 	</g:each>
@@ -61,7 +56,8 @@
 			visibleURL: '<g:createLink action="visible" absolute="true"/>',
 			compareURL: '<g:createLink action="compare" absolute="true"/>',
 			valueURL: '<g:createLink action="value" absolute="true"/>',
-			resetURL: '<g:createLink action="reset" absolute="true"/>'
+			resetURL: '<g:createLink action="reset" absolute="true"/>',
+			orderURL: '<g:createLink action="order" absolute="true"/>'
 		});
 	});
 

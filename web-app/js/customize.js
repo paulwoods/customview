@@ -11,6 +11,7 @@
 		this.visibleURL = '';
 		this.compareURL = '';
 		this.valueURL = '';
+		this.orderURL = '';
 
 		$.extend(this, options);
 		this.$el = $(this.el);
@@ -27,6 +28,10 @@
 		this.$el.find('input.save').hide();
 		$(document).ajaxStart( function() { self.show(); });
 		$(document).ajaxStop( function() { self.hide(); });
+
+		$("#customize tbody")
+			.sortable({placeholder: "ui-state-highlight"})
+			.on("sortstop", function(e,ui) { self.order(e,ui); });
 
 		this.hide();
 	}
@@ -166,6 +171,36 @@
 		$tr.find('input.save').hide();
 	};
 
+	Customize.prototype.order = function(e, ui) {
+		var data = '';
+
+		var first = true
+
+		this.$el.find("tbody tr").each(function(i) {
+			if(first) {
+				first = false;
+			} else {
+				data += "&";
+			}
+
+			data += 'id' + $(this).data("id") + "=" + i;
+		});
+
+		var self = this;
+
+		$.ajax({
+			url: this.orderURL,
+			data: data,
+			dataType: 'json',
+			type: 'post'
+		})
+		.done(function(json) { self.orderSuccess(json); })
+		.fail(function(header) { self.error(header); });
+	};
+
+	Customize.prototype.orderSuccess = function(json) {
+	};
+
 	Customize.prototype.error = function(header) {
 		try {
 			alert($.parseJSON(header.responseText).message);
@@ -179,3 +214,5 @@
 	window.Customize = Customize;
 
 })(window, jQuery);
+
+
