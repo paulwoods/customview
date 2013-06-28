@@ -45,7 +45,7 @@ grails.project.dependency.resolution = {
 	plugins {
 		runtime ":hibernate:$grailsVersion"
 
-		runtime ":jquery:1.8.3"
+		runtime ":jquery:1.10.0"
 
 		build ":tomcat:$grailsVersion"
 
@@ -53,5 +53,8 @@ grails.project.dependency.resolution = {
 		test(":spock:0.7") {
 			exclude "spock-grails-support"
 		}
+
+		compile ":cache-headers:1.1.5"
 	}
+	
 }

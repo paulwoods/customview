@@ -101,6 +101,8 @@ log4j = {
   
 }
 
+grails.views.javascript.library="jquery"
+
 // Uncomment and edit the following lines to start using Grails encoding & escaping improvements
 
 /* remove this line 

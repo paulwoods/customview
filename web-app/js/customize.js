@@ -63,7 +63,7 @@
 		.fail(function(header) { self.error(header); });
 	};
 	
-	Customize.prototype.changeVisibleSuccess = function(json) {
+	Customize.prototype.changeVisibleSuccess = function(/*json*/) {
 	};
 
 	Customize.prototype.changeSort = function(e) {
@@ -111,7 +111,7 @@
 		.fail(function(header) { self.error(header); });
 	};
 
-	Customize.prototype.changeCompareSuccess = function(json) {
+	Customize.prototype.changeCompareSuccess = function(/*json*/) {
 	};
 
 	Customize.prototype.changeValue = function(e) {
@@ -171,10 +171,10 @@
 		$tr.find('input.save').hide();
 	};
 
-	Customize.prototype.order = function(e, ui) {
+	Customize.prototype.order = function(/*e, ui*/) {
 		var data = '';
 
-		var first = true
+		var first = true;
 
 		this.$el.find("tbody tr").each(function(i) {
 			if(first) {
@@ -198,7 +198,7 @@
 		.fail(function(header) { self.error(header); });
 	};
 
-	Customize.prototype.orderSuccess = function(json) {
+	Customize.prototype.orderSuccess = function(/*json*/) {
 	};
 
 	Customize.prototype.error = function(header) {

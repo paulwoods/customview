@@ -28,6 +28,8 @@ class CustomViewControllerSpec extends Specification {
 
 		setting1 = new Setting(column:column1, userId:1, sequence:1).save()
 		assert null != setting1
+
+		controller.metaClass.cache = { }
 	}
 
 	def cleanup() {

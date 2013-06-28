@@ -31,6 +31,7 @@ class CustomViewController {
 	}
 
 	def customize(String name,String returnURL) {
+		cache false
 		View view = View.findByName(name)
 		if(!view) {
 			log.warn "view not found: $name"

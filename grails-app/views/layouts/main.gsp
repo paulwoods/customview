@@ -14,11 +14,61 @@
 		<link rel="apple-touch-icon" sizes="114x114" href="${resource(dir: 'images', file: 'apple-touch-icon-retina.png')}">
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'main.css')}" type="text/css">
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'mobile.css')}" type="text/css">
+
+		<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+
+		<script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+		<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+
 		<g:layoutHead/>
 		<r:layoutResources />
 	</head>
 	<body>
+
+	<div class="navbar navbar-inverse navbar-fixed-top">
+	<div class="navbar-inner">
+	<div class="container">
+	<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+	<span class="icon-bar"></span>
+	<span class="icon-bar"></span>
+	<span class="icon-bar"></span>
+	</button>
+	<a class="brand" href="#">Custom View</a>
+	<div class="nav-collapse collapse">
+	<ul class="nav">
+	<li class="${params.controller == 'pcn' ? 'active' : ''}"><g:link controller="pcn" action="list">PCN</g:link></li>
+	<li class="${params.controller == 'customView' ? 'active' : ''}"><g:link controller="customView" action="customize" params="[name:'pcns']">Customize</g:link></li>
+	<li><a href="#about">About</a></li>
+	<li><a href="#contact">Contact</a></li>
+
+	<li class="dropdown">
+	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+	<ul class="dropdown-menu">
+	<li><a tabindex="-1" href="#">Action</a></li>
+	<li><a tabindex="-1" href="#">Another action</a></li>
+	<li><a tabindex="-1" href="#">Something else here</a></li>
+	<li class="divider"></li>
+	<li class="nav-header">Nav header</li>
+	<li><a tabindex="-1" href="#">Separated link</a></li>
+	<li><a tabindex="-1" href="#"><i class="icon-align-justify"></i> One more separated link</a></li>
+	</ul>
+	</li>
+	</ul>
+	<form class="navbar-form pull-right">
+	<input class="span2" type="text" placeholder="Email">
+	<input class="span2" type="password" placeholder="Password">
+	<button type="submit" class="btn">Sign in</button>
+	</form>
+	</div><!--/.nav-collapse -->
+	</div>
+	</div>
+	</div>
+
+
+	<div class="container">
 		<g:layoutBody/>
+	</div>
 		<r:layoutResources />
 	</body>
 </html>

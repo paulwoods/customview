@@ -1,6 +1,12 @@
 
+
+html {
+	overflow-y: scroll;
+}
+
 body {
-	font-family: Arial, san-serif;
+	padding-top: 60px; 
+	padding-bottom: 40px;
 }
 
 table.classview {
@@ -54,4 +60,6 @@ table.classview-modify tbody td {
 	border: 1px solid black;
 	padding: 3px;
 }
+
+
 
