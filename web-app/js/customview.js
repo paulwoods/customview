@@ -27,6 +27,8 @@
 		
 		$(document).ajaxStart( function() { self.show(); });
 		$(document).ajaxStop( function() { self.hide(); });
+
+		this.hide();
 	}
 
 	// show the ajax spinner

@@ -37,8 +37,7 @@
 	<a class="brand" href="#">Custom View</a>
 	<div class="nav-collapse collapse">
 	<ul class="nav">
-	<li class="${params.controller == 'pcn' ? 'active' : ''}"><g:link controller="pcn" action="list">PCN</g:link></li>
-	<li class="${params.controller == 'customView' ? 'active' : ''}"><g:link controller="customView" action="customize" params="[name:'pcns']">Customize</g:link></li>
+	<li class="${params.controller == 'address' ? 'active' : ''}"><g:link controller="address" action="list">Addresses</g:link></li>
 	<li><a href="#about">About</a></li>
 	<li><a href="#contact">Contact</a></li>
 
@@ -55,11 +54,7 @@
 	</ul>
 	</li>
 	</ul>
-	<form class="navbar-form pull-right">
-	<input class="span2" type="text" placeholder="Email">
-	<input class="span2" type="password" placeholder="Password">
-	<button type="submit" class="btn">Sign in</button>
-	</form>
+
 	</div><!--/.nav-collapse -->
 	</div>
 	</div>

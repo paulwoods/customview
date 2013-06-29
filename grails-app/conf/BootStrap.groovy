@@ -2,41 +2,59 @@ import customview.*
 
 class BootStrap {
 
+	def dataSource
+	def servletContext
+
 	def init = { servletContext ->
 
 		def userId = 1
 
-		View viewPcns = new View(name:"pcns", fetchSize:50)
+		def sequence = 0
 
-		int sequence = 0
+		View view = new View(name:"addresses", fetchSize:50)
+		view.addToTables name:"addresses"
+		view.addToColumns name:"ID", sql:"addresses.id", type:"NUMBER", sequence: sequence++
+		view.addToColumns name:"Street", sql:"addresses.street", type:"STRING", sequence: sequence++
+		view.addToColumns name:"City", sql:"addresses.city", type:"STRING", sequence: sequence++
+		view.addToColumns name:"State", sql:"addresses.state", type:"STRING", sequence: sequence++
+		view.addToColumns name:"Zip", sql:"addresses.zip", type:"STRING", sequence: sequence++
+		view.addToColumns name:"Date Created", sql:"addresses.created_at", type:"DATE", sequence: sequence++
+		view.save()
 
-		viewPcns.addToTables name:"pcn"
-		viewPcns.addToColumns name:"Number", sql:"pcn.number", sequence: sequence++, 
-			td: ''' 
-				"""<a href="https://giant.sc.ti.com/pcn/pcnsys.nsf/PCNNumber/$record.number">$record.number</a>""" 
-			'''
+		def database = new groovy.sql.Sql(dataSource)
 
-		viewPcns.addToColumns name:"Title", sql:"pcn.title", sequence: sequence++
-		viewPcns.addToColumns name:"Change Owner", sql:"pcn.pcn_owner", sequence: sequence++
-		viewPcns.addToColumns name:"Qual Owner", sql:"pcn.qual_owner", sequence: sequence++
-		viewPcns.addToColumns name:"Business Owner", sql:"pcn.business_owner", sequence: sequence++
-		viewPcns.addToColumns name:"CMS", sql:"pcn.cms_number", sequence: sequence++
-		viewPcns.addToColumns name:"Comment", sql:"pcn.comment", sequence: sequence++
-		viewPcns.addToColumns name:"From Site", sql:"pcn.from_site", sequence: sequence++
-		viewPcns.addToColumns name:"To Site", sql:"pcn.to_site", sequence: sequence++
-		viewPcns.addToColumns name:"Sample Request Window Status", sql:"pcn.status", sequence: sequence++
-		viewPcns.addToColumns name:"Program Manager", sql:"pcn.program_manager", sequence: sequence++
-		viewPcns.addToColumns name:"Affected Businesses", sql:"pcn.affected_business", sequence: sequence++
-		viewPcns.addToColumns name:"Sample Group Name", sql:"pcn.group_name", sequence: sequence++
-		viewPcns.addToColumns name:"Description", sql:"pcn.description", sequence: sequence++
-		viewPcns.addToColumns name:"Date Publish", sql:"pcn.date_publish", type:"DATE", classHead:"nowrap", sequence: sequence++
-		viewPcns.addToColumns name:"Days Expiration", sql:"pcn.days_expiration", type:"NUMBER", classHead:"nowrap", sequence: sequence++
-		viewPcns.save()
+		def query = """
+		create table addresses(id int primary key,
+		   zip varchar(20), city varchar(50), street varchar(200), state varchar(50), created_at datetime);
+		"""
+
+		database.executeUpdate(query)
+
+		query = """
+			insert into addresses (id, zip, city, street, state, created_at)
+			values (:id, :zip, :city, :street, :state, :createdAt)
+		"""
+
+		new File(servletContext.getRealPath("addresses.csv")).eachLine { String line ->
+
+			def fields = line.split(",")
+
+			database.executeInsert(query, [
+				zip: 		fields[0],
+				city: 		fields[1],
+				street: 	fields[2],
+				id: 		fields[3],
+				state: 		fields[4],
+				createdAt: 	new Date(fields[5])
+			])
+
+
+		}
+
 	}
 
 	def destroy = {
 	}
 
 }
-
 

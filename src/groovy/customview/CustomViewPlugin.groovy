@@ -7,10 +7,10 @@ class CustomViewPlugin {
 	Sql getConnection() {
 
 		groovy.sql.Sql.newInstance(
-			"jdbc:mysql://localhost:3306/samples_dev", 
-			"samples", 
-			"samples", 
-			"com.mysql.jdbc.Driver")
+			"jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000", 
+			"sa", 
+			"", 
+			"org.h2.Driver")
 	}
 
 	Long getCurrentUserId() {

@@ -43,28 +43,28 @@ class CustomViewTagLibSpec extends Specification {
 
 	def "build a three column header"() {
 		given:
-		View viewPcns = new View([name:"pcns"]).save()
-		assert viewPcns
-		viewPcns.customViewService = customViewService
+		View view1 = new View([name:"view1"]).save()
+		assert view1
+		view1.customViewService = customViewService
 
 		tagLib.customViewPlugin = [ getCurrentUserId: { -> 1 } ]
 
-		Column columnNumber = new Column(view:viewPcns, name:"Number", sql:"pcn.number", sequence:0).save()
-		assert columnNumber
+		Column column1 = new Column(view:view1, name:"column1", sql:"table1.column1", sequence:0).save()
+		assert column1
 
-		Column columnTitle = new Column(view:viewPcns, name:"Title", sql:"pcn.title", sequence:1).save()
-		assert columnTitle
+		Column column2 = new Column(view:view1, name:"column2", sql:"table1.column2", sequence:1).save()
+		assert column2
 
-		Column columnDescription = new Column(view:viewPcns, name:"Description", sql:"pcn.description", sequence:2).save()
-		assert columnDescription
+		Column column3 = new Column(view:view1, name:"column3", sql:"table1.column3", sequence:2).save()
+		assert column3
 
-		def expected1 = """<table id="pcns" class="classview">
-			|<caption><a href="http://localhost:8080/customView/customize?name=pcns&returnURL=http%3A%2F%2Flocalhost%3A8080%2F">Customize</a></caption>
+		def expected1 = """<table id="view1" class="classview">
+			|<caption><a href="http://localhost:8080/customView/customize?name=view1&returnURL=http%3A%2F%2Flocalhost%3A8080%2F">Customize</a></caption>
 			|<thead>
 			|<tr>
-			|<th>Number</th>
-			|<th>Title</th>
-			|<th>Description</th>
+			|<th>column1</th>
+			|<th>column2</th>
+			|<th>column3</th>
 			|</tr>
 			|</thead>
 			|<tbody>
@@ -72,10 +72,10 @@ class CustomViewTagLibSpec extends Specification {
 			|</table>
 			|""".stripMargin()
 
-		def call = """<specteam:customView name="pcns"/>"""
+		def call = """<specteam:customView name="view1"/>"""
 
 		when:
-		def actual = applyTemplate(call, [name:"pcns"])
+		def actual = applyTemplate(call, [name:"view1"])
 
 		then:
 		actual.contains(expected1)

@@ -65,6 +65,9 @@
           <root url="jar://$USER_HOME$/.grails/ivy-cache/org.eclipse.jdt.core.compiler/ecj/jars/ecj-3.7.2.jar!/" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/asm/asm-tree/jars/asm-tree-3.0.jar!/" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/net.sourceforge.cobertura/cobertura/jars/cobertura-1.9.4.1.jar!/" />
+          <root url="jar://$USER_HOME$/.grails/ivy-cache/junit/junit/jars/junit-4.8.2.jar!/" />
+          <root url="jar://$USER_HOME$/.grails/ivy-cache/org.gmetrics/GMetrics/jars/GMetrics-0.5.jar!/" />
+          <root url="jar://$USER_HOME$/.grails/ivy-cache/org.codenarc/CodeNarc/jars/CodeNarc-0.18.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

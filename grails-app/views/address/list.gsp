@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta name="layout" content="main"/>
-	<title>PCNs</title>
+	<title>Addresses</title>
 </head>
 <body>
 
@@ -20,10 +20,10 @@
 
 	<div class="span9">
 	<h2>
-		PCNs
+		Addresses
 		<img id="waiting" src="${resource(dir: 'images', file: 'spinner.gif')}">
 	</h2>
-	<specteam:customView name="pcns"/>
+	<specteam:customView name="addresses"/>
 	</div>
 
 </body>

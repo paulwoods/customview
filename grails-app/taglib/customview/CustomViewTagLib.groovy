@@ -9,13 +9,13 @@ class CustomViewTagLib {
 	static namespace = "specteam"
 
 	def customView = { attrs, body ->
+		
 		View view = View.findByName(attrs.name)
 		if(!view) {
 			log.warn "view not found: $attrs.name"
 			out << "<div>view not found: $attrs.name</div>"
 			return 
 		}
-println "### url = $attrs.url"
 
 		Long userId = customViewPlugin.getCurrentUserId()
 
