@@ -295,5 +295,10 @@ class QueryBuilderSpec extends Specification {
 		assertBuilt "DATE",   "not in list", "", 			[]
 	}
 
+	def "if value is not a number, then it is changed to negative 1"() {
+		expect:
+		assertBuilt "NUMBER", "=", "1\n2\n3\n",        ["table1.column1 = -1"]
+	}
+
 }
 

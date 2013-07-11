@@ -72,4 +72,11 @@ class Setting {
 		settings ? settings[0].sequence + 1 : 1
 	}
 
+	/**
+	 * returns the number of rows in the value + 1. Usefull for setting the textarea's rows attribute.
+	 **/
+	Integer getNumRows() {
+		1 + (value ? value.split('\n').size() : 0)
+	}
+
 }

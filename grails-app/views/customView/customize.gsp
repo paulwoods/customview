@@ -24,10 +24,10 @@
 
 <div class="span9">
 
-	<h1>
-		Customize: ${view.name}
+	<h2>
+		Customize Your View: ${view.name}
 		<img id="waiting" src="${resource(dir: 'images', file: 'spinner.gif')}" alt="spinner">
-	</h1>
+	</h2>
 	<table id="customize" class="classview-modify">
 	<caption><a href="${returnURL}">Return</a></caption>
 	<thead>
@@ -49,7 +49,7 @@
 		<td><g:select  id="sort${setting.id}" class="sort" from="${['','ASC','DESC']}" name="sort" value="${setting.sort}"/></td>
 		<td><g:select  id="compare${setting.id}" class="compare" from="${customview.Setting.COMPARES}" name="compare" value="${setting.compare}"/></td>
 		<td>
-			<textarea class="value" rows="1" cols="15" placeholder="${placeholder}">${setting.value}</textarea>
+			<textarea class="value" rows="${setting.numRows}" placeholder="${placeholder}">${setting.value}</textarea>
 			<input type="button" class="save" value="save"/>
 		</td>
 		<td>

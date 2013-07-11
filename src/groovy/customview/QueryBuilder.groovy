@@ -39,6 +39,8 @@ class QueryBuilder {
 					break
 
 					case "NUMBER":
+					if(!value.isNumber()) 
+						value = "-1"
 					break
 				}
 				

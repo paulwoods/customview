@@ -14,7 +14,13 @@ class CustomViewService {
 		result.offset = offset
 		result.userId = userId
 		result.database = database
-		result.fetchRecords()
+
+		try {
+			result.fetchRecords()
+		} catch(e) {
+			throw new CustomViewException(e)
+		}
+		
 		result.createHTML()
 		result
 	}

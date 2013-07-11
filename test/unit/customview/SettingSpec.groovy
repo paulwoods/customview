@@ -106,6 +106,7 @@ class SettingSpec extends Specification {
 		expect:
 		1 == Setting.getNextSettingSequence(view1, userId)
 	}
+
 	def "get next setting returns the highest sequence + 1"() {
 		given:
 		def setting1 = new Setting(column:column1, userId:userId, sequence:100).save()
@@ -119,6 +120,46 @@ class SettingSpec extends Specification {
 
 		expect:
 		301 == Setting.getNextSettingSequence(view1, userId)
+	}
+
+	def "numRows - null value returns 1"() {
+		given:
+		def setting1 = new Setting(value:null)
+
+		expect:
+		1 == setting1.numRows
+	}
+
+	def "numRows - blank value returns 1"() {
+		given:
+		def setting1 = new Setting(value:"")
+
+		expect:
+		1 == setting1.numRows
+	}
+
+	def "numRows - single row returns 2"() {
+		given:
+		def setting1 = new Setting(value:"row 1")
+
+		expect:
+		2 == setting1.numRows
+	}
+
+	def "numRows - two rows returns 3"() {
+		given:
+		def setting1 = new Setting(value:"row 1\nrow 2")
+
+		expect:
+		3 == setting1.numRows
+	}
+
+	def "numRows - extra line feeds are respected"() {
+		given:
+		def setting1 = new Setting(value:"\n row1 \n \n")
+
+		expect:
+		4 == setting1.numRows
 	}
 }
 
