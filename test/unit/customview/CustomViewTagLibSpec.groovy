@@ -59,7 +59,7 @@ class CustomViewTagLibSpec extends Specification {
 		assert column3
 
 		def expected1 = """<table id="view1" class="classview">
-			|<caption><a href="http://localhost:8080/customView/customize?name=view1&returnURL=http%3A%2F%2Flocalhost%3A8080%2F">Customize</a></caption>
+			|<caption><a href="http://localhost:8080/customView/customize?name=view1&amp;returnURL=http%3A%2F%2Flocalhost%3A8080%2F">customize</a></caption>
 			|<thead>
 			|<tr>
 			|<th>column1</th>
@@ -78,6 +78,7 @@ class CustomViewTagLibSpec extends Specification {
 		def actual = applyTemplate(call, [name:"view1"])
 
 		then:
+		println actual
 		actual.contains(expected1)
 	}
 
