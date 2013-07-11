@@ -7,6 +7,10 @@ class CustomViewController {
 
 	def customViewPlugin
 
+	def index() {
+		redirect uri:"/"
+	}
+
 	def fetch(String name, Integer offset) {
 		View view = View.findByName(name)
 		if(!view) {

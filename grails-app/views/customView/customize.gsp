@@ -28,7 +28,7 @@
 		Customize: ${view.name}
 		<img id="waiting" src="${resource(dir: 'images', file: 'spinner.gif')}">
 	</h1>
-	<table id="customize" class="classview-modify">
+	<table id="customize" class="table classview-modify">
 	<caption><a href="${returnURL}">Return</a></caption>
 	<thead>
 	<tr>
@@ -45,7 +45,7 @@
 	<g:set var="placeholder" value="${'DATE' == setting.column.type ? 'yyyy-mm-dd' : ''}"/>
 	<tr data-id="${setting.id}">
 		<td>${setting.column.name}</td>
-		<td><g:checkBox class="visible" name="visible" checked="${setting.visible}"/></td>
+		<td class="text-center"><g:checkBox class="visible" name="visible" checked="${setting.visible}"/></td>
 		<td><g:select class="sort" from="${['','ASC','DESC']}" name="sort" value="${setting.sort}"/></td>
 		<td><g:select class="compare" from="${customview.Setting.COMPARES}" name="compare" value="${setting.compare}"/></td>
 		<td>

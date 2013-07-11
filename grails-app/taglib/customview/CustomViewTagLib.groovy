@@ -27,6 +27,7 @@ class CustomViewTagLib {
 		openBody()
 		closeBody()
 		closeTable()
+		writeWaiting()
 		writeJavascript attrs
 	}
 
@@ -74,8 +75,12 @@ class CustomViewTagLib {
 		out << headBuilder.build(view, userId)
 	}
 
-	private writeJavascript(attrs) {
+	private writeWaiting() {
+		def url = g.resource(dir:"images", file:"spinner.gif")
+		out << """<div class="text-center"><img id="waiting" src="$url" /></div>"""
+	}
 
+	private writeJavascript(attrs) {
 		out << g.javascript(src:"customview.js")
 
 		out << """

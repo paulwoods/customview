@@ -19,16 +19,16 @@
 		this.settings = $.extend({}, defaults, options);
 		this.$el = $('#' + this.settings.name);
 		this.$el.data('customView', this);
-		this.fetch();
 		
 		var self = this;
 
 		$(window).on("scroll", function(e) { self.scroll(e); });
-		
 		$(document).ajaxStart( function() { self.show(); });
 		$(document).ajaxStop( function() { self.hide(); });
 
 		this.hide();
+
+		this.fetch();
 	}
 
 	// show the ajax spinner

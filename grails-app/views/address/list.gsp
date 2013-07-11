@@ -19,10 +19,7 @@
 	</div>	
 
 	<div class="span9">
-	<h2>
-		Addresses
-		<img id="waiting" src="${resource(dir: 'images', file: 'spinner.gif')}">
-	</h2>
+	<h2>Addresses</h2>
 	<specteam:customView name="addresses"/>
 	</div>
 
