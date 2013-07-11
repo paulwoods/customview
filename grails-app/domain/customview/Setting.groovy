@@ -63,10 +63,10 @@ class Setting {
 		setting 
 	}
 
-	static Integer getNextSettingSequence(View view, Long userId) {
+	static Integer getNextSettingSequence(View view, Long currentUserId) {
 		def settings = Setting.where {
 			view.columns in columns && 
-			userId == userId
+			userId == currentUserId
 		}.list(sort:"sequence", order:"desc")
 
 		settings ? settings[0].sequence + 1 : 1

@@ -16,9 +16,6 @@ class TableSpec extends Specification {
 		view = new View(name:"name1").save()
 	}
 
-	def cleanup() {
-	}
-
 	def "strings are trimmed in beforeValidate"() {
 		given:
 		def table = new Table(view:view, name:" title ").save()

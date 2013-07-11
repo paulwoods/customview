@@ -1,7 +1,6 @@
 package customview
 
 import grails.converters.JSON
-import groovy.sql.Sql
 
 class CustomViewController {
 

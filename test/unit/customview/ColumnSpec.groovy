@@ -16,9 +16,6 @@ class ColumnSpec extends Specification {
 		view1 = new View(name:"view1").save()
 	}
 
-	def cleanup() {
-	}
-
 	def "strings are trimmed in beforeValidate"() {
 		given:
 		def column = new Column(view:view1, name:" title ", sql:" table.title ", sequence:0).save()

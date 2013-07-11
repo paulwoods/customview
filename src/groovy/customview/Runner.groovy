@@ -1,7 +1,5 @@
 package customview
 
-import groovy.sql.Sql
-
 class Runner {
 	
 	List run(String query, database) {

@@ -1,6 +1,5 @@
 package customview
 
-import grails.test.mixin.TestFor
 import spock.lang.Specification
 
 /**
@@ -25,9 +24,6 @@ class HeadBuilderSpec extends Specification {
 
 		setting1 = new Setting(column:column1, userId:1, sequence:1).save()
 		assert setting1
-	}
-
-	def cleanup() {
 	}
 
 	def "value of the column is output"() {

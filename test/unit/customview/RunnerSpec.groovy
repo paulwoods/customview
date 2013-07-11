@@ -1,6 +1,5 @@
 package customview
 
-import grails.test.mixin.TestFor
 import spock.lang.Specification
 
 /**
@@ -24,11 +23,4 @@ class RunnerSpec extends Specification {
 	}
 
 }
-
-/*
-List run(String query, database) {
-	log.debug "$query"
-	database.rows query
-}
-*/
 

@@ -8,6 +8,7 @@ class AddressController {
 	}
 
 	def list() {
+		[:] // used to shut-up codenarc
 	}
 
 }

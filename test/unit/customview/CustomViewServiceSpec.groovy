@@ -1,7 +1,6 @@
 package customview
 
 import grails.test.mixin.TestMixin
-import grails.test.mixin.support.GrailsUnitTestMixin
 import spock.lang.Specification
 
 /**
@@ -16,9 +15,6 @@ class CustomViewServiceSpec extends Specification {
 	def setup() {
 		view1 = new View(name:"view1").save()
 		assert view1
-	}
-
-	def cleanup() {
 	}
 
 	def "invalid view returns empty result"() {

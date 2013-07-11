@@ -16,9 +16,6 @@ class CustomViewTagLibSpec extends Specification {
 		customViewService = new CustomViewService()
 	}
 
-	def cleanup() {
-	}
-
 	def "null name throws exception"() {
 		given:
 		def call = """<specteam:customView />"""

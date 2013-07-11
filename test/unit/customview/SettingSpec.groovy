@@ -28,9 +28,6 @@ class SettingSpec extends Specification {
 		assert column3
 	}
 
-	def cleanup() {
-	}
-
 	def "test to string"() {
 		given:
 		def setting1 = new Setting(column:column1, userId:userId, sequence:0).save()
@@ -95,7 +92,7 @@ class SettingSpec extends Specification {
 
 	def "exception if unable to create the setting"() {
 		when:
-		def setting1 = Setting.getOrCreateSetting(column1, null)
+		Setting.getOrCreateSetting column1, null
 
 		then:
 		def e = thrown(Exception)

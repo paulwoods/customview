@@ -44,10 +44,10 @@ class View {
 		getSettings(userId).sort { it.sequence }
 	}
 
-	Setting getSortSetting(Long userId) {
+	Setting getSortSetting(Long currentUserId) {
 		Setting.where {
 			column in columns &&
-			userId == userId
+			userId == currentUserId
 			sort != "" 
 		}.find()
 	}
@@ -58,10 +58,10 @@ class View {
 		settings*.save()
 	}
 	
-	List<Setting> getCompareSettings(Long userId) {
+	List<Setting> getCompareSettings(Long currentUserId) {
 		Setting.where {
 			column in columns &&
-			userId == userId
+			userId == currentUserId
 			compare != "" 
 		}.list()
 	}

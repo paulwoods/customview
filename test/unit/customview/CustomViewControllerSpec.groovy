@@ -32,9 +32,6 @@ class CustomViewControllerSpec extends Specification {
 		controller.metaClass.cache = { }
 	}
 
-	def cleanup() {
-	}
-
 	def "fetch with invalid view return status code 500"() {
 		given:
 		view1.metaClass.fetch = { Integer o -> [a:1]}
@@ -355,7 +352,7 @@ class CustomViewControllerSpec extends Specification {
 		params.settingId = setting1.id
 
 		when:
-		def model = controller.reset()
+		controller.reset()
 
 		then:
 		setting1.visible == true

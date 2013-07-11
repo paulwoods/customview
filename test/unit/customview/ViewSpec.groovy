@@ -32,9 +32,6 @@ class ViewSpec extends Specification {
 		assert setting2
 	}
 
-	def cleanup() {
-	}
-
 	def "strings are trimmed in beforeValidate"() {
 		given:
 		def view = new View(name:" name1 ").save()
