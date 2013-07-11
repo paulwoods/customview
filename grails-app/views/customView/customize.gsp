@@ -26,9 +26,9 @@
 
 	<h1>
 		Customize: ${view.name}
-		<img id="waiting" src="${resource(dir: 'images', file: 'spinner.gif')}">
+		<img id="waiting" src="${resource(dir: 'images', file: 'spinner.gif')}" alt="spinner">
 	</h1>
-	<table id="customize" class="table classview-modify">
+	<table id="customize" class="classview-modify">
 	<caption><a href="${returnURL}">Return</a></caption>
 	<thead>
 	<tr>
@@ -45,9 +45,9 @@
 	<g:set var="placeholder" value="${'DATE' == setting.column.type ? 'yyyy-mm-dd' : ''}"/>
 	<tr data-id="${setting.id}">
 		<td>${setting.column.name}</td>
-		<td class="text-center"><g:checkBox class="visible" name="visible" checked="${setting.visible}"/></td>
-		<td><g:select class="sort" from="${['','ASC','DESC']}" name="sort" value="${setting.sort}"/></td>
-		<td><g:select class="compare" from="${customview.Setting.COMPARES}" name="compare" value="${setting.compare}"/></td>
+		<td class="text-center"><g:checkBox id="visible${setting.id}" class="visible" name="visible" checked="${setting.visible}"/></td>
+		<td><g:select  id="sort${setting.id}" class="sort" from="${['','ASC','DESC']}" name="sort" value="${setting.sort}"/></td>
+		<td><g:select  id="compare${setting.id}" class="compare" from="${customview.Setting.COMPARES}" name="compare" value="${setting.compare}"/></td>
 		<td>
 			<textarea class="value" rows="1" cols="15" placeholder="${placeholder}">${setting.value}</textarea>
 			<input type="button" class="save" value="save"/>

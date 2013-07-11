@@ -57,7 +57,14 @@
 		};
 
 		var self = this;
-		$.getJSON(this.settings.fetchURL, data)
+
+		$.ajax({
+			dataType: "json",
+			url: this.settings.fetchURL,
+			data: data,
+			cache: false
+		})
+
 		.done(function(json) { self.fetchSuccess(json); })
 		.fail(function(header) { self.failure(header); });
 	};

@@ -46,13 +46,13 @@ class CustomViewTagLib {
 			params:params, 
 			absolute:true)
 
-		String link = g.createLink(
+		String link = g.link(
 			controller:"customView", 
 			action:"customize", 
 			params:[name:view.name, returnURL:returnURL], 
-			absolute:true)
+			absolute:true) { "customize" }
 
-		out << """<caption><a href="$link">Customize</a></caption>\n"""
+		out << """<caption>$link</caption>\n"""
 	}
 
 	private openHead() {
@@ -77,7 +77,7 @@ class CustomViewTagLib {
 
 	private writeWaiting() {
 		def url = g.resource(dir:"images", file:"spinner.gif")
-		out << """<div class="text-center"><img id="waiting" src="$url" /></div>"""
+		out << """<div class="text-center"><img id="waiting" src="$url" alt="spinner" /></div>"""
 	}
 
 	private writeJavascript(attrs) {

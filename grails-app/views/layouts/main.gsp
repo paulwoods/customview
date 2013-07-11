@@ -23,7 +23,6 @@
 		<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
 
 		<g:layoutHead/>
-		<r:layoutResources />
 	</head>
 	<body>
 
@@ -65,6 +64,5 @@
 	<div class="container">
 		<g:layoutBody/>
 	</div>
-		<r:layoutResources />
 	</body>
 </html>

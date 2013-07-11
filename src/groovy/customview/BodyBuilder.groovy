@@ -11,9 +11,10 @@ class BodyBuilder {
 		if(!records || !view) 
 			return ""
 
-		def settings = view.columns*.getSetting(userId).sort { it.sequence }
-
 		StringBuilder out = new StringBuilder()
+		
+		def settings = view.getSettingsInOrder(userId)
+
 		records.each { record ->
 			out << "<tr>"
 			settings.each { Setting setting ->
