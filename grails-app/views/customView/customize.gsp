@@ -25,7 +25,7 @@
 <div class="span9">
 
 	<h2>
-		Customize Your View: ${view.name}
+		Customize Your View: ${view.name} : userId =${userId}
 		<img id="waiting" src="${resource(dir: 'images', file: 'spinner.gif')}" alt="spinner">
 	</h2>
 	<table id="customize" class="classview-modify">

@@ -5,6 +5,7 @@ import grails.converters.JSON
 class CustomViewController {
 
 	def customViewPlugin
+	def customViewService
 
 	def index() {
 		redirect uri:"/"
@@ -16,20 +17,14 @@ class CustomViewController {
 			log.warn "view not found: $name"
 			return render(status:500, text: [message:"view not found"] as JSON)
 		}
-		
-		def database
-		
+
 		try {
-			database = customViewPlugin.getConnection()
-			Long userId = customViewPlugin.getCurrentUserId()
-			Result result = view.fetch(offset, userId, database)
-			def map = [offset: result.offset, html: result.html, moreData: result.moreData ]
-			render map as JSON
+			Result result = customViewService.fetch(view, offset)
+			result.createHTML()
+			render result.toMap() as JSON
 		} catch(e) {
 			log.error e.message, e
 			return render(status:500, text: [message:e.message] as JSON)
-		} finally {
-			database.close()
 		}
 	}
 
@@ -100,7 +95,7 @@ class CustomViewController {
 		if (setting)
 			return closure(setting)
 
-		log.warn "The setting not found: $settingId"
+		log.warn "The setting was not found: $settingId"
 
 		return render(status:500, contentType:"application/json") { [ 
 			message: "The setting was not found." 

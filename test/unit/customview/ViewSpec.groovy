@@ -105,17 +105,113 @@ class ViewSpec extends Specification {
 		"" == setting2.sort
 	}
 
-	def "fetch is sent to the service"() {
+	def "view can store connection information"() {
 		given:
-		def service = Mock(CustomViewService)
-		view1.customViewService = service
+		def view2 = new View(name:"view2", fetchSize:50,
+			url:"jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000", 
+			username:"sa", password:"abcdefg", driver:"org.h2.Driver").save()
+		assert view2
 
-		when:
-		view1.fetch(1, 123456, "db")
-
-		then:
-		1 * service.fetch(view1, 1, 123456, "db") >> [:]
+		expect:
+		"jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000" == view2.url
+		"sa" == view2.username
+		"abcdefg" == view2.password
+		"org.h2.Driver" == view2.driver
 	}
 
-}
+	def "if url is null getconnection returns null"() {
+		given:
+		def view2 = new View(name:"view2",
+			url:null, 
+			username:"sa", 
+			password:"", 
+			driver:"org.h2.Driver").save()
+		assert view2
 
+		expect:
+		null == view2.connection
+	}
+
+	def "if url is blank getconnection returns null"() {
+		given:
+		def view2 = new View(name:"view2",
+			url:"", 
+			username:"sa", 
+			password:"", 
+			driver:"org.h2.Driver").save()
+		assert view2
+
+		expect:
+		null == view2.connection
+
+	}
+
+	def "if username is null getconnection returns null"() {
+		given:
+		def view2 = new View(name:"view2",
+			url:"jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000", 
+			username:null, 
+			password:"", 
+			driver:"org.h2.Driver").save()
+		assert view2
+
+		expect:
+		null == view2.connection
+	}
+
+	def "if username is blank getconnection returns null"() {
+		given:
+		def view2 = new View(name:"view2",
+			url:"jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000", 
+			username:"", 
+			password:"", 
+			driver:"org.h2.Driver").save()
+		assert view2
+
+		expect:
+		null == view2.connection
+	}
+
+	def "if password is null getconnection returns null"() {
+		given:
+		def view2 = new View(name:"view2",
+			url:"jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000", 
+			username:"sa", 
+			password:null, 
+			driver:"org.h2.Driver").save()
+		assert view2
+
+		expect:
+		null == view2.connection
+	}
+
+	def "if driver is null getconnection returns null"() {
+		given:
+		def view2 = new View(name:"view2",
+			url:"jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000", 
+			username:"sa", 
+			password:"abcdefg", 
+			driver:null).save()
+		assert view2
+
+		expect:
+		null == view2.connection
+
+	}
+
+	def "if driver is blank getconnection returns null"() {
+		given:
+		def view2 = new View(name:"view2",
+			url:"jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000", 
+			username:"sa", 
+			password:"abcdefg", 
+			driver:"").save()
+		assert view2
+
+		expect:
+		null == view2.connection
+	}
+
+	
+
+}

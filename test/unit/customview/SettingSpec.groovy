@@ -90,15 +90,6 @@ class SettingSpec extends Specification {
 		1 == Setting.count()
 	}
 
-	def "exception if unable to create the setting"() {
-		when:
-		Setting.getOrCreateSetting column1, null
-
-		then:
-		def e = thrown(Exception)
-		"unable to save the setting." == e.message
-	}
-
 	def "get next setting sequence returns 1 if no existing sequences"() {
 		expect:
 		1 == Setting.getNextSettingSequence(view1, userId)

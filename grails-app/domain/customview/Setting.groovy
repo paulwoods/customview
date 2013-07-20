@@ -45,22 +45,13 @@ class Setting {
 	static Setting getOrCreateSetting(Column column, Long userId) {
 		def setting = Setting.findByColumnAndUserId(column, userId)
 		
-		if(setting) 
-			return setting
-
-		setting = new Setting(column:column, userId:userId)
-		setting.sequence = getNextSettingSequence(column.view, userId)
-		column.addToSettings setting
-		
-		if(column.save()) {
-			setting.log.info "created setting $column.name $userId"
-		} else {
-			setting.log.warn "unable to save the column $column"
-			setting.log.warn column.dump()
-			throw new RuntimeException("unable to save the setting.")
+		if(!setting) {
+			setting = new Setting(column:column, userId:userId)
+			setting.sequence = getNextSettingSequence(column.view, userId)
+			setting.save()
 		}
-		
-		setting 
+
+		setting
 	}
 
 	static Integer getNextSettingSequence(View view, Long currentUserId) {

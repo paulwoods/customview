@@ -11,7 +11,14 @@ class BootStrap {
 
 		def sequence = 0
 
-		View view = new View(name:"addresses", fetchSize:50)
+		View view = new View(
+			name:"addresses", 
+			fetchSize:50,
+			url:"jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000", 
+			username:"sa", 
+			password:"", 
+			driver:"org.h2.Driver")
+
 		view.addToTables name:"addresses"
 		view.addToColumns name:"ID", sql:"addresses.id", type:"NUMBER", sequence: sequence++
 		view.addToColumns name:"Street", sql:"addresses.street", type:"STRING", sequence: sequence++

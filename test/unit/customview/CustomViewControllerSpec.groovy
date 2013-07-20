@@ -46,33 +46,43 @@ class CustomViewControllerSpec extends Specification {
 
 	def "fetch returns a block of data"() {
 		given:
-		view1.metaClass.fetch = { Integer o, Long u, db -> 
-			assert 111 == o
-			assert 123456 == u
-			new Result(offset:123, html:"<div></div>", moreData:true)
+		def customViewService = mockFor(CustomViewService)
+		customViewService.demand.fetch { View v, Integer o ->
+			assert v == view1
+			assert o == 111
+			new Result(view:view1, offset:123, records:[[a:1]], moreData:true)
 		}
-		
-		when:
-		controller.fetch("view1", 111)
+		controller.customViewService = customViewService.createMock()
 
+		when:
+		controller.fetch "view1", 111
+		
 		then:
 		123 == response.json.offset
-		"<div></div>" == response.json.html
+		"<tr><td></td></tr>" == response.json.html
 		true == response.json.moreData
+
+		cleanup:
+		customViewService.verify()
 	}
 
 	def "fetch handles exceptions"() {
 		given:
-		view1.metaClass.fetch = { Integer o, Long u, db -> 
+		def customViewService = mockFor(CustomViewService)
+		customViewService.demand.fetch { View v, Integer o ->
 			throw new RuntimeException("Boom!")
 		}
-		
+		controller.customViewService = customViewService.createMock()
+
 		when:
 		controller.fetch("view1", 111)
 
 		then:
 		500 == response.status
 		"Boom!" == response.json.message
+
+		cleanup:
+		customViewService.verify()
 	}
 
 	def "customize builds the model"() {

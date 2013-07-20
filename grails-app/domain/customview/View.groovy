@@ -1,8 +1,8 @@
 package customview
 
-class View {
+import groovy.sql.*
 
-	def customViewService
+class View {
 
 	static hasMany = [ 
 		columns: Column,
@@ -11,6 +11,10 @@ class View {
 
 	String name
 	Integer fetchSize = 50
+	String url = ""
+	String username = ""
+	String password = ""
+	String driver = ""
 
 	static mapping = {
 		table "customview_view"
@@ -20,6 +24,10 @@ class View {
 
 	static constraints = {
 		name blank:false, maxSize:60, unique:true
+		url nullable:true, maxSize:500
+		username nullable:true, maxSize:100
+		password nullable:true, maxSize:100
+		driver nullable:true, maxSize:100
 	}
 
 	String toString() {
@@ -28,10 +36,6 @@ class View {
 
 	def beforeValidate() {
 		name = name?.trim()
-	}
-
-	Result fetch(Integer offset, Long userId, database) {
-		customViewService.fetch this, offset, userId, database
 	}
 
 	List<Setting> getSettings(Long userId) {
@@ -66,5 +70,11 @@ class View {
 		}.list()
 	}
 
+	def getConnection() {
+		if(!url || !username || !password || !driver)
+			null
+		else
+			Sql.newInstance(url, username, password, driver)
+	}
 
 }

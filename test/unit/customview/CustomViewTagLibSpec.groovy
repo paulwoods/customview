@@ -42,7 +42,6 @@ class CustomViewTagLibSpec extends Specification {
 		given:
 		View view1 = new View([name:"view1"]).save()
 		assert view1
-		view1.customViewService = customViewService
 
 		tagLib.customViewPlugin = [ getCurrentUserId: { -> 1 } ]
 

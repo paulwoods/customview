@@ -10,132 +10,52 @@ class ResultSpec extends Specification {
 
 	Result result
 	def view1
-	def queryBuilder = Mock(QueryBuilder)
-	def sqlBuilder = Mock(SqlBuilder)
-	def runner = Mock(Runner)
-	def query = new Query()
-	def database = [:]
-
 	def offset = 111
-	def userId = 123456
+	def userId = 123456L
 
 	def setup() {
 		result = new Result()
+
 		view1 = new View(name:"view1").save()
 		assert view1
-
-		result.queryBuilder = queryBuilder
-		result.sqlBuilder = sqlBuilder
-		result.runner = runner
-		result.database = database
-		result.offset = offset
-		result.userId = userId
 	}
 
-	def "if view is null, no records are fetched"() {
+	def "create html calls bodybuilder"() {
 		given:
-		result.view = null
-
-		when:
-		result.fetchRecords()
-
-		then:
-		[] == result.records
-	}
-
-	def "fetch records"() {
-		given:
+		def records = [[a:1],[a:2],[a:3]]
 		result.view = view1
+		result.records = records
+		result.userId = 123456L
 
-		when:
-		result.fetchRecords()
-
-		then:
-		1 * queryBuilder.build(view1, offset, userId) >> query
-		1 * sqlBuilder.build(query) >> "select * from table1"
-		1 * runner.run("select * from table1", database) >> [[a:1],[a:2]]
-
-		query == result.query
-		"select * from table1" == result.sql
-		[[a:1],[a:2]] == result.records
-		113 == result.offset
-		true == result.moreData
-	}
-
-	def "if records were returned more data is true"() {
-		given:
-		result.view = view1
-
-		when:
-		result.fetchRecords()
-
-		then:
-		1 * queryBuilder.build(view1, offset, userId) >> query
-		1 * sqlBuilder.build(query) >> "select * from table1"
-		1 * runner.run("select * from table1", database) >> [[a:1],[a:2]]
-
-		true == result.moreData
-	}
-
-	def "if no records were returned more data is false"() {
-		given:
-		result.view = view1
-
-		when:
-		result.fetchRecords()
-
-		then:
-		1 * queryBuilder.build(view1, offset, userId) >> query
-		1 * sqlBuilder.build(query) >> "select * from table1"
-		1 * runner.run("select * from table1", database) >> []
-
-		false == result.moreData
-	}
-
-	def "offset is incremented by the number of records returned"() {
-		given:
-		result.view = view1
-
-		when:
-		result.fetchRecords()
-
-		then:
-		1 * queryBuilder.build(view1, offset, userId) >> query
-		1 * sqlBuilder.build(query) >> "select * from table1"
-		1 * runner.run("select * from table1", database) >> [[a:11],[a:22],[a:33],[a:44]]
-
-		offset+4 == result.offset
-	}
-
-	def "records are stored in the result"() {
-		given:
-		result.view = view1
-
-		when:
-		result.fetchRecords()
-
-		then:
-		1 * queryBuilder.build(view1, offset, userId) >> query
-		1 * sqlBuilder.build(query) >> "select * from table1"
-		1 * runner.run("select * from table1", database) >> [[a:11],[a:22],[a:33],[a:44]]
-
-		[[a:11],[a:22],[a:33],[a:44]] == result.records
-	}
-
-	def "create html from the result"() {
-		given:
-		def bodyBuilder = Mock(BodyBuilder)
-		result.bodyBuilder = bodyBuilder
-		result.view = view1
-		result.records = [[a:1],[a:2]]
+		def bodyBuilder = mockFor(BodyBuilder)
+		bodyBuilder.demand.build { View v, List r, Long u -> 
+			assert view1 == v
+			assert records == r
+			assert 123456L == u
+			"<div></div>"
+		}
+		result.bodyBuilder = bodyBuilder.createMock()
 
 		when:
 		result.createHTML()
 
 		then:
-		1 * bodyBuilder.build(view1, [[a:1],[a:2]], userId) >> "<div></div>"
 		"<div></div>" == result.html
+
+		cleanup:
+		bodyBuilder.verify()
+	}
+
+	def "result data can be converted to a map"() {
+		given:
+		result.offset = 123
+		result.html = "<div></div>"
+		result.moreData = true
+
+		expect:
+		[offset:123, html:"<div></div>", moreData:true] == result.toMap()
 	}
 
 }
+
 
