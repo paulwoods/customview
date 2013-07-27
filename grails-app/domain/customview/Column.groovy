@@ -33,7 +33,7 @@ class Column {
 	}
 
 	String toString() {
-		"Column[$id] $view.name | $name | $sql | $sequence | $type"
+		"Column[$id] ${view?.name} | $name | $sql | $sequence | $type"
 	}
 
 	def beforeValidate() {

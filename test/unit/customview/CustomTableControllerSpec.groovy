@@ -6,15 +6,19 @@ import spock.lang.Specification
 /**
  * See the API for {@link grails.test.mixin.web.ControllerUnitTestMixin} for usage instructions
  */
-@TestFor(CustomViewController)
-@Mock([View])
-class CustomViewControllerSpec extends Specification {
+@TestFor(CustomTableController)
+@Mock([View,Table])
+class CustomTableControllerSpec extends Specification {
 
 	def view1
+	def table1
 
 	def setup() {
 		view1 = new View(name:"view1").save()
 		assert view1
+
+		table1 = new Table(view:view1, name:"table1").save()
+		assert null != table1
 	}
 
 	def cleanup() {
@@ -25,38 +29,38 @@ class CustomViewControllerSpec extends Specification {
 		controller.index()
 
 		then:
-		"/customView/list" == response.redirectedUrl
+		"/customTable/list" == response.redirectedUrl
 	}
 
-	void "list returns a list of views"() {
+	void "list returns a list of tables"() {
 		when:
 		def model = controller.list()
 
 		then:
-		[view1] == model.views
+		[table1] == model.tables
 	}
 
-	void "create returns a new view object"() {
+	void "create returns a new table object"() {
 		when:
 		def model = controller.create()
 
 		then:
-		model.view instanceof View
+		model.table instanceof Table
 	}
 
 	void "failed save shows the create view"() {
 		given:
-		params.name = ""
+		params.name = "table1"
 
 		when:
 		controller.save()
 
 		then:
-		"/customView/create" == view
-		model.view instanceof View
+		"/customTable/create" == view
+		model.table instanceof Table
 	}
 
-	void "save creates the view"() {
+	void "save creates the table"() {
 		given:
 		params."view.id" = view1.id
 		params.name = "1"
@@ -65,9 +69,9 @@ class CustomViewControllerSpec extends Specification {
 		controller.save()
 
 		then:
-		2 == View.count()
-		def view2 = View.get(2)
-		"1" == view2.name
+		2 == Table.count()
+		def table2 = Table.get(2)
+		"1" == table2.name
 	}
 
 	void "save redirects to show"() {
@@ -79,7 +83,7 @@ class CustomViewControllerSpec extends Specification {
 		controller.save()
 
 		then:
-		"/customView/show/2" == response.redirectedUrl
+		"/customTable/show/2" == response.redirectedUrl
 	}
 
 	void "show with invalid id redirects to list"() {
@@ -90,16 +94,16 @@ class CustomViewControllerSpec extends Specification {
 		controller.show()
 
 		then:
-		"/customView/list" == response.redirectedUrl
-		"The view was not found." == flash.message
+		"/customTable/list" == response.redirectedUrl
+		"The table was not found." == flash.message
 	}
 
-	void "show returns the view"() {
+	void "show returns the table"() {
 		given:
-		params.id = view1.id
+		params.id = table1.id
 
 		expect:
-		[view:view1] == controller.show()
+		[table:table1] == controller.show()
 	}
 
 	void "edit with invalid id redirects to list"() {
@@ -110,76 +114,78 @@ class CustomViewControllerSpec extends Specification {
 		controller.edit()
 
 		then:
-		"/customView/list" == response.redirectedUrl
-		"The view was not found." == flash.message
+		"/customTable/list" == response.redirectedUrl
+		"The table was not found." == flash.message
 	}
 
-	void "edit returns the view"() {
+	void "edit returns the table"() {
 		given:
-		params.id = view1.id
+		params.id = table1.id
 
 		expect:
-		[view:view1] == controller.edit()
+		[table:table1] == controller.edit()
 	}
 
 	void "failed update shows the edit view"() {
 		given:
-		params.id = view1.id
+		params.id = table1.id
 		params.name = ""
 
 		when:
 		controller.update()
 
 		then:
-		"/customView/edit" == view
-		view1 == model.view
+		"/customTable/edit" == view
+		table1 == model.table
 	}
 
-	void "update updates the view"() {
+	void "update updates the table"() {
 		given:
-		params.id = view1.id
+		params.id = table1.id
+		params."view.id" = view1.id
 		params.name = "1"
 
 		when:
 		controller.update()
 
 		then:
-		1 == View.count()
-		"1" == view1.name
+		1 == Table.count()
+		"1" == table1.name
 	}
 
 	void "update redirects to show"() {
 		given:
-		params.id = view1.id
+		params.id = table1.id
+		params."view.id" = view1.id
 		params.name = "1"
 
 		when:
 		controller.update()
 
 		then:
-		"/customView/show/1" == response.redirectedUrl
+		"/customTable/show/1" == response.redirectedUrl
 	}
 
-	void "delete the view"() {
+	void "delete the table"() {
 		given:
-		params.id = view1.id
+		params.id = table1.id
 
 		when:
 		controller.delete()
 
 		then:
-		0 == View.count()
+		0 == Table.count()
 	}
 
 	void "delete redirects to list"() {
 		given:
-		params.id = view1.id
+		params.id = table1.id
 
 		when:
 		controller.delete()
 
 		then:
-		"/customView/list" == response.redirectedUrl
+		"/customTable/list" == response.redirectedUrl
 	}
 
 }

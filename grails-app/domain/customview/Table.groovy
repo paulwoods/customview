@@ -12,7 +12,7 @@ class Table {
 	}
 
 	static constraints = {
-		name blank:false, maxSize:60, unique:true
+		name blank:false, maxSize:60, unique:"view"
 	}
 
 	String toString() {

@@ -38,28 +38,14 @@
 	<div class="nav-collapse collapse">
 	<ul class="nav">
 	<li class="${params.controller == 'address' ? 'active' : ''}"><g:link controller="address" action="list">Addresses</g:link></li>
-	<li><a href="#about">About</a></li>
-	<li><a href="#contact">Contact</a></li>
+	<li><g:link controller="customViewView" action="list">Edit</g:link></li>
 
-	<li class="dropdown">
-	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-	<ul class="dropdown-menu">
-	<li><a tabindex="-1" href="#">Action</a></li>
-	<li><a tabindex="-1" href="#">Another action</a></li>
-	<li><a tabindex="-1" href="#">Something else here</a></li>
-	<li class="divider"></li>
-	<li class="nav-header">Nav header</li>
-	<li><a tabindex="-1" href="#">Separated link</a></li>
-	<li><a tabindex="-1" href="#"><i class="icon-align-justify"></i> One more separated link</a></li>
-	</ul>
-	</li>
 	</ul>
 
 	</div><!--/.nav-collapse -->
 	</div>
 	</div>
 	</div>
-
 
 	<div class="container">
 		<g:layoutBody/>

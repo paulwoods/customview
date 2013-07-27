@@ -20,12 +20,14 @@ class BootStrap {
 			driver:"org.h2.Driver")
 
 		view.addToTables name:"addresses"
+
 		view.addToColumns name:"ID", sql:"addresses.id", type:"NUMBER", sequence: sequence++
 		view.addToColumns name:"Street", sql:"addresses.street", type:"STRING", sequence: sequence++
 		view.addToColumns name:"City", sql:"addresses.city", type:"STRING", sequence: sequence++
 		view.addToColumns name:"State", sql:"addresses.state", type:"STRING", sequence: sequence++
 		view.addToColumns name:"Zip", sql:"addresses.zip", type:"STRING", sequence: sequence++
 		view.addToColumns name:"Date Created", sql:"addresses.created_at", type:"DATE", sequence: sequence++
+		
 		view.save()
 
 		def database = new groovy.sql.Sql(dataSource)
@@ -35,7 +37,7 @@ class BootStrap {
 		   zip varchar(20), city varchar(50), street varchar(200), state varchar(50), created_at datetime);
 		"""
 
-		database.executeUpdate(query)
+		database.executeUpdate query
 
 		query = """
 			insert into addresses (id, zip, city, street, state, created_at)
@@ -54,10 +56,7 @@ class BootStrap {
 				state: 		fields[4],
 				createdAt: 	new Date(fields[5])
 			])
-
-
 		}
-
 	}
 
 	def destroy = {

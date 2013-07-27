@@ -32,7 +32,7 @@ class ColumnSpec extends Specification {
 	def "toString returns debug text"() {
 		given:
 		def column = new Column(view:view1, name:"column1", sql:"table1.column1", type:"STRING", sequence:12).save()
-		assert null != column
+		assert column
 
 		expect:
 		"Column[1] view1 | column1 | table1.column1 | 12 | STRING" == column.toString()
