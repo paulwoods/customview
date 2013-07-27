@@ -38,7 +38,7 @@
 	<div class="nav-collapse collapse">
 	<ul class="nav">
 	<li class="${params.controller == 'address' ? 'active' : ''}"><g:link controller="address" action="list">Addresses</g:link></li>
-	<li><g:link controller="customViewView" action="list">Edit</g:link></li>
+	<li><g:link controller="customView" action="list">Edit</g:link></li>
 
 	</ul>
 

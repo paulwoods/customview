@@ -10,7 +10,7 @@
 		this.sortURL = '';
 		this.visibleURL = '';
 		this.compareURL = '';
-		this.valueURL = '';
+		this.contentURL = '';
 		this.orderURL = '';
 
 		$.extend(this, options);
@@ -21,8 +21,8 @@
 		this.$el.on('change', 'select.sort', function(e) { self.changeSort(e); });
 		this.$el.on('click', 'input.visible', function(e) { self.changeVisible(e); });
 		this.$el.on('change', 'select.compare', function(e) { self.changeCompare(e); });
-		this.$el.on('keyup', 'textarea.value', function(e) { self.changeValue(e); });
-		this.$el.on('click', 'input.save', function(e) { self.saveValue(e); });
+		this.$el.on('keyup', 'textarea.content', function(e) { self.changeContent(e); });
+		this.$el.on('click', 'input.save', function(e) { self.saveContent(e); });
 		this.$el.on('click', 'input.reset', function(e) { self.reset(e); });
 
 		this.$el.find('input.save').hide();
@@ -114,32 +114,32 @@
 	Customize.prototype.changeCompareSuccess = function(/*json*/) {
 	};
 
-	Customize.prototype.changeValue = function(e) {
+	Customize.prototype.changeContent = function(e) {
 		var $this = $(e.target);
 		$this.closest('tr').find('input.save').show();
 	};
 
-	Customize.prototype.saveValue = function(e) {
+	Customize.prototype.saveContent = function(e) {
 		var $this = $(e.target);
 
 		var data = {
 			settingId: $this.closest('tr').data('id'),
-			value: $this.closest('tr').find('textarea.value').val()
+			content: $this.closest('tr').find('textarea.content').val()
 		};
 
 		var self = this;
 
 		$.ajax({
-			url: this.valueURL,
+			url: this.contentURL,
 			data: data,
 			dataType: 'json',
 			type: 'post'
 		})
-		.done(function(json) { self.changeValueSuccess(json); })
+		.done(function(json) { self.changeContentSuccess(json); })
 		.fail(function(header) { self.error(header); });
 	};
 
-	Customize.prototype.changeValueSuccess = function(json) {
+	Customize.prototype.changeContentSuccess = function(json) {
 		this.$el.find('tr[data-id="' + json.id + '"] input.save').hide();
 	};
 
@@ -167,7 +167,7 @@
 		$tr.find('input.visible').prop('checked', json.visible);
 		$tr.find('select.sort').val(json.sort);
 		$tr.find('select.compare').val(json.compare);
-		$tr.find('textarea.value').val(json.value);
+		$tr.find('textarea.content').val(json.content);
 		$tr.find('input.save').hide();
 	};
 

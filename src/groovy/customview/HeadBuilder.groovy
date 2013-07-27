@@ -9,9 +9,8 @@ class HeadBuilder {
 		sb << "<tr>\n"
 
 		view.getSettingsInOrder(userId).each { setting -> 
-			def column = setting.column
-			
 			if(setting.visible) {
+				def column = setting.column
 				def clazz = column.classHead ? " class=\"$column.classHead\"" : ""
 				sb << "<th$clazz>" 
 				sb << column.name

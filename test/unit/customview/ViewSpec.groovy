@@ -19,10 +19,10 @@ class ViewSpec extends Specification {
 		view1 = new View(name:"view1", fetchSize:333).save()
 		assert view1
 
-		column1 = new Column(view:view1, name:"column1", sql:"table1.column1", sequence:0).save()
+		column1 = new Column(view:view1, name:"column1", code:"table1.column1", sequence:0).save()
 		assert column1
 
-		column2 = new Column(view:view1, name:"column2", sql:"table2.column2", sequence:1).save()
+		column2 = new Column(view:view1, name:"column2", code:"table2.column2", sequence:1).save()
 		assert column2
 
 		setting1 = new Setting(column:column1, userId:userId, sequence:0).save()

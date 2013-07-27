@@ -26,10 +26,10 @@ class QueryBuilderSpec extends Specification {
 		table2 = new Table(view:view1, name:"table2").save()
 		assert table2
 
-		column1 = new Column(view:view1, name:"column1", sql:"table1.column1", sequence:0).save()
+		column1 = new Column(view:view1, name:"column1", code:"table1.column1", sequence:0).save()
 		assert column1
 
-		column2 = new Column(view:view1, name:"column2", sql:"table2.column2", sequence:1).save()
+		column2 = new Column(view:view1, name:"column2", code:"table2.column2", sequence:1).save()
 		assert column2
 
 		setting1 = new Setting(column:column1, userId:userId, sequence:0).save()
@@ -39,12 +39,12 @@ class QueryBuilderSpec extends Specification {
 		assert setting2
 	}
 
-	boolean assertBuilt(String type, String compare, String value, List result) {
+	boolean assertBuilt(String type, String compare, String content, List result) {
 		column1.type = type
 		assert column1.save()
 
 		setting1.compare = compare
-		setting1.value = value
+		setting1.content = content
 		assert setting1.save()
 
 		def query = builder.build(view1, 0, userId)
@@ -294,7 +294,7 @@ class QueryBuilderSpec extends Specification {
 		assertBuilt "DATE",   "not in list", "", 			[]
 	}
 
-	def "if value is not a number, then it is changed to negative 1"() {
+	def "if content is not a number, then it is changed to negative 1"() {
 		expect:
 		assertBuilt "NUMBER", "=", "1\n2\n3\n",        ["table1.column1 = -1"]
 	}

@@ -36,7 +36,7 @@
 		<th>Visible</th>
 		<th>Sort</th>
 		<th>Compare</th>
-		<th>Value</th>
+		<th>Content</th>
 		<th>&nbsp;</th>
 	</tr>
 	</thead>
@@ -49,7 +49,7 @@
 		<td><g:select  id="sort${setting.id}" class="sort" from="${['','ASC','DESC']}" name="sort" value="${setting.sort}"/></td>
 		<td><g:select  id="compare${setting.id}" class="compare" from="${customview.Setting.COMPARES}" name="compare" value="${setting.compare}"/></td>
 		<td>
-			<textarea class="value" rows="${setting.numRows}" placeholder="${placeholder}">${setting.value}</textarea>
+			<textarea class="content" rows="${setting.numRows}" placeholder="${placeholder}">${setting.content}</textarea>
 			<input type="button" class="save" value="save"/>
 		</td>
 		<td>
@@ -69,7 +69,7 @@
 			sortURL: '<g:createLink action="sort" absolute="true"/>',
 			visibleURL: '<g:createLink action="visible" absolute="true"/>',
 			compareURL: '<g:createLink action="compare" absolute="true"/>',
-			valueURL: '<g:createLink action="value" absolute="true"/>',
+			contentURL: '<g:createLink action="content" absolute="true"/>',
 			resetURL: '<g:createLink action="reset" absolute="true"/>',
 			orderURL: '<g:createLink action="order" absolute="true"/>'
 		});

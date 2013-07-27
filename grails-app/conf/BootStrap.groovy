@@ -21,12 +21,12 @@ class BootStrap {
 
 		view.addToTables name:"addresses"
 
-		view.addToColumns name:"ID", sql:"addresses.id", type:"NUMBER", sequence: sequence++
-		view.addToColumns name:"Street", sql:"addresses.street", type:"STRING", sequence: sequence++
-		view.addToColumns name:"City", sql:"addresses.city", type:"STRING", sequence: sequence++
-		view.addToColumns name:"State", sql:"addresses.state", type:"STRING", sequence: sequence++
-		view.addToColumns name:"Zip", sql:"addresses.zip", type:"STRING", sequence: sequence++
-		view.addToColumns name:"Date Created", sql:"addresses.created_at", type:"DATE", sequence: sequence++
+		view.addToColumns name:"ID", code:"addresses.id", type:"NUMBER", sequence: sequence++
+		view.addToColumns name:"Street", code:"addresses.street", type:"STRING", sequence: sequence++
+		view.addToColumns name:"City", code:"addresses.city", type:"STRING", sequence: sequence++
+		view.addToColumns name:"State", code:"addresses.state", type:"STRING", sequence: sequence++
+		view.addToColumns name:"Zip", code:"addresses.zip", type:"STRING", sequence: sequence++
+		view.addToColumns name:"Date Created", code:"addresses.created_at", type:"DATE", sequence: sequence++
 		
 		view.save()
 

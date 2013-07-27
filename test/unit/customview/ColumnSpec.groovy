@@ -18,7 +18,7 @@ class ColumnSpec extends Specification {
 
 	def "strings are trimmed in beforeValidate"() {
 		given:
-		def column = new Column(view:view1, name:" title ", sql:" table.title ", sequence:0).save()
+		def column = new Column(view:view1, name:" title ", code:" table.title ", sequence:0).save()
 		assert null != column
 
 		when:
@@ -26,12 +26,12 @@ class ColumnSpec extends Specification {
 
 		then:
 		"title" == column.name
-		"table.title" == column.sql
+		"table.title" == column.code
 	}
 
 	def "toString returns debug text"() {
 		given:
-		def column = new Column(view:view1, name:"column1", sql:"table1.column1", type:"STRING", sequence:12).save()
+		def column = new Column(view:view1, name:"column1", code:"table1.column1", type:"STRING", sequence:12).save()
 		assert column
 
 		expect:
@@ -40,32 +40,32 @@ class ColumnSpec extends Specification {
 
 	def "name can't be null"() {
 		expect:
-		null == new Column(view:view1, name:null, sql:"table.title", sequence:0).save()
+		null == new Column(view:view1, name:null, code:"table.title", sequence:0).save()
 	}
 
 	def "name can't be blank"() {
 		expect:
-		null == new Column(view:view1, name:"", sql:"table.title", sequence:0).save()
+		null == new Column(view:view1, name:"", code:"table.title", sequence:0).save()
 	}
 
-	def "sql can't be null"() {
+	def "code can't be null"() {
 		expect:
-		null == new Column(view:view1, name:"title", sql:null, sequence:0).save()
+		null == new Column(view:view1, name:"title", code:null, sequence:0).save()
 	}
 
-	def "sql can't be blank"() {
+	def "code can't be blank"() {
 		expect:
-		null == new Column(view:view1, name:"title", sql:"", sequence:0).save()
+		null == new Column(view:view1, name:"title", code:"", sequence:0).save()
 	}
 
 	def "view can't be null"() {
 		expect:
-		null == new Column(view:null, name:"title", sql:"table.title", sequence:0).save()
+		null == new Column(view:null, name:"title", code:"table.title", sequence:0).save()
 	}
 
 	def "sequence can't be null"() {
 		expect:
-		null == new Column(view:view1, name:"title", sql:"table.title", sequence:null).save()
+		null == new Column(view:view1, name:"title", code:"table.title", sequence:null).save()
 	}
 
 	def "default type is string"() {
@@ -75,7 +75,7 @@ class ColumnSpec extends Specification {
 
 	def "null value returns empty string"() {
 		given:
-		def column1 = new Column(view:view1, type:"STRING", name:"column1", sql:"table1.column1", sequence:0).save()
+		def column1 = new Column(view:view1, type:"STRING", name:"column1", code:"table1.column1", sequence:0).save()
 		assert column1
 
 		expect:
@@ -84,7 +84,7 @@ class ColumnSpec extends Specification {
 
 	def "string value is returned"() {
 		given:
-		def column1 = new Column(view:view1, type:"STRING", name:"column1", sql:"table1.column1", sequence:0).save()
+		def column1 = new Column(view:view1, type:"STRING", name:"column1", code:"table1.column1", sequence:0).save()
 		assert column1
 
 		expect:
@@ -93,7 +93,7 @@ class ColumnSpec extends Specification {
 
 	def "number value is returned"() {
 		given:
-		def column1 = new Column(view:view1, type:"STRING", name:"column1", sql:"table1.column1", sequence:0).save()
+		def column1 = new Column(view:view1, type:"STRING", name:"column1", code:"table1.column1", sequence:0).save()
 		assert column1
 
 		expect:
@@ -102,7 +102,7 @@ class ColumnSpec extends Specification {
 
 	def "zero value is returned"() {
 		given:
-		def column1 = new Column(view:view1, type:"STRING", name:"column1", sql:"table1.column1", sequence:0).save()
+		def column1 = new Column(view:view1, type:"STRING", name:"column1", code:"table1.column1", sequence:0).save()
 		assert column1
 
 		expect:
@@ -111,7 +111,7 @@ class ColumnSpec extends Specification {
 
 	def "date value is formatted yyyy-MM-dd"() {
 		given:
-		def column1 = new Column(view:view1, type:"DATE", name:"column1", sql:"table1.column1", sequence:0).save()
+		def column1 = new Column(view:view1, type:"DATE", name:"column1", code:"table1.column1", sequence:0).save()
 		assert column1
 
 		def date = Date.parse("yyyy-MM-dd", "2010-01-02")

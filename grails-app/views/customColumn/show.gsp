@@ -13,9 +13,9 @@
 		<li><g:link action="edit" id="${column.id}">Edit</g:link></li>
 		<li><g:link action="create">Create</g:link></li>
 		<li><hr/></li>
-		<li><g:link controller="customViewView" action="list">Views</g:link></li>
-		<li><g:link controller="customViewTable" action="list">Tables</g:link></li>
-		<li><g:link controller="customViewColumn" action="list">Columns</g:link></li>
+		<li><g:link controller="customView" action="list">Views</g:link></li>
+		<li><g:link controller="customTable" action="list">Tables</g:link></li>
+		<li><g:link controller="customColumn" action="list">Columns</g:link></li>
 		</ul>
 	</div>	
 
@@ -29,8 +29,8 @@
 			<td>${column.name}</td>
 		</tr>
 		<tr>
-			<td>SQL</td>
-			<td>${column.sql}</td>
+			<td>Code</td>
+			<td>${column.code}</td>
 		</tr>
 		<tr>
 			<td>Sequence</td>

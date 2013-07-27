@@ -45,17 +45,17 @@ class CustomViewTagLibSpec extends Specification {
 
 		tagLib.customViewPlugin = [ getCurrentUserId: { -> 1 } ]
 
-		Column column1 = new Column(view:view1, name:"column1", sql:"table1.column1", sequence:0).save()
+		Column column1 = new Column(view:view1, name:"column1", code:"table1.column1", sequence:0).save()
 		assert column1
 
-		Column column2 = new Column(view:view1, name:"column2", sql:"table1.column2", sequence:1).save()
+		Column column2 = new Column(view:view1, name:"column2", code:"table1.column2", sequence:1).save()
 		assert column2
 
-		Column column3 = new Column(view:view1, name:"column3", sql:"table1.column3", sequence:2).save()
+		Column column3 = new Column(view:view1, name:"column3", code:"table1.column3", sequence:2).save()
 		assert column3
 
 		def expected1 = """<table id="view1" class="classview">
-			|<caption><a href="http://localhost:8080/customView/customize?name=view1&amp;returnURL=http%3A%2F%2Flocalhost%3A8080%2F">customize</a></caption>
+			|<caption><a href="http://localhost:8080/customQuery/customize?name=view1&amp;returnURL=http%3A%2F%2Flocalhost%3A8080%2F">customize</a></caption>
 			|<thead>
 			|<tr>
 			|<th>column1</th>

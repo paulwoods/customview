@@ -60,9 +60,9 @@ class CustomQueryController {
 		}
 	}
 
-	def value(Long settingId, String value) {
+	def content(Long settingId, String content) {
 		withSetting(settingId) { Setting setting ->
-			setting.value = value
+			setting.content = content
 			finish setting
 		}
 	}
@@ -72,17 +72,17 @@ class CustomQueryController {
 			setting.visible = true
 			setting.sort = Setting.SORTS[0]
 			setting.compare = Setting.COMPARES[0]
-			setting.value = ""
+			setting.content = ""
 			finish setting
 		}
 	}
 
 	def order() {
-		params.each { key, value -> 
+		params.each { key, content -> 
 			if(key.startsWith("id")) {
 				def setting = Setting.get(key.substring(2))
 				if(setting) {
-					setting.sequence = value.toInteger()
+					setting.sequence = content.toInteger()
 					setting.save()
 				}
 			}
@@ -112,7 +112,7 @@ class CustomQueryController {
 					visible: setting.visible,
 					sort: setting.sort,
 					compare: setting.compare,
-					value: setting.value
+					content: setting.content
 				]
 			}
 		} else {

@@ -21,9 +21,6 @@ class CustomTableControllerSpec extends Specification {
 		assert null != table1
 	}
 
-	def cleanup() {
-	}
-
 	void "index redirects to list"() {
 		when:
 		controller.index()

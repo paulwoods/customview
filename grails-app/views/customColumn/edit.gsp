@@ -12,9 +12,9 @@
 		<li><g:link action="list">list</g:link></li>
 		<li><g:link action="show" id="${column.id}">show</g:link></li>
 		<li><hr/></li>
-		<li><g:link controller="customViewView" action="list">Views</g:link></li>
-		<li><g:link controller="customViewTable" action="list">Tables</g:link></li>
-		<li><g:link controller="customViewColumn" action="list">Columns</g:link></li>
+		<li><g:link controller="customView" action="list">Views</g:link></li>
+		<li><g:link controller="customTable" action="list">Tables</g:link></li>
+		<li><g:link controller="customColumn" action="list">Columns</g:link></li>
 		</ul>
 	</div>	
 

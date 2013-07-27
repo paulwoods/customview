@@ -17,11 +17,8 @@ class CustomColumnControllerSpec extends Specification {
 		view1 = new View(name:"view1").save()
 		assert view1
 
-		column1 = new Column(view:view1, name:"column1", sql:"table1.column1", sequence:0).save()
+		column1 = new Column(view:view1, name:"column1", code:"table1.column1", sequence:0).save()
 		assert null != column1
-	}
-
-	def cleanup() {
 	}
 
 	void "index redirects to list"() {
@@ -64,7 +61,7 @@ class CustomColumnControllerSpec extends Specification {
 		given:
 		params."view.id" = view1.id
 		params.name = "1"
-		params.sql = "2"
+		params.code = "2"
 		params.sequence = 3
 		params.type = "STRING"
 		params.classHead = "4"
@@ -79,7 +76,7 @@ class CustomColumnControllerSpec extends Specification {
 		2 == Column.count()
 		def column2 = Column.get(2)
 		"1" == column2.name
-		"2" == column2.sql
+		"2" == column2.code
 		3 == column2.sequence
 		"STRING" == column2.type
 		"4" == column2.classHead
@@ -92,7 +89,7 @@ class CustomColumnControllerSpec extends Specification {
 		given:
 		params."view.id" = view1.id
 		params.name = "1"
-		params.sql = "2"
+		params.code = "2"
 		params.sequence = 3
 		params.type = "STRING"
 		params.classHead = "4"
@@ -165,7 +162,7 @@ class CustomColumnControllerSpec extends Specification {
 		params.id = column1.id
 		params."view.id" = view1.id
 		params.name = "1"
-		params.sql = "2"
+		params.code = "2"
 		params.sequence = 3
 		params.type = "STRING"
 		params.classHead = "4"
@@ -179,7 +176,7 @@ class CustomColumnControllerSpec extends Specification {
 		then:
 		1 == Column.count()
 		"1" == column1.name
-		"2" == column1.sql
+		"2" == column1.code
 		3 == column1.sequence
 		"STRING" == column1.type
 		"4" == column1.classHead
@@ -193,7 +190,7 @@ class CustomColumnControllerSpec extends Specification {
 		params.id = column1.id
 		params."view.id" = view1.id
 		params.name = "1"
-		params.sql = "2"
+		params.code = "2"
 		params.sequence = 3
 		params.type = "STRING"
 		params.classHead = "4"

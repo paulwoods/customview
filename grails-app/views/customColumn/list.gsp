@@ -9,11 +9,11 @@
 	<div class="span2">
 		<h3>Actions</h3>
 		<ul class="nav nav-list">
-		<li><g:link controller="customViewColumn" action="create">Create</g:link></li>
+		<li><g:link controller="customColumn" action="create">Create</g:link></li>
 		<li><hr/></li>
-		<li><g:link controller="customViewView" action="list">Views</g:link></li>
-		<li><g:link controller="customViewTable" action="list">Tables</g:link></li>
-		<li><g:link controller="customViewColumn" action="list">Columns</g:link></li>
+		<li><g:link controller="customView" action="list">Views</g:link></li>
+		<li><g:link controller="customTable" action="list">Tables</g:link></li>
+		<li><g:link controller="customColumn" action="list">Columns</g:link></li>
 		</ul>
 	</div>	
 
@@ -24,7 +24,7 @@
 		<tr>
 			<th>Name</th>
 			<th>Type</th>
-			<th>SQL</th>
+			<th>Code</th>
 			<th>Sequence</th>
 			<th>View</th>
 		</tr>
@@ -34,7 +34,7 @@
 		<tr>
 			<td><g:link action="show" id="${column.id}">${column.name}</g:link></td>
 			<td>${column.type}</td>
-			<td>${column.sql}</td>
+			<td>${column.code}</td>
 			<td>${column.sequence}</td>
 			<td>${column.view.name}</td>
 		</tr>

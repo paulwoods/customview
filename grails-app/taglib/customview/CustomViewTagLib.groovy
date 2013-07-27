@@ -47,7 +47,7 @@ class CustomViewTagLib {
 			absolute:true)
 
 		String link = g.link(
-			controller:"customView", 
+			controller:"customQuery", 
 			action:"customize", 
 			params:[name:view.name, returnURL:returnURL], 
 			absolute:true) { "customize" }
@@ -88,7 +88,7 @@ class CustomViewTagLib {
 \$(function() {
 	var customView = new CustomView({
 		name: '${attrs.name}',
-		fetchURL: '${g.createLink(controller: "customView", action: "fetch", absolute: "true")}'
+		fetchURL: '${g.createLink(controller: "customQuery", action: "fetch", absolute: "true")}'
 	});
 });
 </script>

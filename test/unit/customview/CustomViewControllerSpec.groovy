@@ -17,9 +17,6 @@ class CustomViewControllerSpec extends Specification {
 		assert view1
 	}
 
-	def cleanup() {
-	}
-
 	void "index redirects to list"() {
 		when:
 		controller.index()

@@ -30,7 +30,7 @@ class CustomViewServiceSpec extends Specification {
 		view1 = new View(name:"view1").save()
 		assert view1
 
-		def column1 = new Column(view:view1, name:"column1", sql:"table1.column1", sequence:0).save()
+		def column1 = new Column(view:view1, name:"column1", code:"table1.column1", sequence:0).save()
 		assert null != column1
 
 		view1.metaClass.getConnection = { -> viewConnection }

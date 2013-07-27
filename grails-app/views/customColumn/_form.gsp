@@ -29,9 +29,9 @@
 		</div>
 
 		<div class="control-group">
-			<label class="control-label" for="sql">SQL</label>
+			<label class="control-label" for="code">Code</label>
 			<div class="controls">
-				<input name="sql" type="text" id="sql" placeHolder="sql" value="${column.sql}" required>
+				<input name="code" type="text" id="code" placeHolder="code" value="${column.code}" required>
 			</div>
 		</div>
 

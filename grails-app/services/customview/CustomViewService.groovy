@@ -23,6 +23,7 @@ class CustomViewService {
 		}
 		
 		def result = new Result()
+		result.userId = customViewPlugin.getCurrentUserId()
 		result.view = view
 		result.records = records
 		result.offset = offset + result.records.size()
@@ -59,6 +60,5 @@ class CustomViewService {
 
 		throw new CustomViewException("Unable to get database connection.")
 	}
-
 
 }

@@ -17,6 +17,7 @@ class BodyBuilder {
 
 		records.each { record ->
 			out << "<tr>"
+
 			settings.each { Setting setting ->
 				if(setting.visible) {
 					Column column = setting.column
@@ -30,6 +31,7 @@ class BodyBuilder {
 					out << "</td>"
 				}
 			}
+
 			out << "</tr>"
 		}
 		out.toString()
@@ -48,5 +50,3 @@ class BodyBuilder {
 	}
 
 }
-
-

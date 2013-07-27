@@ -16,7 +16,7 @@ class Setting {
 	Boolean visible = true
 	String sort = SORTS[0]
 	String compare = COMPARES[0]
-	String value = ""
+	String content = ""
 
 	static mapping = {
 		table "customview_setting"
@@ -25,17 +25,17 @@ class Setting {
 	static constraints = {
 		sort blank:true, inList: SORTS, maxSize: 10
 		compare blank:true, inList:COMPARES, maxSize: 20
-		value blank:true, maxSize: 1000
+		content blank:true, maxSize: 1000
 	}
 
 	String toString() {
-		"Setting[$id] $column.view | $column.name | $userId | $sequence"
+		"Setting[$id] $column.view | $column.name | $userId | $sequence | $visible"
 	}
 
 	def beforeValidate() {
 		sort = sort?.trim()
 		compare = compare?.trim()
-		value = value?.trim()
+		content = content?.trim()
 	}
 
 	void clearUserSorts() {
@@ -45,10 +45,13 @@ class Setting {
 	static Setting getOrCreateSetting(Column column, Long userId) {
 		def setting = Setting.findByColumnAndUserId(column, userId)
 		
-		if(!setting) {
+		if(setting) {
+			println "existing setting $setting"
+		} else {
 			setting = new Setting(column:column, userId:userId)
 			setting.sequence = getNextSettingSequence(column.view, userId)
 			setting.save()
+			println "created setting $setting"
 		}
 
 		setting
@@ -64,10 +67,10 @@ class Setting {
 	}
 
 	/**
-	 * returns the number of rows in the value + 1. Usefull for setting the textarea's rows attribute.
+	 * returns the number of rows in the content + 1. Usefull for setting the textarea's rows attribute.
 	 **/
 	Integer getNumRows() {
-		1 + (value ? value.split('\n').size() : 0)
+		1 + (content ? content.split('\n').size() : 0)
 	}
 
 }

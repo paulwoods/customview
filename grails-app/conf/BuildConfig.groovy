@@ -45,7 +45,7 @@ grails.project.dependency.resolution = {
 	plugins {
 		runtime ":hibernate:$grailsVersion"
 
-		runtime ":jquery:1.10.0"
+		runtime ":jquery:1.10.2"
 
 		build ":tomcat:$grailsVersion"
 
@@ -55,7 +55,7 @@ grails.project.dependency.resolution = {
 		}
 
 		compile ":cache-headers:1.1.5"
-		compile ":codenarc:0.18.1"
+		compile ":codenarc:0.19"
 		compile ":gmetrics:0.3.1"
 	}
 

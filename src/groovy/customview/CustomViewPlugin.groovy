@@ -6,7 +6,7 @@ class CustomViewPlugin {
 	
 	Sql getConnection() {
 
-		groovy.sql.Sql.newInstance(
+		Sql.newInstance(
 			"jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000", 
 			"sa", 
 			"", 

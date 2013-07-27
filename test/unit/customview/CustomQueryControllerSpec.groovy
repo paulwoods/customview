@@ -23,7 +23,7 @@ class CustomQueryControllerSpec extends Specification {
 		view1 = new View(name:"view1").save()
 		assert null != view1.save()
 
-		column1 = new Column(view:view1, name:"column1", sql:"table1.column1", sequence:1).save()
+		column1 = new Column(view:view1, name:"column1", code:"table1.column1", sequence:1).save()
 		assert null != column1
 
 		setting1 = new Setting(column:column1, userId:1, sequence:1).save()
@@ -164,7 +164,7 @@ class CustomQueryControllerSpec extends Specification {
 		"" == response.json.sort
 	}
 
-	def "sort handles invalid values"() {
+	def "sort handles invalid contents"() {
 		given:
 		setting1.sort = 'ASC'
 		assert setting1.save()
@@ -232,7 +232,7 @@ class CustomQueryControllerSpec extends Specification {
 		false == response.json.visible
 	}
 
-	def "visible handles invalid values"() {
+	def "visible handles invalid contents"() {
 		given:
 		setting1.visible = true
 		assert setting1.save()
@@ -286,77 +286,77 @@ class CustomQueryControllerSpec extends Specification {
 		"in list" == response.json.compare
 	}
 
-	def "compare handles invalid values"() {
+	def "compare handles invalid contents"() {
 		given:
 		assert setting1.save()
 
 		when:
-		controller.compare(setting1.id, "invalid value")
+		controller.compare(setting1.id, "invalid content")
 
 		then:
 		500 == response.status
 		"Unable to save the setting." == response.json.message
 	}
 
-	def "value handles invalid settingsId"() {
+	def "content handles invalid settingsId"() {
 		when:
-		controller.value(null,"")
+		controller.content(null,"")
 
 		then:
 		500 == response.status
 		"The setting was not found." == response.json.message
 	}
 
-	def "value can be set to 123456"() {
+	def "content can be set to 123456"() {
 		given:
 		assert setting1.save()
 
 		when:
-		controller.value(setting1.id, "123456")
+		controller.content(setting1.id, "123456")
 
 		then:
-		"123456" == setting1.value
+		"123456" == setting1.content
 
 		and:
 		200 == response.status
 		setting1.id == response.json.id
-		"123456" == response.json.value
+		"123456" == response.json.content
 	}
 
-	def "value can be set to blank"() {
+	def "content can be set to blank"() {
 		given:
 		assert setting1.save()
 
 		when:
-		controller.value(setting1.id, "")
+		controller.content(setting1.id, "")
 
 		then:
-		"" == setting1.value
+		"" == setting1.content
 
 		and:
 		200 == response.status
 		setting1.id == response.json.id
-		"" == response.json.value
+		"" == response.json.content
 	}
 
-	def "value handles invalid values"() {
+	def "content handles invalid contents"() {
 		given:
 		assert setting1.save()
 
 		when:
-		controller.value(setting1.id, null)
+		controller.content(setting1.id, null)
 
 		then:
 		500 == response.status
 		"Unable to save the setting." == response.json.message
 	}
 
-	def "reset sets the setting back to the default values"() {
+	def "reset sets the setting back to the default contents"() {
 		given:
 		setting1.visible = false
 		setting1.sort = Setting.SORTS[1]
 		setting1.compare = Setting.COMPARES[1]
-		setting1.value = "abc"
+		setting1.content = "abc"
 		assert setting1.save()
 
 		params.settingId = setting1.id
@@ -368,12 +368,12 @@ class CustomQueryControllerSpec extends Specification {
 		setting1.visible == true
 		setting1.sort == Setting.SORTS[0]
 		setting1.compare == Setting.COMPARES[0]
-		setting1.value == ""
+		setting1.content == ""
 
 		response.json.visible == true
 		response.json.sort == Setting.SORTS[0]
 		response.json.compare == Setting.COMPARES[0]
-		response.json.value == ""
+		response.json.content == ""
 	}
 
 }

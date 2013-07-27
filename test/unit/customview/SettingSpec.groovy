@@ -18,28 +18,28 @@ class SettingSpec extends Specification {
 		view1 = new View(name:"view1").save()
 		assert view1
 
-		column1 = new Column(view:view1, name:"column1", sql:"table1.column1", sequence:1).save()
+		column1 = new Column(view:view1, name:"column1", code:"table1.column1", sequence:1).save()
 		assert column1
 
-		column2 = new Column(view:view1, name:"column2", sql:"table1.column2", sequence:2).save()
+		column2 = new Column(view:view1, name:"column2", code:"table1.column2", sequence:2).save()
 		assert column2
 
-		column3 = new Column(view:view1, name:"column3", sql:"table1.column3", sequence:3).save()
+		column3 = new Column(view:view1, name:"column3", code:"table1.column3", sequence:3).save()
 		assert column3
 	}
 
 	def "test to string"() {
 		given:
-		def setting1 = new Setting(column:column1, userId:userId, sequence:0).save()
+		def setting1 = new Setting(column:column1, userId:userId, sequence:0, visible:true).save()
 		assert setting1
 
 		expect:
-		"Setting[1] $view1 | column1 | $userId | 0" == setting1.toString()
+		"Setting[1] $view1 | column1 | $userId | 0 | true" == setting1.toString()
 	}
 
 	def "before validate trims strings"() {
 		given:
-		def setting1 = new Setting(sort: " s ", compare: " c ", value: " v ")
+		def setting1 = new Setting(sort: " s ", compare: " c ", content: " v ")
 
 		when:
 		setting1.beforeValidate()
@@ -47,7 +47,7 @@ class SettingSpec extends Specification {
 		then:
 		"s" == setting1.sort
 		"c" == setting1.compare
-		"v" == setting1.value
+		"v" == setting1.content
 	}
 
 	def "clear user sorts delegates to the column"() {
@@ -110,17 +110,17 @@ class SettingSpec extends Specification {
 		301 == Setting.getNextSettingSequence(view1, userId)
 	}
 
-	def "numRows - null value returns 1"() {
+	def "numRows - null content returns 1"() {
 		given:
-		def setting1 = new Setting(value:null)
+		def setting1 = new Setting(content:null)
 
 		expect:
 		1 == setting1.numRows
 	}
 
-	def "numRows - blank value returns 1"() {
+	def "numRows - blank content returns 1"() {
 		given:
-		def setting1 = new Setting(value:"")
+		def setting1 = new Setting(content:"")
 
 		expect:
 		1 == setting1.numRows
@@ -128,7 +128,7 @@ class SettingSpec extends Specification {
 
 	def "numRows - single row returns 2"() {
 		given:
-		def setting1 = new Setting(value:"row 1")
+		def setting1 = new Setting(content:"row 1")
 
 		expect:
 		2 == setting1.numRows
@@ -136,7 +136,7 @@ class SettingSpec extends Specification {
 
 	def "numRows - two rows returns 3"() {
 		given:
-		def setting1 = new Setting(value:"row 1\nrow 2")
+		def setting1 = new Setting(content:"row 1\nrow 2")
 
 		expect:
 		3 == setting1.numRows
@@ -144,7 +144,7 @@ class SettingSpec extends Specification {
 
 	def "numRows - extra line feeds are respected"() {
 		given:
-		def setting1 = new Setting(value:"\n row1 \n \n")
+		def setting1 = new Setting(content:"\n row1 \n \n")
 
 		expect:
 		4 == setting1.numRows

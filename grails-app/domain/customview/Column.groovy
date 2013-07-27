@@ -9,7 +9,7 @@ class Column {
 	static TYPES = ["STRING","DATE","NUMBER"]
 
 	String name
-	String sql
+	String code
 	Integer sequence
 	String type = TYPES[0]
 	String classHead = ""
@@ -24,7 +24,7 @@ class Column {
 
 	static constraints = {
 		name blank:false, maxSize:60, unique:true
-		sql blank:false, maxSize:60
+		code blank:false, maxSize:60
 		type maxSize:50, inList:TYPES
 		classHead maxSize:100
 		classBody maxSize:100
@@ -33,12 +33,12 @@ class Column {
 	}
 
 	String toString() {
-		"Column[$id] ${view?.name} | $name | $sql | $sequence | $type"
+		"Column[$id] ${view?.name} | $name | $code | $sequence | $type"
 	}
 
 	def beforeValidate() {
 		name = name?.trim()
-		sql = sql?.trim()
+		code = code?.trim()
 		type = type?.trim()
 		classHead = classHead?.trim()
 		classBody = classBody?.trim()

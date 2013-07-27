@@ -5,12 +5,14 @@
 			"file_exclude_patterns":
 			[
 				"*.ser",
-				"*.sublime-workspace"
+				"*.sublime-workspace",
+				"*.iws"
 			],
 			"folder_exclude_patterns":
 			[
 				".settings",
-				"target"
+				"target",
+				".idea"
 			],
 			"follow_symlinks": true,
 			"path": "C:\\Projects\\customview"

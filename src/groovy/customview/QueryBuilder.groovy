@@ -14,7 +14,7 @@ class QueryBuilder {
 		query.offset = offset
 
 		view.columns.each { Column column ->
-			query.addSelect column.sql + " \"$column.name\""
+			query.addSelect column.code + " \"$column.name\""
 		}
 
 		view.tables.each { Table table ->
@@ -22,7 +22,7 @@ class QueryBuilder {
 		}
 
 		view.getCompareSettings(userId).each { Setting setting ->
-			def value = setting.value
+			def content = setting.content
 			
 			switch(setting.compare) {
 				case "=":
@@ -31,107 +31,107 @@ class QueryBuilder {
 				case ">":
 				case "<=":
 				case ">=":
-				if(!value) return
+				if(!content) return
 				switch(setting.column.type) {
 					case "STRING":
 					case "DATE":
-					value = "'" + value + "'"
+					content = "'" + content + "'"
 					break
 
 					case "NUMBER":
-					if(!value.isNumber()) 
-						value = "-1"
+					if(!content.isNumber()) 
+						content = "-1"
 					break
 				}
 				
-				query.addWhere setting.column.sql + " " + setting.compare + " " + value
+				query.addWhere setting.column.code + " " + setting.compare + " " + content
 				
 				break
 
 				case "begins with":
-				if(!value) return
-				query.addWhere setting.column.sql + " like '" + value + "%'"
+				if(!content) return
+				query.addWhere setting.column.code + " like '" + content + "%'"
 				break
 
 				case "contains":
-				if(!value) return
-				query.addWhere setting.column.sql + " like '%" + value + "%'"
+				if(!content) return
+				query.addWhere setting.column.code + " like '%" + content + "%'"
 				break
 
 				case "does not contain":
-				if(!value) return
-				query.addWhere setting.column.sql + " not like '%" + value + "%'"
+				if(!content) return
+				query.addWhere setting.column.code + " not like '%" + content + "%'"
 				break
 
 				case "ends with":
-				if(!value) return
-				query.addWhere setting.column.sql + " like '%" + value + "'"
+				if(!content) return
+				query.addWhere setting.column.code + " like '%" + content + "'"
 				break
 
 				case "is null":
-				query.addWhere setting.column.sql + " is null"
+				query.addWhere setting.column.code + " is null"
 				break
 
 				case "is not null":
-				query.addWhere setting.column.sql + " is not null"
+				query.addWhere setting.column.code + " is not null"
 				break
 
 				case "in list":
-				if(!value) return
-				def values = []
+				if(!content) return
+				def contents = []
 				switch(setting.column.type) {
 					case "STRING":
 					case "DATE":
-					value.split("\n").each { 
+					content.split("\n").each { 
 						def v = it.trim() 
 						if(v) {
-							values << "'" + v + "'"
+							contents << "'" + v + "'"
 						}
 					}
-					value = values.join(",")
+					content = contents.join(",")
 					break
 
 					case "NUMBER":
-					value.split("\n").each { 
+					content.split("\n").each { 
 						def v = it.trim() 
 						if(v) {
-							values << v
+							contents << v
 						}
 					}
-					value = values.join(",")
+					content = contents.join(",")
 					break
 				}
 
-				query.addWhere setting.column.sql + " in (" + value + ")"
+				query.addWhere setting.column.code + " in (" + content + ")"
 				break
 
 				case "not in list":
-				if(!value) return
-				def values = []
+				if(!content) return
+				def contents = []
 				switch(setting.column.type) {
 					case "STRING":
 					case "DATE":
-					value.split("\n").each { 
+					content.split("\n").each { 
 						def v = it.trim() 
 						if(v) {
-							values << "'" + v + "'"
+							contents << "'" + v + "'"
 						}
 					}
-					value = values.join(",")
+					content = contents.join(",")
 					break
 
 					case "NUMBER":
-					value.split("\n").each { 
+					content.split("\n").each { 
 						def v = it.trim() 
 						if(v) {
-							values << v
+							contents << v
 						}
 					}
-					value = values.join(",")
+					content = contents.join(",")
 					break
 				}
 
-				query.addWhere setting.column.sql + " not in (" + value + ")"
+				query.addWhere setting.column.code + " not in (" + content + ")"
 				break
 			}
 
@@ -139,7 +139,7 @@ class QueryBuilder {
 
 		def setting = view.getSortSetting(userId)
 		if(setting)
-			query.addOrder setting.column.sql + " " + setting.sort
+			query.addOrder setting.column.code + " " + setting.sort
 
 		query
 	}
