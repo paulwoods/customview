@@ -4,7 +4,6 @@
     <facet type="web" name="GrailsWeb">
       <configuration>
         <webroots>
-          <root url="file://$MODULE_DIR$/target/plugins/jquery-1.10.0/web-app" relative="/" />
           <root url="file://$MODULE_DIR$/target/plugins/cache-headers-1.1.5/web-app" relative="/" />
         </webroots>
         <sourceRoots />
@@ -23,15 +22,9 @@
       <sourceFolder url="file://$MODULE_DIR$/target/plugins/cache-headers-1.1.5/grails-app/services" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$/target/plugins/code-coverage-1.2.6" />
-    <content url="file://$MODULE_DIR$/target/plugins/codenarc-0.18.1" />
     <content url="file://$MODULE_DIR$/target/plugins/gmetrics-0.3.1" />
     <content url="file://$MODULE_DIR$/target/plugins/hibernate-2.2.3">
       <sourceFolder url="file://$MODULE_DIR$/target/plugins/hibernate-2.2.3/grails-app/i18n" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/target/plugins/jquery-1.10.0">
-      <sourceFolder url="file://$MODULE_DIR$/target/plugins/jquery-1.10.0/src/groovy" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/target/plugins/jquery-1.10.0/grails-app/services" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/target/plugins/jquery-1.10.0/grails-app/taglib" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$/target/plugins/spock-0.7" />
     <content url="file://$MODULE_DIR$/target/plugins/tomcat-2.2.3" />
