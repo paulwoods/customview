@@ -11,6 +11,7 @@ import spock.lang.Specification
 class CustomViewServiceSpec extends Specification {
 
 	def view1
+	def session = [:]
 
 	def viewRecords = [[a:1],[a:2],[a:3]]
 
@@ -35,16 +36,15 @@ class CustomViewServiceSpec extends Specification {
 
 		view1.metaClass.getConnection = { -> viewConnection }
 
-		service.customViewPlugin = [
-			getConnection: { -> pluginConnection },
-			getCurrentUserId: { -> 123456L },
-		]
+		service.metaClass.getSession = { -> session }
+		
+		session.userid = 123456L
 
 	}
 
 	def "if view is null then a exception is thrown"() {
 		when:
-		service.fetch null, 0
+		service.fetch null, 0, "paul.woods"
 
 		then:
 		CustomViewException e = thrown()
@@ -53,7 +53,7 @@ class CustomViewServiceSpec extends Specification {
 
 	def "null offset returns empty result"() {
 		when:
-		service.fetch view1, null
+		service.fetch view1, null, "paul.woods"
 
 		then:
 		CustomViewException e = thrown()
@@ -62,7 +62,7 @@ class CustomViewServiceSpec extends Specification {
 
 	def "fetch records puts the view in the result"() {
 		when:
-		def result = service.fetch(view1, 0)
+		def result = service.fetch(view1, 0, "paul.woods")
 
 		then:
 		view1 == result.view
@@ -70,7 +70,7 @@ class CustomViewServiceSpec extends Specification {
 
 	def "fetch records puts the records in the result"() {
 		when:
-		def result = service.fetch(view1, 0)
+		def result = service.fetch(view1, 0, "paul.woods")
 
 		then:
 		viewRecords == result.records
@@ -78,7 +78,7 @@ class CustomViewServiceSpec extends Specification {
 
 	def "fetch records stores the offset plus number of records in the offset"() {
 		when:
-		def result = service.fetch(view1, 111)
+		def result = service.fetch(view1, 111, "paul.woods")
 
 		then:
 		114 == result.offset
@@ -86,7 +86,7 @@ class CustomViewServiceSpec extends Specification {
 
 	def "more data is true if there were records returned"() {
 		when:
-		def result = service.fetch(view1, 111)
+		def result = service.fetch(view1, 111, "paul.woods")
 
 		then:
 		result.moreData
@@ -97,34 +97,10 @@ class CustomViewServiceSpec extends Specification {
 		viewRecords = []
 
 		when:
-		def result = service.fetch(view1, 111)
+		def result = service.fetch(view1, 111, "paul.woods")
 
 		then:
 		!result.moreData
-	}
-
-	def "if no connection from view, use connection from plugin"() {
-		given:
-		viewConnection = null
-
-		when:
-		def result = service.fetch(view1, 111)
-
-		then:
-		pluginRecords == result.records
-	}
-
-	def "if no connection from view or plugin, exception is thrown"() {
-		given:
-		viewConnection = null
-		pluginConnection = null
-
-		when:
-		service.fetch view1, 111
-
-		then:
-		CustomViewException e = thrown()
-		"Unable to get database connection." == e.message
 	}
 
 }

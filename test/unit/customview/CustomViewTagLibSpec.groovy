@@ -11,9 +11,23 @@ import spock.lang.Specification
 class CustomViewTagLibSpec extends Specification {
 
 	def customViewService
+	View view1
+	Column column1,column2,column3
 
 	def setup() {
 		customViewService = new CustomViewService()
+
+		view1 = new View([name:"view1"]).save()
+		assert view1
+
+		column1 = new Column(view:view1, name:"column1", code:"table1.column1", sequence:0).save()
+		assert column1
+
+		column2 = new Column(view:view1, name:"column2", code:"table1.column2", sequence:1).save()
+		assert column2
+
+		column3 = new Column(view:view1, name:"column3", code:"table1.column3", sequence:2).save()
+		assert column3
 	}
 
 	def "null name throws exception"() {
@@ -40,19 +54,7 @@ class CustomViewTagLibSpec extends Specification {
 
 	def "build a three column header"() {
 		given:
-		View view1 = new View([name:"view1"]).save()
-		assert view1
-
-		tagLib.customViewPlugin = [ getCurrentUserId: { -> 1 } ]
-
-		Column column1 = new Column(view:view1, name:"column1", code:"table1.column1", sequence:0).save()
-		assert column1
-
-		Column column2 = new Column(view:view1, name:"column2", code:"table1.column2", sequence:1).save()
-		assert column2
-
-		Column column3 = new Column(view:view1, name:"column3", code:"table1.column3", sequence:2).save()
-		assert column3
+		tagLib.session.userid = "paul.woods"
 
 		def expected1 = """<table id="view1" class="classview">
 			|<caption><a href="http://localhost:8080/customQuery/customize?name=view1&amp;returnURL=http%3A%2F%2Flocalhost%3A8080%2F">customize</a></caption>
@@ -74,8 +76,20 @@ class CustomViewTagLibSpec extends Specification {
 		def actual = applyTemplate(call, [name:"view1"])
 
 		then:
-		println actual
 		actual.contains(expected1)
+	}
+
+	def "if userid is null, then don't allow customize (caption is empty)"() {
+		given:
+		def expected1 = "<caption>"
+
+		def call = """<specteam:customView name="view1"/>"""
+
+		when:
+		def actual = applyTemplate(call, [name:"view1"])
+
+		then:
+		!actual.contains(expected1)
 	}
 
 }

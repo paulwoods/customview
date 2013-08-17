@@ -7,13 +7,13 @@ class BodyBuilder {
 	
 	def shell = new GroovyShell()
 
-	String build(View view, List records, long userId) {
+	String build(View view, List records, String userid) {
 		if(!records || !view) 
 			return ""
 
 		StringBuilder out = new StringBuilder()
 		
-		def settings = view.getSettingsInOrder(userId)
+		def settings = view.getSettingsInOrder(userid)
 
 		records.each { record ->
 			out << "<tr>"

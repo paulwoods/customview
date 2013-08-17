@@ -14,7 +14,7 @@ class CustomViewPlugin {
 	}
 
 	Long getCurrentUserId() {
-		1
+		null
 	}
 
 }

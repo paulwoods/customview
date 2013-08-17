@@ -19,9 +19,25 @@
 	</div>	
 
 	<div class="span9">
-	<h2>Addresses</h2>
-	<specteam:customView name="addresses"/>
+	
+		<h2>Addresses</h2>
+
+		<input id="userid" type="text" name="userid" value="${session.userid}"/>
+		<input id="submit" type="button" value="submit"/>
+
+		<specteam:customView name="addresses"/>
+
 	</div>
+
+<script>
+
+$(document).on('click', '#submit', function() {
+	var url = '<g:createLink action="changeuser" absolute="true"/>';
+	url += '/' + $('#userid').val();
+	location.href = url;
+});
+
+</script>
 
 </body>
 </html>

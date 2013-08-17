@@ -2,7 +2,7 @@ package customview
 
 class QueryBuilder {
 	
-	Query build(View view, Integer offset, Long userId) {
+	Query build(View view, Integer offset, String userid) {
 		def query = new Query()
 
 		if(null == view) {
@@ -21,7 +21,7 @@ class QueryBuilder {
 			query.addFrom table.name
 		}
 
-		view.getCompareSettings(userId).each { Setting setting ->
+		view.getCompareSettings(userid).each { Setting setting ->
 			def content = setting.content
 			
 			switch(setting.compare) {
@@ -137,7 +137,7 @@ class QueryBuilder {
 
 		}
 
-		def setting = view.getSortSetting(userId)
+		def setting = view.getSortSetting(userid)
 		if(setting)
 			query.addOrder setting.column.code + " " + setting.sort
 

@@ -11,7 +11,7 @@ class ResultSpec extends Specification {
 	Result result
 	def view1
 	def offset = 111
-	def userId = 123456L
+	def userid = "paul.woods"
 
 	def setup() {
 		result = new Result()
@@ -25,13 +25,13 @@ class ResultSpec extends Specification {
 		def records = [[a:1],[a:2],[a:3]]
 		result.view = view1
 		result.records = records
-		result.userId = 123456L
+		result.userid = userid
 
 		def bodyBuilder = mockFor(BodyBuilder)
-		bodyBuilder.demand.build { View v, List r, Long u -> 
+		bodyBuilder.demand.build { View v, List r, String u -> 
 			assert view1 == v
 			assert records == r
-			assert 123456L == u
+			assert userid == u
 			"<div></div>"
 		}
 		result.bodyBuilder = bodyBuilder.createMock()

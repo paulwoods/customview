@@ -22,12 +22,12 @@ class BodyBuilderSpec extends Specification {
 		column1 = new Column(view:view1, name:"column1", code:"table1.column1", sequence: 0, type:"STRING").save()
 		assert column1
 
-		setting1 = new Setting(column:column1, userId: 1, sequence: 0).save()
+		setting1 = new Setting(column:column1, userid: "paul.woods", sequence: 0).save()
 		assert setting1
 	}
 
 	void assertBody(View view, List records, String expected) {
-		def actual = builder.build(view, records, 1)
+		def actual = builder.build(view, records, "paul.woods")
 		assert expected == actual
 	}
 

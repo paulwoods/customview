@@ -11,4 +11,10 @@ class AddressController {
 		[:] // used to shut-up codenarc
 	}
 
+	def changeuser(id) {
+		session.userid = id
+		println "storing userid $session.userid"
+		redirect action:"list"
+	}
+
 }

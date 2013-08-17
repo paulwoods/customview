@@ -9,7 +9,7 @@ import spock.lang.Specification
 class QueryBuilderSpec extends Specification {
 
 	QueryBuilder builder
-	def userId = 123456
+	def userid = "paul.woods"
 	def view1
 	def table1, table2
 	def column1, column2
@@ -32,10 +32,10 @@ class QueryBuilderSpec extends Specification {
 		column2 = new Column(view:view1, name:"column2", code:"table2.column2", sequence:1).save()
 		assert column2
 
-		setting1 = new Setting(column:column1, userId:userId, sequence:0).save()
+		setting1 = new Setting(column:column1, userid:userid, sequence:0).save()
 		assert setting1
 
-		setting2 = new Setting(column:column2, userId:userId, sequence:1).save()
+		setting2 = new Setting(column:column2, userid:userid, sequence:1).save()
 		assert setting2
 	}
 
@@ -47,7 +47,7 @@ class QueryBuilderSpec extends Specification {
 		setting1.content = content
 		assert setting1.save()
 
-		def query = builder.build(view1, 0, userId)
+		def query = builder.build(view1, 0, userid)
 
 		assert result == query.wheres
 
@@ -56,7 +56,7 @@ class QueryBuilderSpec extends Specification {
 
 	def "null view returns a empty query"() {
 		when:
-		def query = builder.build(null, 0, userId)
+		def query = builder.build(null, 0, userid)
 
 		then:
 		!query.selects
@@ -68,7 +68,7 @@ class QueryBuilderSpec extends Specification {
 
 	def "fetch size is stored in query"() {
 		when:
-		def query = builder.build(view1, 0, userId)
+		def query = builder.build(view1, 0, userid)
 
 		then:
 		view1.fetchSize == query.count
@@ -79,7 +79,7 @@ class QueryBuilderSpec extends Specification {
 		def offset = 555
 
 		when:
-		def query = builder.build(view1, offset, userId)
+		def query = builder.build(view1, offset, userid)
 
 		then:
 		offset == query.offset
@@ -87,7 +87,7 @@ class QueryBuilderSpec extends Specification {
 
 	def "query has the columns in the select"() {
 		when:
-		def query = builder.build(view1, 0, userId)
+		def query = builder.build(view1, 0, userid)
 
 		then:
 		['table1.column1 "column1"', 'table2.column2 "column2"'] == query.selects
@@ -95,7 +95,7 @@ class QueryBuilderSpec extends Specification {
 
 	def "query has the tables in the froms"() {
 		when:
-		def query = builder.build(view1, 0, userId)
+		def query = builder.build(view1, 0, userid)
 
 		then:
 		['table1','table2'] == query.froms
@@ -103,7 +103,7 @@ class QueryBuilderSpec extends Specification {
 
 	def "no setting with sort does not add a order"() {
 		when:
-		def query = builder.build(view1, 0, userId)
+		def query = builder.build(view1, 0, userid)
 
 		then:
 		[] == query.orders
@@ -115,7 +115,7 @@ class QueryBuilderSpec extends Specification {
 		assert setting1.save()
 
 		when:
-		def query = builder.build(view1, 0, userId)
+		def query = builder.build(view1, 0, userid)
 
 		then:
 		["table1.column1 ASC"] == query.orders
@@ -127,7 +127,7 @@ class QueryBuilderSpec extends Specification {
 		assert setting2.save()
 
 		when:
-		def query = builder.build(view1, 0, userId)
+		def query = builder.build(view1, 0, userid)
 
 		then:
 		["table2.column2 DESC"] == query.orders

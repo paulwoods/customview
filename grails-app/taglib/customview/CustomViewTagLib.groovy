@@ -2,8 +2,6 @@ package customview
 
 class CustomViewTagLib {
 
-	def customViewPlugin
-
 	HeadBuilder headBuilder = new HeadBuilder()
 
 	static namespace = "specteam"
@@ -17,12 +15,12 @@ class CustomViewTagLib {
 			return 
 		}
 
-		Long userId = customViewPlugin.getCurrentUserId()
+		String userid = session.userid
 
 		openTable attrs
 		caption view
 		openHead()
-		writeHeader view, userId
+		writeHeader view, userid
 		closeHead()
 		openBody()
 		closeBody()
@@ -40,19 +38,24 @@ class CustomViewTagLib {
 	}
 
 	private caption(View view) {
-		String returnURL = g.createLink(
-			controller:controllerName, 
-			action:actionName, 
-			params:params, 
-			absolute:true)
 
-		String link = g.link(
-			controller:"customQuery", 
-			action:"customize", 
-			params:[name:view.name, returnURL:returnURL], 
-			absolute:true) { "customize" }
+		if(session.userid) {
+			String returnURL = g.createLink(
+				controller:controllerName, 
+				action:actionName, 
+				params:params, 
+				absolute:true)
 
-		out << """<caption>$link</caption>\n"""
+			String link = g.link(
+				controller:"customQuery", 
+				action:"customize", 
+				params:[name:view.name, returnURL:returnURL], 
+				absolute:true) { "customize" }
+
+			out << "<caption>$link</caption>\n"
+		} else {
+			// out << "<caption>login to customize the view</caption>\n"
+		}
 	}
 
 	private openHead() {
@@ -71,8 +74,8 @@ class CustomViewTagLib {
 		out << """</tbody>\n"""
 	}
 
-	private writeHeader(View view, Long userId) {
-		out << headBuilder.build(view, userId)
+	private writeHeader(View view, String userid) {
+		out << headBuilder.build(view, userid)
 	}
 
 	private writeWaiting() {

@@ -5,13 +5,13 @@ class Result {
 
 	View view
 	Integer offset = 0
-	Long userId = 0
+	String userid = 0
 	List records = []
 	String html = ""
 	Boolean moreData = false
 	
 	void createHTML() {
-		html = bodyBuilder.build(view, records, userId)
+		html = bodyBuilder.build(view, records, userid)
 	}
 
 	Map toMap() {

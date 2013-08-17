@@ -46,12 +46,12 @@ class Column {
 		th = th?.trim()
 	}
 
-	Setting getSetting(Long userId) {
-		Setting.getOrCreateSetting(this, userId)
+	Setting getSetting(String userid) {
+		Setting.getOrCreateSetting(this, userid)
 	}
 
-	void clearUserSorts(Long userId) {
-		view.clearUserSorts userId
+	void clearUserSorts(String userid) {
+		view.clearUserSorts userid
 	}
 
 	String value(Map record) {

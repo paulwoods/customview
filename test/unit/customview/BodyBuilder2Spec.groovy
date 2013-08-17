@@ -25,15 +25,15 @@ class BodyBuilder2Spec extends Specification {
 		column2 = new Column(view:view1, name:"column2", code:"table1.column2", sequence: 1, type:"STRING").save()
 		assert column2
 
-		setting1 = new Setting(column:column1, userId: 1, sequence: 0).save()
+		setting1 = new Setting(column:column1, userid: "paul.woods", sequence: 0).save()
 		assert setting1
 
-		setting2 = new Setting(column:column2, userId: 1, sequence: 1).save()
+		setting2 = new Setting(column:column2, userid: "paul.woods", sequence: 1).save()
 		assert setting2
 	}
 
 	void assertBody(View view, List records, String expected) {
-		def actual = builder.build(view, records, 1)
+		def actual = builder.build(view, records, "paul.woods")
 		assert expected == actual
 	}
 

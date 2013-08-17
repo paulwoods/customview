@@ -22,13 +22,13 @@ class HeadBuilderSpec extends Specification {
 		column1 = new Column(view:view1, name:"column1", code:"table1.column1", sequence:0).save()
 		assert column1
 
-		setting1 = new Setting(column:column1, userId:1, sequence:1).save()
+		setting1 = new Setting(column:column1, userid:"paul.woods", sequence:1).save()
 		assert setting1
 	}
 
 	def "value of the column is output"() {
 		when:
-		def html = builder.build(view1, 1)
+		def html = builder.build(view1, "paul.woods")
 
 		then:
 		"<tr>\n<th>column1</th>\n</tr>\n" == html
@@ -39,7 +39,7 @@ class HeadBuilderSpec extends Specification {
 		column1.classHead = "head-class"
 
 		when:
-		def html = builder.build(view1, 1)
+		def html = builder.build(view1, "paul.woods")
 
 		then:
 		"""<tr>\n<th class="head-class">column1</th>\n</tr>\n""" == html
@@ -48,7 +48,7 @@ class HeadBuilderSpec extends Specification {
 	def "if setting is hidden, no cell is created"() {
 		when:
 		setting1.visible = false
-		def html = builder.build(view1, 1)
+		def html = builder.build(view1, "paul.woods")
 
 		then:
 		"""<tr>\n</tr>\n""" == html

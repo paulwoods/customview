@@ -2,13 +2,13 @@ package customview
 
 class HeadBuilder {
 	
-	String build(View view, Long userId) {
+	String build(View view, String userid) {
 		
 		StringBuilder sb = new StringBuilder()
 
 		sb << "<tr>\n"
 
-		view.getSettingsInOrder(userId).each { setting -> 
+		view.getSettingsInOrder(userid).each { setting -> 
 			if(setting.visible) {
 				def column = setting.column
 				def clazz = column.classHead ? " class=\"$column.classHead\"" : ""

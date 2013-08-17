@@ -11,7 +11,7 @@ class Setting {
 		"ends with", "is null", "is not null", "in list", "not in list",
 	]
 
-	Long userId
+	String userid
 	Integer sequence
 	Boolean visible = true
 	String sort = SORTS[0]
@@ -23,13 +23,14 @@ class Setting {
 	}
 
 	static constraints = {
+		userid maxSize:100
 		sort blank:true, inList: SORTS, maxSize: 10
 		compare blank:true, inList:COMPARES, maxSize: 20
 		content blank:true, maxSize: 1000
 	}
 
 	String toString() {
-		"Setting[$id] $column.view | $column.name | $userId | $sequence | $visible"
+		"Setting[$id] $column.view | $column.name | $userid | $sequence | $visible"
 	}
 
 	def beforeValidate() {
@@ -39,28 +40,25 @@ class Setting {
 	}
 
 	void clearUserSorts() {
-		column.clearUserSorts userId
+		column.clearUserSorts userid
 	}
 	
-	static Setting getOrCreateSetting(Column column, Long userId) {
-		def setting = Setting.findByColumnAndUserId(column, userId)
+	static Setting getOrCreateSetting(Column column, String userid) {
+		def setting = Setting.findByColumnAndUserid(column, userid)
 		
-		if(setting) {
-			println "existing setting $setting"
-		} else {
-			setting = new Setting(column:column, userId:userId)
-			setting.sequence = getNextSettingSequence(column.view, userId)
+		if(!setting) {
+			setting = new Setting(column:column, userid:userid)
+			setting.sequence = getNextSettingSequence(column.view, userid)
 			setting.save()
-			println "created setting $setting"
 		}
 
 		setting
 	}
 
-	static Integer getNextSettingSequence(View view, Long currentUserId) {
+	static Integer getNextSettingSequence(View view, String currentUserid) {
 		def settings = Setting.where {
 			view.columns in columns && 
-			userId == currentUserId
+			userid == currentUserid
 		}.list(sort:"sequence", order:"desc")
 
 		settings ? settings[0].sequence + 1 : 1

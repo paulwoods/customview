@@ -15,10 +15,7 @@ class CustomQueryControllerSpec extends Specification {
 	def setting1
 
 	def setup() {
-		controller.customViewPlugin = [
-			getCurrentUserId:{ -> 123456 },
-			getConnection: { -> [close: { -> }] },
-		]
+		controller.session.userid = "paul.woods"
 
 		view1 = new View(name:"view1").save()
 		assert null != view1.save()
@@ -26,10 +23,18 @@ class CustomQueryControllerSpec extends Specification {
 		column1 = new Column(view:view1, name:"column1", code:"table1.column1", sequence:1).save()
 		assert null != column1
 
-		setting1 = new Setting(column:column1, userId:1, sequence:1).save()
+		setting1 = new Setting(column:column1, userid:1, sequence:1).save()
 		assert null != setting1
 
 		controller.metaClass.cache = { }
+	}
+
+	def "index redirects to home"() {
+		when:
+		controller.index()
+
+		then:
+		true
 	}
 
 	def "fetch with invalid view return status code 500"() {
@@ -47,7 +52,7 @@ class CustomQueryControllerSpec extends Specification {
 	def "fetch returns a block of data"() {
 		given:
 		def customViewService = mockFor(CustomViewService)
-		customViewService.demand.fetch { View v, Integer o ->
+		customViewService.demand.fetch { View v, Integer o, String u ->
 			assert v == view1
 			assert o == 111
 			new Result(view:view1, offset:123, records:[[a:1]], moreData:true)
@@ -69,7 +74,7 @@ class CustomQueryControllerSpec extends Specification {
 	def "fetch handles exceptions"() {
 		given:
 		def customViewService = mockFor(CustomViewService)
-		customViewService.demand.fetch { View v, Integer o ->
+		customViewService.demand.fetch { View v, Integer o, String u ->
 			throw new RuntimeException("Boom!")
 		}
 		controller.customViewService = customViewService.createMock()
@@ -91,7 +96,7 @@ class CustomQueryControllerSpec extends Specification {
 		println model
 		then:
 		view1 == model.view
-		123456 == model.userId
+		"paul.woods" == model.userid
 		"www.example.com" == model.returnURL
 	}
 

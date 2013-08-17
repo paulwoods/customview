@@ -10,7 +10,7 @@ import spock.lang.Specification
 @Mock([View,Column,Setting])
 class ViewSpec extends Specification {
 
-	def userId = 123456
+	def userid = "paul.woods"
 	def view1
 	def column1, column2
 	def setting1, setting2
@@ -25,10 +25,10 @@ class ViewSpec extends Specification {
 		column2 = new Column(view:view1, name:"column2", code:"table2.column2", sequence:1).save()
 		assert column2
 
-		setting1 = new Setting(column:column1, userId:userId, sequence:0).save()
+		setting1 = new Setting(column:column1, userid:userid, sequence:0).save()
 		assert setting1
 
-		setting2 = new Setting(column:column2, userId:userId, sequence:1).save()
+		setting2 = new Setting(column:column2, userid:userid, sequence:1).save()
 		assert setting2
 	}
 
@@ -61,7 +61,7 @@ class ViewSpec extends Specification {
 
 	def "if no setting has sort, return null"() {
 		expect:
-		null == view1.getSortSetting(userId)
+		null == view1.getSortSetting(userid)
 	}
 
 	def "get the setting that has a sort set"() {
@@ -70,7 +70,7 @@ class ViewSpec extends Specification {
 		assert setting1.save()
 
 		expect:
-		setting1 == view1.getSortSetting(userId)
+		setting1 == view1.getSortSetting(userid)
 	}
 
 	def "get the setting that has a sort set 2"() {
@@ -79,17 +79,17 @@ class ViewSpec extends Specification {
 		assert setting2.save()
 
 		expect:
-		setting2 == view1.getSortSetting(userId)
+		setting2 == view1.getSortSetting(userid)
 	}
 
 	def "only get sort setting for this user"() {
 		given:
 		setting2.sort = "ASC"
-		setting2.userId = 99999
+		setting2.userid = 99999
 		assert setting2.save()
 
 		expect:
-		null == view1.getSortSetting(userId)
+		null == view1.getSortSetting(userid)
 	}
 
 	def "the users sorts are cleared"() {
@@ -98,7 +98,7 @@ class ViewSpec extends Specification {
 		assert setting2.save()
 
 		when:
-		view1.clearUserSorts userId
+		view1.clearUserSorts userid
 
 		then:
 		"" == setting1.sort
@@ -119,70 +119,32 @@ class ViewSpec extends Specification {
 		"org.h2.Driver" == view2.driver
 	}
 
-	def "if url is null getconnection returns null"() {
-		given:
-		def view2 = new View(name:"view2",
-			url:null, 
-			username:"sa", 
-			password:"", 
-			driver:"org.h2.Driver").save()
-		assert view2
-
-		expect:
-		null == view2.connection
-	}
-
-	def "if url is blank getconnection returns null"() {
+	def "if url is invalid getconnection returns null"() {
 		given:
 		def view2 = new View(name:"view2",
 			url:"", 
 			username:"sa", 
 			password:"", 
-			driver:"org.h2.Driver").save()
-		assert view2
+			driver:"org.h2.Driver")
 
+		assert view2.save()
+		
 		expect:
-		null == view2.connection
-
+		!view2.connection
 	}
 
-	def "if username is null getconnection returns null"() {
-		given:
-		def view2 = new View(name:"view2",
-			url:"jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000", 
-			username:null, 
-			password:"", 
-			driver:"org.h2.Driver").save()
-		assert view2
-
-		expect:
-		null == view2.connection
-	}
-
-	def "if username is blank getconnection returns null"() {
+	def "if username is invalid getconnection returns null"() {
 		given:
 		def view2 = new View(name:"view2",
 			url:"jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000", 
 			username:"", 
 			password:"", 
-			driver:"org.h2.Driver").save()
-		assert view2
+			driver:"org.h2.Driver")
 
+		assert view2.save()
+		
 		expect:
-		null == view2.connection
-	}
-
-	def "if password is null getconnection returns null"() {
-		given:
-		def view2 = new View(name:"view2",
-			url:"jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000", 
-			username:"sa", 
-			password:null, 
-			driver:"org.h2.Driver").save()
-		assert view2
-
-		expect:
-		null == view2.connection
+		!view2.connection
 	}
 
 	def "if driver is null getconnection returns null"() {
@@ -191,27 +153,12 @@ class ViewSpec extends Specification {
 			url:"jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000", 
 			username:"sa", 
 			password:"abcdefg", 
-			driver:null).save()
-		assert view2
+			driver:"")
 
+		assert view2.save()
+		
 		expect:
-		null == view2.connection
-
+		!view2.connection
 	}
-
-	def "if driver is blank getconnection returns null"() {
-		given:
-		def view2 = new View(name:"view2",
-			url:"jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000", 
-			username:"sa", 
-			password:"abcdefg", 
-			driver:"").save()
-		assert view2
-
-		expect:
-		null == view2.connection
-	}
-
-	
 
 }

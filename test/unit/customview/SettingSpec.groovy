@@ -12,7 +12,7 @@ class SettingSpec extends Specification {
 
 	def view1
 	def column1,column2,column3
-	def userId = 123456
+	def userid = "paul.woods"
 
 	def setup() {
 		view1 = new View(name:"view1").save()
@@ -30,11 +30,11 @@ class SettingSpec extends Specification {
 
 	def "test to string"() {
 		given:
-		def setting1 = new Setting(column:column1, userId:userId, sequence:0, visible:true).save()
+		def setting1 = new Setting(column:column1, userid:userid, sequence:0, visible:true).save()
 		assert setting1
 
 		expect:
-		"Setting[1] $view1 | column1 | $userId | 0 | true" == setting1.toString()
+		"Setting[1] $view1 | column1 | $userid | 0 | true" == setting1.toString()
 	}
 
 	def "before validate trims strings"() {
@@ -52,11 +52,11 @@ class SettingSpec extends Specification {
 
 	def "clear user sorts delegates to the column"() {
 		given:
-		def setting1 = new Setting(column:column1, userId:userId, sequence:0).save()
+		def setting1 = new Setting(column:column1, userid:userid, sequence:0).save()
 		assert setting1
 		
 		Boolean called = false
-		column1.metaClass.clearUserSorts = { Long u -> called = true }
+		column1.metaClass.clearUserSorts = { String u -> called = true }
 		
 		when:
 		setting1.clearUserSorts()
@@ -67,23 +67,23 @@ class SettingSpec extends Specification {
 
 	def "a setting is created if it doesn't exist"() {
 		when:
-		def setting1 = Setting.getOrCreateSetting(column1, userId)
+		def setting1 = Setting.getOrCreateSetting(column1, userid)
 
 		then:
 		setting1 instanceof Setting
 		column1 == setting1.column
 		1 == setting1.sequence
-		123456 == setting1.userId
+		userid == setting1.userid
 		1 == Setting.count()
 	}
 
 	def "an existing setting is returned"() {
 		given:
-		def setting1 = new Setting(column:column1, userId:userId, sequence:0).save()
+		def setting1 = new Setting(column:column1, userid:userid, sequence:0).save()
 		assert setting1
 		
 		when:
-		def setting2 = Setting.getOrCreateSetting(column1, userId)
+		def setting2 = Setting.getOrCreateSetting(column1, userid)
 
 		then:
 		setting2 == setting1
@@ -92,22 +92,22 @@ class SettingSpec extends Specification {
 
 	def "get next setting sequence returns 1 if no existing sequences"() {
 		expect:
-		1 == Setting.getNextSettingSequence(view1, userId)
+		1 == Setting.getNextSettingSequence(view1, userid)
 	}
 
 	def "get next setting returns the highest sequence + 1"() {
 		given:
-		def setting1 = new Setting(column:column1, userId:userId, sequence:100).save()
+		def setting1 = new Setting(column:column1, userid:userid, sequence:100).save()
 		assert setting1
 
-		def setting2 = new Setting(column:column2, userId:userId, sequence:300).save()
+		def setting2 = new Setting(column:column2, userid:userid, sequence:300).save()
 		assert setting2
 
-		def setting3 = new Setting(column:column3, userId:userId, sequence:200).save()
+		def setting3 = new Setting(column:column3, userid:userid, sequence:200).save()
 		assert setting3
 
 		expect:
-		301 == Setting.getNextSettingSequence(view1, userId)
+		301 == Setting.getNextSettingSequence(view1, userid)
 	}
 
 	def "numRows - null content returns 1"() {

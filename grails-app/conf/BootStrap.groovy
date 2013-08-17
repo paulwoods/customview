@@ -7,8 +7,6 @@ class BootStrap {
 
 	def init = { servletContext ->
 
-		def userId = 1
-
 		def sequence = 0
 
 		View view = new View(

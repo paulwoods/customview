@@ -25,7 +25,7 @@
 <div class="span9">
 
 	<h2>
-		Customize Your View: ${view.name} : userId =${userId}
+		Customize Your View: ${view.name} : userid =${userid}
 		<img id="waiting" src="${resource(dir: 'images', file: 'spinner.gif')}" alt="spinner">
 	</h2>
 	<table id="customize" class="classview-modify">
@@ -41,7 +41,7 @@
 	</tr>
 	</thead>
 	<tbody>
-	<g:each in="${view.getSettingsInOrder(userId)}" var="setting">
+	<g:each in="${view.getSettingsInOrder(userid)}" var="setting">
 	<g:set var="placeholder" value="${'DATE' == setting.column.type ? 'yyyy-mm-dd' : ''}"/>
 	<tr data-id="${setting.id}">
 		<td>${setting.column.name}</td>

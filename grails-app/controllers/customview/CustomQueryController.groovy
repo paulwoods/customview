@@ -4,7 +4,6 @@ import grails.converters.JSON
 
 class CustomQueryController {
 
-	def customViewPlugin
 	def customViewService
 
 	def index() {
@@ -19,7 +18,7 @@ class CustomQueryController {
 		}
 
 		try {
-			Result result = customViewService.fetch(view, offset)
+			Result result = customViewService.fetch(view, offset, session.userid)
 			result.createHTML()
 			render result.toMap() as JSON
 		} catch(e) {
@@ -35,7 +34,7 @@ class CustomQueryController {
 			log.warn "view not found: $name"
 			return render(status:500, text: "The view was not found: $name")
 		}
-		[view:view, userId:customViewPlugin.getCurrentUserId(), returnURL:returnURL]
+		[view:view, userid:session.userid, returnURL:returnURL]
 	}
 
 	def sort(Long settingId, String sort) {
@@ -108,7 +107,7 @@ class CustomQueryController {
 			render(status: 200, contentType: "application/json") {
 				[
 					id: setting.id,
-					userId: setting.userId,
+					userid: setting.userid,
 					visible: setting.visible,
 					sort: setting.sort,
 					compare: setting.compare,

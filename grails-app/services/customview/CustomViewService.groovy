@@ -4,9 +4,7 @@ import groovy.sql.*
 
 class CustomViewService {
 
-	def customViewPlugin
-
-	Result fetch(View view, Integer offset) {
+	Result fetch(View view, Integer offset, String userid) {
 		if(!view)
 			throw new CustomViewException("The view is null.")
 
@@ -15,7 +13,7 @@ class CustomViewService {
 
 		List records = []
 		try {
-			records = fetchRecords(view, offset)
+			records = fetchRecords(view, offset, userid)
 		} catch(CustomViewException e) {
 			throw e
 		} catch(e) {
@@ -23,7 +21,7 @@ class CustomViewService {
 		}
 		
 		def result = new Result()
-		result.userId = customViewPlugin.getCurrentUserId()
+		result.userid = userid
 		result.view = view
 		result.records = records
 		result.offset = offset + result.records.size()
@@ -36,9 +34,8 @@ class CustomViewService {
 	SqlBuilder sqlBuilder = new SqlBuilder()
 	Runner runner = new Runner()
 
-	List fetchRecords(View view, Integer offset) {
-		Long userId = customViewPlugin.getCurrentUserId()
-		Query query = queryBuilder.build(view, offset, userId)
+	List fetchRecords(View view, Integer offset, String userid) {
+		Query query = queryBuilder.build(view, offset, userid)
 		String sql = sqlBuilder.build(query)
 		def connection = getConnection(view)
 
@@ -50,15 +47,11 @@ class CustomViewService {
 	}
 
 	def getConnection(View view) {
-		def connection = view.connection
+		def connection = view.getConnection()
 		if(connection)
-			return connection
-
-		connection = customViewPlugin.getConnection()
-		if(connection)
-			return connection
-
-		throw new CustomViewException("Unable to get database connection.")
+			connection
+		else
+			throw new CustomViewException("Unable to get database connection.")
 	}
 
 }

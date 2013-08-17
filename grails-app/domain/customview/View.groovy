@@ -24,10 +24,10 @@ class View {
 
 	static constraints = {
 		name blank:false, maxSize:60, unique:true
-		url nullable:true, maxSize:500
-		username nullable:true, maxSize:100
-		password nullable:true, maxSize:100
-		driver nullable:true, maxSize:100
+		url blank:true, maxSize:500
+		username blank:true, maxSize:100
+		password blank:true, maxSize:100
+		driver blank:true, maxSize:100
 	}
 
 	String toString() {
@@ -38,43 +38,43 @@ class View {
 		name = name?.trim()
 	}
 
-	List<Setting> getSettings(Long userId) {
+	List<Setting> getSettings(String userid) {
 		columns.collect { Column column ->
-			Setting.getOrCreateSetting column, userId
+			Setting.getOrCreateSetting column, userid
 		}
 	}
 
-	List<Setting> getSettingsInOrder(Long userId) {
-		getSettings(userId).sort { it.sequence }
+	List<Setting> getSettingsInOrder(String userid) {
+		getSettings(userid).sort { it.sequence }
 	}
 
-	Setting getSortSetting(Long currentUserId) {
+	Setting getSortSetting(String currentUserid) {
 		Setting.where {
 			column in columns &&
-			userId == currentUserId
+			userid == currentUserid
 			sort != "" 
 		}.find()
 	}
 
-	void clearUserSorts(Long userId) {
-		def settings = getSettings(userId)
+	void clearUserSorts(String userid) {
+		def settings = getSettings(userid)
 		settings*.sort = ""
 		settings*.save()
 	}
 	
-	List<Setting> getCompareSettings(Long currentUserId) {
+	List<Setting> getCompareSettings(String currentUserid) {
 		Setting.where {
 			column in columns &&
-			userId == currentUserId
+			userid == currentUserid
 			compare != "" 
 		}.list()
 	}
 
 	def getConnection() {
-		if(!url || !username || !password || !driver)
+		if(!url || !username || null == password || !driver)
 			null
 		else
-			Sql.newInstance(url, username, password, driver)
+			Sql.newInstance url, username, password, driver
 	}
 
 }
