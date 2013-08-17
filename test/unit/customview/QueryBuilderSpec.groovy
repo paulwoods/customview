@@ -212,20 +212,20 @@ class QueryBuilderSpec extends Specification {
 		assertBuilt "NUMBER", "begins with", "123",        	["table1.column1 like '123%'"]
 		assertBuilt "DATE",   "begins with", "2000-01-02", 	["table1.column1 like '2000-01-02%'"]
 
-		assertBuilt "STRING", "begins with", "",        	[]
-		assertBuilt "NUMBER", "begins with", "",       		[]
-		assertBuilt "DATE",   "begins with", "", 			[]
+		assertBuilt "STRING", "begins with", "",        	["table1.column1 like '%'"]
+		assertBuilt "NUMBER", "begins with", "",       		["table1.column1 like '%'"]
+		assertBuilt "DATE",   "begins with", "", 			["table1.column1 like '%'"]
 	}
 
-	def "test contains"() {
+	def "test not begins with"() {
 		expect:
-		assertBuilt "STRING", "contains", "abc",        	["table1.column1 like '%abc%'"]
-		assertBuilt "NUMBER", "contains", "123",        	["table1.column1 like '%123%'"]
-		assertBuilt "DATE",   "contains", "2000-01-02", 	["table1.column1 like '%2000-01-02%'"]
+		assertBuilt "STRING", "not begins with", "abc",        	["table1.column1 not like 'abc%'"]
+		assertBuilt "NUMBER", "not begins with", "123",        	["table1.column1 not like '123%'"]
+		assertBuilt "DATE",   "not begins with", "2000-01-02", 	["table1.column1 not like '2000-01-02%'"]
 
-		assertBuilt "STRING", "contains", "",        	[]
-		assertBuilt "NUMBER", "contains", "",       	[]
-		assertBuilt "DATE",   "contains", "", 			[]
+		assertBuilt "STRING", "not begins with", "",        	["table1.column1 not like '%'"]
+		assertBuilt "NUMBER", "not begins with", "",       		["table1.column1 not like '%'"]
+		assertBuilt "DATE",   "not begins with", "", 			["table1.column1 not like '%'"]
 	}
 
 	def "test ends with"() {
@@ -234,9 +234,31 @@ class QueryBuilderSpec extends Specification {
 		assertBuilt "NUMBER", "ends with", "123",        ["table1.column1 like '%123'"]
 		assertBuilt "DATE",   "ends with", "2000-01-02", ["table1.column1 like '%2000-01-02'"]
 
-		assertBuilt "STRING", "ends with", "",        	[]
-		assertBuilt "NUMBER", "ends with", "",       	[]
-		assertBuilt "DATE",   "ends with", "", 			[]
+		assertBuilt "STRING", "ends with", "",        	["table1.column1 like '%'"]
+		assertBuilt "NUMBER", "ends with", "",       	["table1.column1 like '%'"]
+		assertBuilt "DATE",   "ends with", "", 			["table1.column1 like '%'"]
+	}
+
+	def "test not ends with"() {
+		expect:
+		assertBuilt "STRING", "not ends with", "abc",        ["table1.column1 not like '%abc'"]
+		assertBuilt "NUMBER", "not ends with", "123",        ["table1.column1 not like '%123'"]
+		assertBuilt "DATE",   "not ends with", "2000-01-02", ["table1.column1 not like '%2000-01-02'"]
+
+		assertBuilt "STRING", "not ends with", "",        	["table1.column1 not like '%'"]
+		assertBuilt "NUMBER", "not ends with", "",       	["table1.column1 not like '%'"]
+		assertBuilt "DATE",   "not ends with", "", 			["table1.column1 not like '%'"]
+	}
+
+	def "test contains"() {
+		expect:
+		assertBuilt "STRING", "contains", "abc",        	["table1.column1 like '%abc%'"]
+		assertBuilt "NUMBER", "contains", "123",        	["table1.column1 like '%123%'"]
+		assertBuilt "DATE",   "contains", "2000-01-02", 	["table1.column1 like '%2000-01-02%'"]
+
+		assertBuilt "STRING", "contains", "",        	["table1.column1 like '%%'"]
+		assertBuilt "NUMBER", "contains", "",       	["table1.column1 like '%%'"]
+		assertBuilt "DATE",   "contains", "", 			["table1.column1 like '%%'"]
 	}
 
 	def "test does not contain"() {
@@ -245,9 +267,9 @@ class QueryBuilderSpec extends Specification {
 		assertBuilt "NUMBER", "does not contain", "123",        ["table1.column1 not like '%123%'"]
 		assertBuilt "DATE",   "does not contain", "2000-01-02", ["table1.column1 not like '%2000-01-02%'"]
 
-		assertBuilt "STRING", "does not contain", "",        	[]
-		assertBuilt "NUMBER", "does not contain", "",       	[]
-		assertBuilt "DATE",   "does not contain", "", 			[]
+		assertBuilt "STRING", "does not contain", "",        	["table1.column1 not like '%%'"]
+		assertBuilt "NUMBER", "does not contain", "",       	["table1.column1 not like '%%'"]
+		assertBuilt "DATE",   "does not contain", "", 			["table1.column1 not like '%%'"]
 	}
 
 	def "test is null"() {
