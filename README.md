@@ -7,5 +7,7 @@ Home page: http://paulwoods.github.com/customview
 
 Continuous integration: https://travis-ci.org/paulwoods/customview
 
+Maven Repo: http://dl.bintray.com/paulwoods/maven/
+
 
 
