@@ -1,69 +1,46 @@
 class CustomviewGrailsPlugin {
-    // the plugin version
-    def version = "0.1"
-    // the version or versions of Grails the plugin is designed for
-    def grailsVersion = "2.2 > *"
-    // resources that are excluded from plugin packaging
-    def pluginExcludes = [
-        "grails-app/views/error.gsp"
-    ]
+	def groupId = "org.grails.plugins"
+	def version = "0.2"
+	def grailsVersion = "2.0 > *"
 
-    // TODO Fill in these fields
-    def title = "Customview Plugin" // Headline display name of the plugin
-    def author = "Your name"
-    def authorEmail = ""
-    def description = '''\
-Brief summary/description of the plugin.
-'''
+	def pluginExcludes = [
+		"grails-app/views/error.gsp"
+	]
 
-    // URL to the plugin's documentation
-    def documentation = "http://grails.org/plugin/customview"
+	def title = "Customview Plugin"
+	def author = "Paul Woods"
+	def authorEmail = "mr.paul.woods@gmail.com"
+	def description = '''\
+		Brief summary/description of the plugin.
+	'''
 
-    // Extra (optional) plugin metadata
+	def documentation = "http://grails.org/plugin/customview"
 
-    // License: one of 'APACHE', 'GPL2', 'GPL3'
-//    def license = "APACHE"
+    def license = "APACHE"
 
-    // Details of company behind the plugin (if there is one)
-//    def organization = [ name: "My Company", url: "http://www.my-company.com/" ]
+    def issueManagement = [ system: "GitHub", url: "http://github.com/paulwoods/customview/issues" ]
 
-    // Any additional developers beyond the author specified above.
-//    def developers = [ [ name: "Joe Bloggs", email: "joe@bloggs.net" ]]
+    def scm = [ url: "http://github.com/paulwoods/customview" ]
 
-    // Location of the plugin's issue tracker.
-//    def issueManagement = [ system: "JIRA", url: "http://jira.grails.org/browse/GPMYPLUGIN" ]
+	def doWithWebDescriptor = { xml ->
+	}
 
-    // Online location of the plugin's browseable source code.
-//    def scm = [ url: "http://svn.codehaus.org/grails-plugins/" ]
+	def doWithSpring = {
+	}
 
-    def doWithWebDescriptor = { xml ->
-        // TODO Implement additions to web.xml (optional), this event occurs before
-    }
+	def doWithDynamicMethods = { ctx ->
+	}
 
-    def doWithSpring = {
-        // TODO Implement runtime spring config (optional)
-    }
+	def doWithApplicationContext = { applicationContext ->
+	}
 
-    def doWithDynamicMethods = { ctx ->
-        // TODO Implement registering dynamic methods to classes (optional)
-    }
+	def onChange = { event ->
+	}
 
-    def doWithApplicationContext = { applicationContext ->
-        // TODO Implement post initialization spring config (optional)
-    }
+	def onConfigChange = { event ->
+	}
 
-    def onChange = { event ->
-        // TODO Implement code that is executed when any artefact that this plugin is
-        // watching is modified and reloaded. The event contains: event.source,
-        // event.application, event.manager, event.ctx, and event.plugin.
-    }
+	def onShutdown = { event ->
+	}
 
-    def onConfigChange = { event ->
-        // TODO Implement code that is executed when the project configuration changes.
-        // The event is the same as for 'onChange'.
-    }
-
-    def onShutdown = { event ->
-        // TODO Implement code that is executed when the application shuts down (optional)
-    }
 }
